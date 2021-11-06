@@ -1,0 +1,38 @@
+<div class="container">
+    <form class="form">
+        <h1 class="login">Iniciar sesión</h1>
+        <img class="img-login" src="assets/img/avatar-inicio-sesion.png">
+        <div class="mb-3">
+            <mat-form-field class="example-full-width">
+            <input matInput placeholder="Email" [formControl]="emailFormControl"
+                 [errorStateMatcher]="matcher" [(ngModel)]="empleado.email">
+            <mat-hint>Errors appear instantly!</mat-hint>
+            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="mb-3">
+            <mat-form-field class="example-full-width">
+                <input type="password" matInput placeholder="Contraseña" [formControl]="passwordFormControl"
+                    [errorStateMatcher]="matcherPassword" [(ngModel)]="empleado.password">
+                <mat-hint>Errors appear instantly!</mat-hint>
+                <mat-error *ngIf="passwordFormControl.hasError('min(8)') && !emailFormControl.hasError('required')">
+                    Please enter a valid password
+                </mat-error>
+                <mat-error *ngIf="passwordFormControl.hasError('required')">
+                    Password is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>   
+        </div>
+        <div class="mb-3 form-check">
+            <a class="nav-link" aria-current="page" routerLink="/forgotpassword">¿Olvidaste la contraseña?</a>
+        </div>
+        <div class="submit-button">
+            <button class="btn btn-primary btn-block" (click) = "login()">Inciar sesión</button>
+        </div>
+    </form>
+</div>

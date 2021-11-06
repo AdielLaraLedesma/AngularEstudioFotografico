@@ -1,0 +1,37 @@
+<p>
+  <mat-toolbar class="bar">
+
+    <mat-toolbar-row>
+      <!--<span>My App</span>-->
+      <ul class="opciones">
+        <li class="nav-item"routerLinkActive = "active">
+          <a class="nav-link" aria-current="page" routerLink="/paquetes">Paquetes</a>
+        </li>
+        <li class="nav-item " routerLinkActive = "active">
+          <a class="nav-link" routerLink="/empleados">Empleados</a>
+        </li>
+      </ul>
+
+      <span class="example-spacer"></span>
+
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon class="logo-personal">tag_faces</mat-icon>
+        <strong>ADMINISTRADOR</strong>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>Mi perfil</button>
+        <button mat-menu-item>Cambiar conraseña</button>
+        <button mat-menu-item>Cerrar sesión</button>
+      </mat-menu>
+
+
+
+
+    </mat-toolbar-row>
+  </mat-toolbar>
+</p>
+<div class="container">
+  <!--<app-paquetes></app-paquetes>-->
+  <router-outlet></router-outlet>
+  
+</div>
