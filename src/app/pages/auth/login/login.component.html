@@ -1,4 +1,4 @@
-<div class="container">
+<!--<div class="container">
     <form class="form">
         <h1 class="login">Iniciar sesión</h1>
         <img class="img-login" src="assets/img/avatar-inicio-sesion.png">
@@ -32,7 +32,39 @@
             <a class="nav-link" aria-current="page" routerLink="/forgotpassword">¿Olvidaste la contraseña?</a>
         </div>
         <div class="submit-button">
-            <button class="btn btn-primary btn-block" (click) = "login()">Inciar sesión</button>
+            <button class="btn btn-primary btn-block" (click) = "doLogin()">Inciar sesión</button>
         </div>
     </form>
+</div>-->
+
+<div class="login-form">
+    <mat-card>
+        <mat-card-content>
+            <h1>Login</h1>
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                <mat-form-field class="full-width-input">
+                    <input 
+                    matInput 
+                    [class.is-invalid]="loginForm.get('email')?.touched && loginForm.get('email')?.invalid"
+                    class="form-control"
+                    formControlName="email"
+                    type="email" 
+                    placeholder="Correo electronico">
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                    <input 
+                    matInput 
+                    [class.is-invalid]="loginForm.get('password')?.touched && loginForm.get('password')?.invalid"
+                    class="form-control"
+                    formControlName="password"
+                    type="password" 
+                    placeholder="Contraseña">
+                </mat-form-field>
+                <div class="mb-2 form-check">
+                    <a class="nav-link" aria-current="page" routerLink="/forgotpassword">¿Olvidaste la contraseña?</a>
+                </div>
+                <button mat-raised-button type="submit" color="primary">Login</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
 </div>

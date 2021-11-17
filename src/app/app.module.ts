@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //Animations
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //Material
-import { MaterialModule } from './material';
+import { MaterialModule } from './material.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,8 +18,14 @@ import { PaquetesComponent } from './components/paquetes/paquetes.component';
 
 
 import { PaquetesService } from './services/paquetes.service';
-import { LoginComponent } from './components/login/login.component';
 import { PaqueteFormComponent } from './components/paquete-form/paquete-form.component'
+
+import { CommonModule } from '@angular/common';
+
+import { ToastrModule } from 'ngx-toastr';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
+import { SidebarModule } from './shared/components/sidebar/sidebar.module';
 
 
 
@@ -30,8 +36,9 @@ import { PaqueteFormComponent } from './components/paquete-form/paquete-form.com
     AppComponent,
     BodyComponent,
     PaquetesComponent,
-    LoginComponent,
-    PaqueteFormComponent
+    PaqueteFormComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -40,9 +47,12 @@ import { PaqueteFormComponent } from './components/paquete-form/paquete-form.com
     NgbModule,
     FontAwesomeModule,
     HttpClientModule,
-    MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot(), // ToastrModule added
+    CommonModule,
+    MaterialModule,
+    SidebarModule
   ],
   providers: [ 
     PaquetesService 

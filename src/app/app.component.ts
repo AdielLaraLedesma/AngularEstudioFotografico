@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './services/auth.service';
 
 
 @Component({
@@ -7,11 +8,25 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
+
+  isLogged = false;
+
   rol: string;
 
-  constructor(){
+  constructor(
+    private authService : AuthService
+  ){
     this.rol = "SECRETARIA";
   }
+  ngOnInit(): void {
+    this.authService.isLogged.subscribe( (res) => this.isLogged = res);
+  }
+
+
+  doLogout() {
+    this.authService.logout();
+  }
+
 
 }

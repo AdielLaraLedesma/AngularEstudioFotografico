@@ -1,37 +1,19 @@
-<p>
-  <mat-toolbar class="bar">
-
-    <mat-toolbar-row>
-      <!--<span>My App</span>-->
-      <ul class="opciones">
-        <li class="nav-item"routerLinkActive = "active">
-          <a class="nav-link" aria-current="page" routerLink="/paquetes">Paquetes</a>
-        </li>
-        <li class="nav-item " routerLinkActive = "active">
-          <a class="nav-link" routerLink="/empleados">Empleados</a>
-        </li>
-      </ul>
-
-      <span class="example-spacer"></span>
-
-      <button mat-button [matMenuTriggerFor]="menu">
-        <mat-icon class="logo-personal">tag_faces</mat-icon>
-        <strong>ADMINISTRADOR</strong>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>Mi perfil</button>
-        <button mat-menu-item>Cambiar conraseña</button>
-        <button mat-menu-item>Cerrar sesión</button>
-      </mat-menu>
-
-
-
-
-    </mat-toolbar-row>
-  </mat-toolbar>
-</p>
+<!--<app-sidebar></app-sidebar>
+<app-header></app-header>
 <div class="container">
-  <!--<app-paquetes></app-paquetes>-->
   <router-outlet></router-outlet>
-  
 </div>
+<app-footer></app-footer>
+
+-->
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side">
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <app-sidebar></app-sidebar>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

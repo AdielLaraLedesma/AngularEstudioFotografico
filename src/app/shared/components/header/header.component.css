@@ -23,14 +23,10 @@ button {
     display: block; 
     margin: auto; 
 }*/
-mat-sidenav {
-    width: 200px;
+.spacer {
+    flex: 1 1 auto;
 }
-
-mat-sidenav-content {
-    background-color: #f9fbfb;
-}
-
-mat-sidenav-container {
-    height: 100%;
+a {
+    text-decoration: none;
+    color: #ffff;
 }
