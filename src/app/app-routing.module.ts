@@ -6,6 +6,7 @@ import { CheckLoginGuard } from './shared/guards/check-login.guard';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { EmpleadosFormComponent } from './components/empleados-form/empleados-form.component';
 //import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'empleados/agregar',
     component: EmpleadosFormComponent
+  },
+  {
+    path: 'miPerfil',
+    component: PerfilComponent
   },
   //{ path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
   { 

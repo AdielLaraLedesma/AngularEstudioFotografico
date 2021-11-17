@@ -28,6 +28,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { SidebarModule } from './shared/components/sidebar/sidebar.module';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { EmpleadosFormComponent } from './components/empleados-form/empleados-form.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
 
 
 
@@ -42,7 +43,8 @@ import { EmpleadosFormComponent } from './components/empleados-form/empleados-fo
     HeaderComponent,
     FooterComponent,
     EmpleadosComponent,
-    EmpleadosFormComponent
+    EmpleadosFormComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,
