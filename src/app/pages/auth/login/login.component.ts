@@ -32,9 +32,15 @@ export class LoginComponent implements OnInit {
   isLogged = false;
 
   empleado: Empleado = {
+    id: 0,
+    nombre: "",
+    ape_pat: "",
+    ape_mat: "",
     email: "",
-    password: ""
+    password: "",
+    rol: ""
   }
+
 
   constructor(
     private authService: AuthService,
