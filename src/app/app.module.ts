@@ -26,6 +26,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { SidebarModule } from './shared/components/sidebar/sidebar.module';
+import { EmpleadosComponent } from './components/empleados/empleados.component';
+import { EmpleadosFormComponent } from './components/empleados-form/empleados-form.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
 
 
 
@@ -38,7 +41,10 @@ import { SidebarModule } from './shared/components/sidebar/sidebar.module';
     PaquetesComponent,
     PaqueteFormComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    EmpleadosComponent,
+    EmpleadosFormComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,

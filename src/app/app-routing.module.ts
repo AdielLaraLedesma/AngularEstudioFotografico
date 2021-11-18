@@ -3,6 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { PaquetesComponent } from './components/paquetes/paquetes.component';
 import { PaqueteFormComponent } from './components/paquete-form/paquete-form.component';
 import { CheckLoginGuard } from './shared/guards/check-login.guard';
+import { EmpleadosComponent } from './components/empleados/empleados.component';
+import { EmpleadosFormComponent } from './components/empleados-form/empleados-form.component';
+//import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
 
 const routes: Routes = [
   {
@@ -16,6 +20,18 @@ const routes: Routes = [
   {
     path: 'paquetes/agregar', 
     component: PaqueteFormComponent
+  },
+  {
+    path: 'empleados',
+    component: EmpleadosComponent
+  },
+  {
+    path: 'empleados/agregar',
+    component: EmpleadosFormComponent
+  },
+  {
+    path: 'miPerfil',
+    component: PerfilComponent
   },
   //{ path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
   { 
