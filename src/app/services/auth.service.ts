@@ -12,7 +12,8 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class AuthService {
 
-  //loggedIn: Subject<boolean>;
+  //private user = new BehaviorSubject<EmployeeResponse>(null);
+
   private loggedIn = new BehaviorSubject<boolean>(false);
 
   employeeResponse: EmployeeResponse | undefined;
@@ -35,8 +36,8 @@ export class AuthService {
     headers.append("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
 
     this.http.post('/api/usuarios/loginApp',  {
-      correo: authData.email,
-      contrasena: authData.password
+      correo: authData.correo,
+      contrasena: authData.contrasena
     }, {
       withCredentials: true, headers: headers
     }).subscribe((resp: any) => {
@@ -49,7 +50,6 @@ export class AuthService {
       });
     }, (errorResp) => {
       this.loggedIn.next(false);
-      //errorResp.error ? this.toastr.error(errorResp.error.errorMessage) : this.toastr.error('An unknown error has occured.');
       errorResp.error ? this.toastr.error('Incorrect email or password.') : this.toastr.error('An unknown error has occured.');
     });
   }

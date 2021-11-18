@@ -40,30 +40,40 @@
 <div class="login-form">
     <mat-card>
         <mat-card-content>
-            <h1>Login</h1>
+            <h1>Iniciar sesión</h1>
             <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
                 <mat-form-field class="full-width-input">
                     <input 
                     matInput 
-                    [class.is-invalid]="loginForm.get('email')?.touched && loginForm.get('email')?.invalid"
                     class="form-control"
-                    formControlName="email"
+                    formControlName="correo"
                     type="email" 
                     placeholder="Correo electronico">
+                    <mat-error *ngIf="isValidField('correo')">
+                        {{ getErrorMessage("correo") }}
+                    </mat-error>
                 </mat-form-field>
                 <mat-form-field class="full-width-input">
                     <input 
                     matInput 
-                    [class.is-invalid]="loginForm.get('password')?.touched && loginForm.get('password')?.invalid"
-                    class="form-control"
-                    formControlName="password"
-                    type="password" 
+                    formControlName="contrasena"
+                    [type] = "hide ? 'password' : 'text'"
                     placeholder="Contraseña">
+                    <button mat-icon-button matSuffix (click) = "hide = !hide">
+                        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="isValidField('contrasena')">
+                        {{ getErrorMessage("contrasena") }}
+                    </mat-error>
                 </mat-form-field>
                 <div class="mb-2 form-check">
                     <a class="nav-link" aria-current="page" routerLink="/forgotpassword">¿Olvidaste la contraseña?</a>
                 </div>
-                <button mat-raised-button type="submit" color="primary">Login</button>
+                <button 
+                [disabled] ="loginForm.invalid"
+                mat-raised-button 
+                type="submit" 
+                color="primary">Login</button>
             </form>
         </mat-card-content>
     </mat-card>
