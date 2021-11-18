@@ -1,0 +1,36 @@
+/*.bar {
+    background-color: #eaedf5;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+button {
+    border: none;
+}
+
+.opciones {
+    list-style: none;
+    margin-bottom: 0px;
+}
+
+.opciones li{
+    display: inline-block;
+}
+
+.logo-personal {
+    display: block; 
+    margin: auto; 
+}*/
+mat-sidenav {
+    width: 200px;
+}
+
+mat-sidenav-content {
+    background-color: #f9fbfb;
+}
+
+mat-sidenav-container {
+    height: 100%;
+}

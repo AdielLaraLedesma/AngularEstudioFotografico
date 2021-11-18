@@ -1,0 +1,32 @@
+/*.bar {
+    background-color: #eaedf5;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+button {
+    border: none;
+}
+
+.opciones {
+    list-style: none;
+    margin-bottom: 0px;
+}
+
+.opciones li{
+    display: inline-block;
+}
+
+.logo-personal {
+    display: block; 
+    margin: auto; 
+}*/
+.spacer {
+    flex: 1 1 auto;
+}
+a {
+    text-decoration: none;
+    color: #ffff;
+}

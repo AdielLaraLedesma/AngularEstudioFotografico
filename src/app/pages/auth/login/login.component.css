@@ -1,0 +1,48 @@
+/*.form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 90%;
+    margin: auto;
+    margin-top: 10%;
+  }
+  
+.example-full-width {
+    width: 100%;
+}
+
+.login {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 40px;
+}
+
+.img-login {
+  width: 30vh;
+  margin: auto;
+  display: block;
+  padding: 20px;
+}
+.form-check {
+  text-align: right;
+}
+
+.submit-button {
+  text-align: center;
+}*/
+.login-form {
+  padding: 4rem 1rem;
+}
+mat-card {
+  max-width: 300px;
+  margin: 2rem auto;
+  text-align: center;
+  height: 350px;
+}
+
+.full-width-input, button{
+  width: 100%;
+}
+
+.separator {
+  margin-bottom: 2rem;
+}
