@@ -26,7 +26,10 @@ export class EmpleadosFormComponent implements OnInit {
     contrasena: "",
     rol_id: 0,
     celular: 0,
-    direccion: ""
+    direccion: "",
+    activo: 0,
+    usuario_registrado_id: 0,
+    fecha_registro: new Date
   };
 
 

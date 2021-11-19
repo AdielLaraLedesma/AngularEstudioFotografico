@@ -1,1 +1,3 @@
-<h1 *ngIf="authService.isLogged | async">Hola usuario</h1>
+<h1 *ngIf="(authService.user$ | async) as user">
+    Welcome, {{ user?.nombre || 'User' }}.
+  </h1>

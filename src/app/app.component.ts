@@ -20,7 +20,8 @@ export class AppComponent implements OnInit{
     this.rol = "SECRETARIA";
   }
   ngOnInit(): void {
-    this.authService.isLogged.subscribe( (res) => this.isLogged = res);
+    //this.authService.isLogged.subscribe( (res) => this.isLogged = res);
+    
   }
 
 
