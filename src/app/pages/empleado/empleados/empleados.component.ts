@@ -11,7 +11,7 @@ export class EmpleadosComponent implements OnInit {
 
   public empleados: Employee[] = [];
 
-  displayedColumns: string[] = ['id', 'nombre', 'apellido paterno','apellido materno', 'email'];
+  //displayedColumns: string[] = ['id', 'nombre', 'apellido paterno','apellido materno', 'email'];
 
   constructor( private empleadosService: EmpleadosService ) {
     this.empleadosService.getEmpleados().subscribe(data => {

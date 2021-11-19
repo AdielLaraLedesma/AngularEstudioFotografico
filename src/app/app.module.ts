@@ -29,6 +29,9 @@ import { SidebarModule } from './shared/components/sidebar/sidebar.module';
 import { EmpleadosComponent } from './pages/empleado/empleados/empleados.component';
 import { EmpleadosFormComponent } from './pages/empleado/empleados-form/empleados-form.component';
 import { PerfilComponent } from './pages/empleado/perfil/perfil.component';
+import { MarcosComponent } from './pages/marco/marcos/marcos.component';
+import { MarcosFormComponent } from './pages/marco/marcos-form/marcos-form.component';
+import { EditmarcoComponent } from './pages/marco/editmarco/editmarco.component';
 
 
 
@@ -44,7 +47,10 @@ import { PerfilComponent } from './pages/empleado/perfil/perfil.component';
     FooterComponent,
     EmpleadosComponent,
     EmpleadosFormComponent,
-    PerfilComponent
+    PerfilComponent,
+    MarcosComponent,
+    MarcosFormComponent,
+    EditmarcoComponent
   ],
   imports: [
     BrowserModule,

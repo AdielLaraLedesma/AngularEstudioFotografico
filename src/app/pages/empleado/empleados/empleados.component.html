@@ -10,6 +10,9 @@
           <th scope="col">Nombre</th>
           <th scope="col">Apellido Paterno</th>
           <th scope="col">Apellido Materno</th>
+          <th scope="col">celular</th>
+          <th scope="col">direccion</th>
+          <th scope="col">rol</th>
           <th scope="col">email</th>
           <th scope="col">Opciones</th>
         </tr>
@@ -20,6 +23,9 @@
           <td> {{ empleado.nombre }}</td>
           <td> {{ empleado.ape_pat }}</td>
           <td> {{ empleado.ape_mat }}</td>
+          <td> {{ empleado.celular }}</td>
+          <td> {{ empleado.direccion }}</td>
+          <td> {{ empleado.rol_id }}</td>
           <td> {{ empleado.correo }}</td>
           <td style="display: flex; flex-direction: row;">
               <a class="nav-link" routerLink="/editempleado/{{empleado.id}}">

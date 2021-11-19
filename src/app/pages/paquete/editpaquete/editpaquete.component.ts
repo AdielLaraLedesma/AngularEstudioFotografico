@@ -47,7 +47,7 @@ export class EditpaqueteComponent implements OnInit {
 
     this.paqueteService.getPaquete(this.id).subscribe(data => {
 
-      console.log(!data)
+      console.log(data)
       
       if (!data){
         this.router.navigate(["/paquetes"]);
@@ -68,7 +68,7 @@ export class EditpaqueteComponent implements OnInit {
       this.editarPaqueteForm.controls['precio'].setValue(data.precio)
       this.editarPaqueteForm.controls['tipo_paquete_id'].setValue(data.tipo_paquete_id)
       this.editarPaqueteForm.controls['url_imagen'].setValue(data.url_imagen)
-      //console.log(this.paquete)
+
     });
     
 

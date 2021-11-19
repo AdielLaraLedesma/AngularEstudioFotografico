@@ -10,6 +10,8 @@ import { PerfilComponent } from './pages/empleado/perfil/perfil.component';
 import { CheckNotLoginGuard } from './shared/guards/check-not-login.guard';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { CheckNotAdminGuard } from './shared/guards/check-not-admin.guard';
+import { MarcosComponent } from './pages/marco/marcos/marcos.component'
+import { MarcosFormComponent } from './pages/marco/marcos-form/marcos-form.component';
 
 const routes: Routes = [
   {
@@ -40,6 +42,16 @@ const routes: Routes = [
   {
     path: 'miPerfil',
     component: PerfilComponent,
+    canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
+  },
+  {
+    path: 'marcos', 
+    component: MarcosComponent,
+    canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
+  },
+  {
+    path: 'marcos/agregar',
+    component: MarcosFormComponent,
     canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
   { 
