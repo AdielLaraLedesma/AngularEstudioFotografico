@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Empleado } from "../interfaces/empleado"
+import { Employee } from "../shared/models/employee.interface"
 import { Observable } from 'rxjs/internal/Observable';
 
 
@@ -15,21 +15,21 @@ export class EmpleadosService {
     console.log("Is working!")
   }
 
-  getEmpleados(): Observable<Empleado[]>{
-    return this.httpClient.get<Empleado[]>('https://jsonplaceholder.typicode.com/posts')
+  getEmpleados(): Observable<Employee[]>{
+    return this.httpClient.get<Employee[]>('https://jsonplaceholder.typicode.com/posts')
   }
 
   getEmpleado(id: string) {
-    return this.httpClient.get<Empleado>(`https://jsonplaceholder.typicode.com/posts/${id}`);
+    return this.httpClient.get<Employee>(`https://jsonplaceholder.typicode.com/posts/${id}`);
   }
 
-  saveEmpleado(empleado: Empleado) {
+  saveEmpleado(empleado: Employee) {
     return this.httpClient.post(`https://jsonplaceholder.typicode.com/posts/`, empleado);
   }
   deleteEmpleado(id: string) {
     return this.httpClient.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
   }
-  updateEmpleado(id: string, empleado: Empleado) {
+  updateEmpleado(id: string, empleado: Employee) {
     return this.httpClient.put(`https://jsonplaceholder.typicode.com/posts/${id}`, empleado);
   }
 }

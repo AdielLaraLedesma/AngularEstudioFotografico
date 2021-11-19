@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Paquete } from "../interfaces/paquete"
+import { Paquete } from "../shared/models/paquete.interface"
 import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({

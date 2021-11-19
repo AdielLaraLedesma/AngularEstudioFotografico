@@ -1,7 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Empleado } from 'src/app/interfaces/empleado';
+import { Employee } from '../../../shared/models/employee.interface';
 import { Rol } from 'src/app/interfaces/rol'
-import { EmpleadosService } from '../../services/empleados.service'
+import { EmpleadosService } from '../../../services/empleados.service'
 
 @Component({
   selector: 'app-empleados-form',
@@ -16,14 +16,17 @@ export class EmpleadosFormComponent implements OnInit {
   roles: Rol[]=[{id: 1,nombre: 'administrador'},{id: 3, nombre: 'fotografo'},{id: 4, nombre: 'recepcionista'}];
 
 
-  empleado: Empleado = {
+  empleado: Employee = {
     id: 0,
     nombre: "",
     ape_pat: "",
     ape_mat: "",
-    email: "",
-    password: "",
-    rol: ""
+    correo: "",
+    fech_nac: new Date,
+    contrasena: "",
+    rol_id: 0,
+    celular: 0,
+    direccion: ""
   };
 
 

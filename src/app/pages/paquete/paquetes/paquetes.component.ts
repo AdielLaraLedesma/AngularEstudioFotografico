@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { PaquetesService } from '../../services/paquetes.service'
+import { PaquetesService } from '../../../services/paquetes.service'
 
-import { Paquete } from '../../interfaces/paquete'
+import { Paquete } from '../../../shared/models/paquete.interface'
 
 @Component({
   selector: 'app-paquetes',

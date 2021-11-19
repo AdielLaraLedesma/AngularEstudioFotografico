@@ -12,7 +12,7 @@
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item routerLink="/miPerfil">Mi perfil</button>
-      <button mat-menu-item>Cambiar conraseña</button>
+      <button mat-menu-item routerLink="/changepassword">Cambiar conraseña</button>
       <button mat-menu-item (click)="onLogout()">Cerrar sesión</button>
     </mat-menu>
   </ng-container>
@@ -21,7 +21,7 @@
 <ng-template #viewNoLogged>
   <div>
     <a mat-button routerLink="/login">Iniciar sesión</a>
-    <a mat-button routerLink="/forgivenPassword">Olvide mi contraseña</a>
+    <a mat-button routerLink="/forgotpassword">Olvide mi contraseña</a>
   </div>
 </ng-template>
 

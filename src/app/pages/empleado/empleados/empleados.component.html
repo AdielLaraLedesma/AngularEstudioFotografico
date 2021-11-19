@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-3">
     <a class="btn btn-primary" routerLink="agregar">Agregar</a>
   </div>
   <hr>
@@ -20,9 +20,9 @@
           <td> {{ empleado.nombre }}</td>
           <td> {{ empleado.ape_pat }}</td>
           <td> {{ empleado.ape_mat }}</td>
-          <td> {{ empleado.email }}</td>
+          <td> {{ empleado.correo }}</td>
           <td style="display: flex; flex-direction: row;">
-              <a class="nav-link" routerLink="/empleado/edit/{{empleado.id}}">
+              <a class="nav-link" routerLink="/editempleado/{{empleado.id}}">
                   <mat-icon>edit</mat-icon>
               </a>
               <a class="nav-link" routerLink="/empleado/delete/{{empleado.id}}">

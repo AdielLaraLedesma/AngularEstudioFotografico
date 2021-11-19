@@ -10,15 +10,15 @@ import { MaterialModule } from './material.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BodyComponent } from './components/body/body.component';
+//import { BodyComponent } from './components/body/body.component';
 /*import { MatSliderModule } from '@angular/material/slider';*/
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { PaquetesComponent } from './components/paquetes/paquetes.component';
+import { PaquetesComponent } from './pages/paquete/paquetes/paquetes.component';
 
 
 import { PaquetesService } from './services/paquetes.service';
-import { PaqueteFormComponent } from './components/paquete-form/paquete-form.component'
+import { PaqueteFormComponent } from './pages/paquete/paquete-form/paquete-form.component'
 
 import { CommonModule } from '@angular/common';
 
@@ -26,9 +26,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { SidebarModule } from './shared/components/sidebar/sidebar.module';
-import { EmpleadosComponent } from './components/empleados/empleados.component';
-import { EmpleadosFormComponent } from './components/empleados-form/empleados-form.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
+import { EmpleadosComponent } from './pages/empleado/empleados/empleados.component';
+import { EmpleadosFormComponent } from './pages/empleado/empleados-form/empleados-form.component';
+import { PerfilComponent } from './pages/empleado/perfil/perfil.component';
 
 
 
@@ -37,7 +37,7 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 @NgModule({
   declarations: [
     AppComponent,
-    BodyComponent,
+    //BodyComponent,
     PaquetesComponent,
     PaqueteFormComponent,
     HeaderComponent,

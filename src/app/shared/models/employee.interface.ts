@@ -2,18 +2,20 @@
 
 
 export interface Employee{
+    id: number;
     correo: string;
+    nombre: string;
+    ape_pat: string;
+    ape_mat: string;
     contrasena: string;
+    celular: number;
+    fech_nac: Date;
+    rol_id: number;
+    direccion: string;
 }
 
 export interface EmployeeResponse extends Employee{
-    id: number;
-    nombre: string;
-    app_pat: string;
-    app_mat: string;
-    fech_nac: Date;
     activo: number;
-    rol_id: number;
     usuario_registrado_id: number;
     fecha_registro: Date;
     fecha_modificacion?: Date;
