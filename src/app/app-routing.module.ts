@@ -20,7 +20,7 @@ const routes: Routes = [
   {
     path: 'paquetes', 
     component: PaquetesComponent,
-    canActivate: [CheckNotLoginGuard, CheckLoginGuard]
+    canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
   {
     path: 'paquetes/agregar', 

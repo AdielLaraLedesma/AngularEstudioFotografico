@@ -4,9 +4,10 @@ export interface Paquete {
     id: number;
     nombre: string;
     descripcion: string;
-    hrs_video: number;
-    no_fotos_dig: number;
-    no_fotos_fis: number;
+    hrs_Video: number;
+    no_Fotos_Dig: number;
+    no_Fotos_Fis: number;
+    no_Fotos_Enm: number;
     marco_id: number;
     tamano_id: number;
     precio: number;

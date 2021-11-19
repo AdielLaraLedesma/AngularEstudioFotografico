@@ -1,7 +1,7 @@
 <div class="col-md-4 offset-md-4">
     <div class="card mt-4">
         <div class="card-body">
-            <form>
+            <!--<form>
                 <div class="form-group">
                     <input type="text" name="nombre" placeholder="Nombre" class="form-control" ([ngModel]) = "paquete.nombre" autofocus>
                 </div>
@@ -38,7 +38,147 @@
                 <button class="btn btn-success btn-block" (click) = "editarPaquetes()">
                     Agregar
                 </button>
+            </form>-->
+
+
+
+            <form [formGroup]="editarPaqueteForm" (ngSubmit)="editarPaquetes()">
+                <mat-form-field class="full-width-input">
+                    <input 
+                    matInput 
+                    class="form-control"
+                    formControlName="id"
+                    type="number">
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                    <input 
+                    matInput 
+                    class="form-control"
+                    formControlName="nombre"
+                    type="text" 
+                    placeholder="Nombre del paquete">
+                    <mat-error *ngIf="isValidField('nombre')">
+                        {{ getErrorMessage("nombre") }}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                    <textarea 
+                    matInput 
+                    class="form-control"
+                    formControlName="descripcion"
+                    placeholder="Descripcion del paquete"></textarea>
+                    <mat-error *ngIf="isValidField('descripcion')">
+                        {{ getErrorMessage("descripcion") }}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                    <input 
+                    matInput 
+                    class="form-control"
+                    formControlName="hrs_Video"
+                    type="text" 
+                    placeholder="Horas de video">
+                    <mat-error *ngIf="isValidField('hrs_Video')">
+                        {{ getErrorMessage("hrs_Video") }}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                    <input 
+                    matInput 
+                    class="form-control"
+                    formControlName="no_Fotos_Dig"
+                    type="number" 
+                    placeholder="Numero de fotos digitales">
+                    <mat-error *ngIf="isValidField('no_Fotos_Dig')">
+                        {{ getErrorMessage("no_Fotos_Dig") }}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                    <input 
+                    matInput 
+                    class="form-control"
+                    formControlName="no_Fotos_Fis"
+                    type="number" 
+                    placeholder="Numero de fotos fisicas">
+                    <mat-error *ngIf="isValidField('no_Fotos_Fis')">
+                        {{ getErrorMessage("no_Fotos_Fis") }}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                    <input 
+                    matInput 
+                    class="form-control"
+                    formControlName="no_Fotos_Enm"
+                    type="number" 
+                    placeholder="Numero de fotos enmarcadas">
+                    <mat-error *ngIf="isValidField('no_Fotos_Enm')">
+                        {{ getErrorMessage("no_Fotos_Enm") }}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                    <input 
+                    matInput 
+                    class="form-control"
+                    formControlName="marco_id"
+                    type="number" 
+                    placeholder="Marco id">
+                    <mat-error *ngIf="isValidField('marco_id')">
+                        {{ getErrorMessage("marco_id") }}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                    <input 
+                    matInput 
+                    class="form-control"
+                    formControlName="tamano_id"
+                    type="number" 
+                    placeholder="Tamaño">
+                    <mat-error *ngIf="isValidField('tamano_id')">
+                        {{ getErrorMessage("tamano_id") }}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                    <input 
+                    matInput 
+                    class="form-control"
+                    formControlName="precio"
+                    type="number" 
+                    placeholder="Precio">
+                    <mat-error *ngIf="isValidField('precio')">
+                        {{ getErrorMessage("precio") }}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                    <input 
+                    matInput 
+                    class="form-control"
+                    formControlName="tipo_paquete_id"
+                    type="number" 
+                    placeholder="Tipo de paquetes">
+                    <mat-error *ngIf="isValidField('tipo_paquete_id')">
+                        {{ getErrorMessage("tipo_paquete_id") }}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                    <input 
+                    matInput 
+                    class="form-control"
+                    formControlName="url_imagen"
+                    type="text" 
+                    placeholder="URL de la imagen">
+                    <mat-error *ngIf="isValidField('url_imagen')">
+                        {{ getErrorMessage("url_imagen") }}
+                    </mat-error>
+                </mat-form-field>
+
+                <button 
+                [disabled] ="editarPaqueteForm.invalid"
+                mat-raised-button 
+                type="submit" 
+                color="primary">Login</button>
+
             </form>
+
         </div>
     </div>
 </div>

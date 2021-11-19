@@ -66,7 +66,7 @@ export class AuthService {
         correo: authData.correo,
         contrasena: authData.contrasena
       }, {
-        /*withCredentials: true,*/ headers: headers
+        /*withCredentials: true,*/ headers
       })
       .pipe(
         map((user: UserResponse) => {
@@ -81,7 +81,8 @@ export class AuthService {
     if (err) {
       errorMessage = `Error: code ${err.message}`;
     }
-    window.alert(errorMessage);
+    //window.alert(errorMessage);
+    this.toastr.error(errorMessage);
     return throwError(errorMessage);
   }
 
