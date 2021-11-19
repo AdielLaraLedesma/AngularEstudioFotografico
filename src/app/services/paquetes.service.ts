@@ -36,7 +36,7 @@ export class PaquetesService {
     return this.http
     .get<Paquete>(`/api/paquetes/listarPaquete/${id}`)
     .pipe(
-      map((paquete: Paquete) => {
+      map((paquete: any) => {
         return paquete;
       }),
       catchError((err: { message: any; }) => this.handlerError(err))

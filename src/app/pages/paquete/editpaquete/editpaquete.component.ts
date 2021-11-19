@@ -38,13 +38,22 @@ export class EditpaqueteComponent implements OnInit {
   constructor(
     private paqueteService: PaquetesService,
     private rutaActiva: ActivatedRoute,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
     ) { }
 
   ngOnInit(): void {
     this.id = this.rutaActiva.snapshot.params.id;
 
     this.paqueteService.getPaquete(this.id).subscribe(data => {
+
+      console.log(!data)
+      
+      if (!data){
+        this.router.navigate(["/paquetes"]);
+        return
+      }
+
       //console.log(data)
       this.editarPaqueteForm.controls['id'].setValue(data.id)
       this.editarPaqueteForm.controls['nombre'].setValue(data.nombre)
@@ -61,6 +70,7 @@ export class EditpaqueteComponent implements OnInit {
       this.editarPaqueteForm.controls['url_imagen'].setValue(data.url_imagen)
       //console.log(this.paquete)
     });
+    
 
   }
 
