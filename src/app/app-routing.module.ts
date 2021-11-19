@@ -1,39 +1,47 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PaquetesComponent } from './components/paquetes/paquetes.component';
-import { PaqueteFormComponent } from './components/paquete-form/paquete-form.component';
+import { PaquetesComponent } from './pages/paquete/paquetes/paquetes.component';
+import { PaqueteFormComponent } from './pages/paquete/paquete-form/paquete-form.component';
 import { CheckLoginGuard } from './shared/guards/check-login.guard';
-import { EmpleadosComponent } from './components/empleados/empleados.component';
-import { EmpleadosFormComponent } from './components/empleados-form/empleados-form.component';
+import { EmpleadosComponent } from './pages/empleado/empleados/empleados.component';
+import { EmpleadosFormComponent } from './pages/empleado/empleados-form/empleados-form.component';
 //import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
+import { PerfilComponent } from './pages/empleado/perfil/perfil.component';
+import { CheckNotLoginGuard } from './shared/guards/check-not-login.guard';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { CheckNotAdminGuard } from './shared/guards/check-not-admin.guard';
 
 const routes: Routes = [
   {
     path: '', 
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
+    canActivate: [CheckNotLoginGuard]
   },
   {
     path: 'paquetes', 
-    component: PaquetesComponent
+    component: PaquetesComponent,
+    canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
   {
     path: 'paquetes/agregar', 
-    component: PaqueteFormComponent
+    component: PaqueteFormComponent,
+    canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
   {
     path: 'empleados',
-    component: EmpleadosComponent
+    component: EmpleadosComponent,
+    canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
   {
     path: 'empleados/agregar',
-    component: EmpleadosFormComponent
+    component: EmpleadosFormComponent,
+    canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
   {
     path: 'miPerfil',
-    component: PerfilComponent
+    component: PerfilComponent,
+    canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
-  //{ path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
   { 
     path: 'notFound', 
     loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule) 
@@ -41,7 +49,33 @@ const routes: Routes = [
   { 
     path: 'login', 
     loadChildren: () => import('./pages/auth/login/login.module').then(m => m.LoginModule), 
-    canActivate:[CheckLoginGuard] }
+    canActivate: [CheckLoginGuard] 
+  },
+  { 
+    path: 'forgotpassword', 
+    loadChildren: () => import('./pages/auth/forgotpassword/forgotpassword.module').then(m => m.ForgotpasswordModule),
+    canActivate: [CheckLoginGuard]
+  },
+  { 
+    path: 'recoverpassword', 
+    loadChildren: () => import('./pages/auth/recoverpassword/recoverpassword.module').then(m => m.RecoverpasswordModule),
+    canActivate: [CheckLoginGuard] 
+  },
+  { 
+    path: 'changepassword', 
+    loadChildren: () => import('./pages/auth/changepassword/changepassword.module').then(m => m.ChangepasswordModule) ,
+    canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
+  },
+  { 
+    path: 'editpaquete/:id', 
+    loadChildren: () => import('./pages/paquete/editpaquete/editpaquete.module').then(m => m.EditpaqueteModule),
+    canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
+  },
+  { 
+    path: 'editempleado/:id', 
+    loadChildren: () => import('./pages/empleado/editempleado/editempleado.module').then(m => m.EditempleadoModule),
+    canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
+  }
 
 ];
 

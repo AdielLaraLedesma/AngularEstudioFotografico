@@ -1,0 +1,79 @@
+<div class="container">
+  <a class="btn btn-primary mt-3" routerLink="agregar">Agregar</a>
+</div>
+<hr>
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Horas_video</th>
+        <th scope="col">Numero_fotos_digitales</th> 
+        <th scope="col">Numero_fotos_fisicas</th> 
+        <th scope="col">Marco_id</th> 
+        <th scope="col">Tamano_id</th> 
+        <th scope="col">Precio</th> 
+        <th scope="col">Tipo_paquete_id</th> 
+        <th scope="col">Url_imagen</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let paquete of paquetes">
+        <th scope="row">{{ paquete.id }}</th>
+        <td> {{ paquete.nombre }}</td>
+        <td> {{ paquete.descripcion }}</td>
+        <td> {{ paquete.hrs_Video }}</td>
+        <td> {{ paquete.no_Fotos_Dig }}</td>
+        <td> {{ paquete.no_Fotos_Fis }}</td>
+        <td> {{ paquete.marco_id }}</td>
+        <td> {{ paquete.tamano_id }}</td>
+        <td> {{ paquete.precio }}</td>
+        <td> {{ paquete.tipo_paquete_id }}</td>
+        <td> {{ paquete.url_imagen }}</td>
+
+        <td style="display: flex; flex-direction: row;">
+            <a class="nav-link" routerLink="/editpaquete/{{paquete.id}}">
+                <mat-icon>edit</mat-icon>
+            </a>
+            <a class="nav-link" routerLink="/delete/{{paquete.id}}">
+                <mat-icon>delete</mat-icon>
+            </a>
+        </td>
+
+      </tr>
+    </tbody>
+</table>
+
+<!--
+<table mat-table [dataSource]="paquetes" class="mat-elevation-z8 demo-table">
+
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID. </th>
+      <td mat-cell *matCellDef="let paquete"> {{paquete.id}} </td>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="userId">
+      <th mat-header-cell *matHeaderCellDef> UserId </th>
+      <td mat-cell *matCellDef="let paquete"> {{paquete.userId}} </td>
+    </ng-container>
+  
+ 
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> Title </th>
+      <td mat-cell *matCellDef="let paquete"> {{paquete.title}} </td>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="body">
+      <th mat-header-cell *matHeaderCellDef> Body </th>
+      <td mat-cell *matCellDef="let paquete"> {{paquete.body}} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+-->

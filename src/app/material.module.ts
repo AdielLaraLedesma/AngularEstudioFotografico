@@ -15,6 +15,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 
+import { AuthService } from 'src/app/services/auth.service'
+
 
 const myModules = [
   MatToolbarModule,
@@ -34,6 +36,9 @@ const myModules = [
 
 @NgModule ({
   imports: [ ...myModules ],
-  exports: [ ...myModules ]
+  exports: [ ...myModules ],
+  providers: [
+    AuthService
+  ]
 })
 export class MaterialModule {}
