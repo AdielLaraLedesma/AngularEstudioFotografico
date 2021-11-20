@@ -27,7 +27,9 @@ export class PaquetesComponent implements OnInit {
 
   eliminarPaquete(id: number){
     //console.log(id)
-
+    this.paquetesService.deletePaquete(id).subscribe(data => {
+      this.paquetes = data;
+    })
     //TODO Implementar http request para eliminar paquete
 
 

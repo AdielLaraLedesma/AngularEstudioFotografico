@@ -23,7 +23,7 @@ export class PaquetesService {
 
   getPaquetes(): Observable<Paquete[]>{
     return this.http
-      .get<Paquete[]>('/api/paquetes/listarPaquetes')
+      .get<Paquete[]>('/api/paquetes/')
       .pipe(
         map((paquetes: Paquete[]) => {
           return paquetes;
@@ -34,7 +34,7 @@ export class PaquetesService {
 
   getPaquete(id: string) {
     return this.http
-    .get<Paquete>(`/api/paquetes/listarPaquete/${id}`)
+    .get<Paquete>(`/api/paquetes/${id}`)
     .pipe(
       map((paquete: any) => {
         return paquete;
@@ -46,10 +46,16 @@ export class PaquetesService {
 
   /*savePaquete(paquete: Paquete) {
     return this.httpClient.post(`https://jsonplaceholder.typicode.com/posts/`, paquete);
-  }
-  deletePaquete(id: string) {
-    return this.httpClient.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
   }*/
+  deletePaquete(id: any) {
+    return this.http.delete(`/api/paquetes/updatePaquete/eliminar/${id}`).pipe(
+      map((paquete: any) => {
+        return paquete;
+      }),
+      catchError((err: { message: any; }) => this.handlerError(err))
+    );
+  }
+
   updatePaquete(id: string, paquete: Paquete) {
     return this.http
       .put(`/api/paquetes/updatePaquete/${id}`, paquete)
