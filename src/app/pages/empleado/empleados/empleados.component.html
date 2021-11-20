@@ -31,7 +31,7 @@
               <a class="nav-link" routerLink="/editempleado/{{empleado.id}}">
                   <mat-icon>edit</mat-icon>
               </a>
-              <a class="nav-link" routerLink="/empleado/delete/{{empleado.id}}">
+              <a class="nav-link" (click) = "eliminarEmpleado(empleado.id)">
                   <mat-icon>delete</mat-icon>
               </a>
           </td>

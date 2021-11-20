@@ -25,6 +25,14 @@ export class PaquetesComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  eliminarPaquete(id: number){
+    //console.log(id)
+
+    //TODO Implementar http request para eliminar paquete
+
+
+  }
+
 
 
 }

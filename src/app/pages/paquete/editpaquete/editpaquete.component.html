@@ -1,55 +1,7 @@
 <div class="col-md-4 offset-md-4">
     <div class="card mt-4">
         <div class="card-body">
-            <!--<form>
-                <div class="form-group">
-                    <input type="text" name="nombre" placeholder="Nombre" class="form-control" ([ngModel]) = "paquete.nombre" autofocus>
-                </div>
-                <div class="form-group">
-                    <textarea name="description" placeholder="Descripcion" class="form-control" rows="2" ([ngModel]) = "paquete.descripcion" ></textarea>
-                </div>
-                <div class="form-group">
-                    <input type="number" name="hrs_video" placeholder="Horas de video" class="form-control" ([ngModel]) = "paquete.hrs_video">
-                </div>
-                <div class="form-group">
-                    <input type="number" name="no_fotos_dig" placeholder="Numero de fotos digitales" class="form-control" ([ngModel]) = "paquete.no_fotos_dig">
-                </div>
-                <div class="form-group">
-                    <input type="number" name="no_fotos_fis" placeholder="Numero de fotos fisicas" class="form-control" ([ngModel]) = "paquete.no_fotos_fis">
-                </div>
-                <div class="form-group">
-                    <input type="number" name="marco_id" placeholder="Id del marco" class="form-control" ([ngModel]) = "paquete.marco_id">
-                </div>
-                <div class="form-group">
-                    <input type="number" name="tamano_id" placeholder="Tamano Id" class="form-control" ([ngModel]) = "paquete.tamano_id">
-                </div>
-                <div class="form-group">
-                    <input type="number" name="precio" placeholder="Precio" class="form-control" ([ngModel]) = "paquete.precio" >
-                </div>
-                <div class="form-group">
-                    <input type="number" name="tipo_paquete_id" placeholder="Tipo de paquete" class="form-control" ([ngModel]) = "paquete.tipo_paquete_id">
-                </div>
-
-
-
-                <div class="form-group">
-                    <input type="url" name="image" placeholder="Image" class="form-control"  ([ngModel]) = "paquete.url_imagen" >
-                </div>
-                <button class="btn btn-success btn-block" (click) = "editarPaquetes()">
-                    Agregar
-                </button>
-            </form>-->
-
-
-
             <form [formGroup]="editarPaqueteForm" (ngSubmit)="editarPaquetes()">
-                <mat-form-field class="full-width-input">
-                    <input 
-                    matInput 
-                    class="form-control"
-                    formControlName="id"
-                    type="number">
-                </mat-form-field>
                 <mat-form-field class="full-width-input">
                     <input 
                     matInput 
@@ -62,16 +14,17 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="full-width-input">
-                    <textarea 
+                    <textarea  
                     matInput 
                     class="form-control"
                     formControlName="descripcion"
-                    placeholder="Descripcion del paquete"></textarea>
+                    placeholder="Descripcion del paquete"
+                    rows="5"></textarea>
                     <mat-error *ngIf="isValidField('descripcion')">
                         {{ getErrorMessage("descripcion") }}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="full-width-input">
+                <mat-form-field class="width-input-20">
                     <input 
                     matInput 
                     class="form-control"
@@ -82,7 +35,7 @@
                         {{ getErrorMessage("hrs_Video") }}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="full-width-input">
+                <mat-form-field class="ml-4 width-input-20">
                     <input 
                     matInput 
                     class="form-control"
@@ -93,7 +46,7 @@
                         {{ getErrorMessage("no_Fotos_Dig") }}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="full-width-input">
+                <mat-form-field class="ml-4 width-input-20">
                     <input 
                     matInput 
                     class="form-control"
@@ -104,7 +57,7 @@
                         {{ getErrorMessage("no_Fotos_Fis") }}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="full-width-input">
+                <mat-form-field class="ml-4 width-input-20">
                     <input 
                     matInput 
                     class="form-control"
@@ -113,29 +66,31 @@
                     placeholder="Numero de fotos enmarcadas">
                     <mat-error *ngIf="isValidField('no_Fotos_Enm')">
                         {{ getErrorMessage("no_Fotos_Enm") }}
-                    </mat-error>
+                    </mat-error> 
                 </mat-form-field>
-                <mat-form-field class="full-width-input">
-                    <input 
-                    matInput 
-                    class="form-control"
-                    formControlName="marco_id"
-                    type="number" 
-                    placeholder="Marco id">
-                    <mat-error *ngIf="isValidField('marco_id')">
-                        {{ getErrorMessage("marco_id") }}
-                    </mat-error>
+                <mat-form-field class="width-input-20">
+                    <mat-label>Marco</mat-label>
+                    <mat-select [(value)]="selectedMarco" required>
+                        <mat-option [value]="marco.nombre" *ngFor="let marco of marcos" >
+                            {{marco.nombre}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
-                <mat-form-field class="full-width-input">
-                    <input 
-                    matInput 
-                    class="form-control"
-                    formControlName="tamano_id"
-                    type="number" 
-                    placeholder="Tamaño">
-                    <mat-error *ngIf="isValidField('tamano_id')">
-                        {{ getErrorMessage("tamano_id") }}
-                    </mat-error>
+                <mat-form-field class="ml-5 width-input-20">
+                    <mat-label>Tamaño</mat-label>
+                    <mat-select [(value)]="selectedTamano" required>
+                        <mat-option [value]="tamano.nombre" *ngFor="let tamano of tamanos" >
+                            {{tamano.nombre}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="ml-5 width-input-20">
+                    <mat-label>Tipo paquete</mat-label>
+                    <mat-select [(value)]="selectedTipoPaquete" required>
+                        <mat-option [value]="tipo_paqute.nombre" *ngFor="let tipo_paqute of tipo_paqutes" >
+                            {{tipo_paqute.nombre}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
                 <mat-form-field class="full-width-input">
                     <input 
@@ -146,17 +101,6 @@
                     placeholder="Precio">
                     <mat-error *ngIf="isValidField('precio')">
                         {{ getErrorMessage("precio") }}
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="full-width-input">
-                    <input 
-                    matInput 
-                    class="form-control"
-                    formControlName="tipo_paquete_id"
-                    type="number" 
-                    placeholder="Tipo de paquetes">
-                    <mat-error *ngIf="isValidField('tipo_paquete_id')">
-                        {{ getErrorMessage("tipo_paquete_id") }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="full-width-input">

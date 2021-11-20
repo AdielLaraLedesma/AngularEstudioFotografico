@@ -1,7 +1,11 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { MarcosService } from 'src/app/services/marcos.service';
+import { Marco } from 'src/app/shared/models/marco.interface';
 import { Paquete } from 'src/app/shared/models/paquete.interface';
+import { Tamano } from 'src/app/shared/models/tamanio.interface';
+import { TipoPaquete } from 'src/app/shared/models/tipo-paquetes.interface';
 
 import { PaquetesService } from '../../../services/paquetes.service'
 
@@ -11,8 +15,22 @@ import { PaquetesService } from '../../../services/paquetes.service'
   styleUrls: ['./paquete-form.component.css']
 })
 export class PaqueteFormComponent implements OnInit {
-
   @HostBinding('class') classes = "row";
+
+
+  public selectedTamano = 0;
+  tamanos: Tamano[]=[{id: 1,nombre: '9 x 13'},{id: 2, nombre: '13 x 18'},{id: 3, nombre: '15 x 20'}];
+
+  public selectedTipoPaquete = 0;
+  tipo_paqutes : TipoPaquete[] = [
+                  {id: 1, nombre: 'Evento social', descripcion: 'Fiesta de despedida del aviles del tec :c no paso integrador'},
+                  {id: 2, nombre: 'Sesion fotografica', descripcion: 'Sesion de fotos de furros'},
+                  {id: 3, nombre: 'Impresion fotografica', descripcion: 'Impresion fotografica'}];
+
+  public selectedMarco = 0;
+  marcos: Marco[] = null!;
+
+
 
   agregarPaqueteForm = new FormGroup({
     id: new FormControl({value:'', disabled:true}, Validators.required),
@@ -31,10 +49,17 @@ export class PaqueteFormComponent implements OnInit {
 
   constructor(
     private paqueteService: PaquetesService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private marcoService: MarcosService
     ) { }
 
   ngOnInit(): void {
+
+    this.marcoService.getMarcos().subscribe( data => {
+      this.marcos = data
+    })
+
+
   }
 
   agregarPaquetes(){
@@ -48,6 +73,15 @@ export class PaqueteFormComponent implements OnInit {
 
   }
 
+  changeTamano(value: any) {
+    this.agregarPaqueteForm.controls['tamano_id'].setValue(value)
+  }
+  changeTipoPaquete(value: any) {
+    this.agregarPaqueteForm.controls['tipo_paquete_id'].setValue(value)
+  }
+  changeMarco(value: any) {
+    this.agregarPaqueteForm.controls['marco_id'].setValue(value)
+  }
 
 
 

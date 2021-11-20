@@ -18,12 +18,13 @@
                     matInput 
                     class="form-control"
                     formControlName="descripcion"
-                    placeholder="Descripcion del paquete"></textarea>
+                    placeholder="Descripcion del paquete"
+                    rows="5"></textarea>
                     <mat-error *ngIf="isValidField('descripcion')">
                         {{ getErrorMessage("descripcion") }}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="full-width-input">
+                <mat-form-field class="width-input-20">
                     <input 
                     matInput 
                     class="form-control"
@@ -34,7 +35,7 @@
                         {{ getErrorMessage("hrs_video") }}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="full-width-input">
+                <mat-form-field class="ml-4 width-input-20">
                     <input 
                     matInput 
                     class="form-control"
@@ -45,7 +46,7 @@
                         {{ getErrorMessage("no_fotos_dig") }}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="full-width-input">
+                <mat-form-field class="ml-4 width-input-20">
                     <input 
                     matInput 
                     class="form-control"
@@ -56,27 +57,40 @@
                         {{ getErrorMessage("no_fotos_fis") }}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="full-width-input">
+                <mat-form-field class="ml-4 width-input-20">
                     <input 
                     matInput 
                     class="form-control"
-                    formControlName="marco_id"
+                    formControlName="no_Fotos_Enm"
                     type="number" 
-                    placeholder="Marco id">
-                    <mat-error *ngIf="isValidField('marco_id')">
-                        {{ getErrorMessage("marco_id") }}
-                    </mat-error>
+                    placeholder="Numero de fotos enmarcadas">
+                    <mat-error *ngIf="isValidField('no_Fotos_Enm')">
+                        {{ getErrorMessage("no_Fotos_Enm") }}
+                    </mat-error> 
                 </mat-form-field>
-                <mat-form-field class="full-width-input">
-                    <input 
-                    matInput 
-                    class="form-control"
-                    formControlName="tamano_id"
-                    type="number" 
-                    placeholder="Tamaño">
-                    <mat-error *ngIf="isValidField('tamano_id')">
-                        {{ getErrorMessage("tamano_id") }}
-                    </mat-error>
+                <mat-form-field class="width-input-20">
+                    <mat-label>Marco</mat-label>
+                    <mat-select [(value)]="selectedMarco" (selectionChange)="changeMarco($event.value)" required>
+                        <mat-option [value]="marco.nombre" *ngFor="let marco of marcos" >
+                            {{marco.nombre}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="ml-5 width-input-20">
+                    <mat-label>Tamaño</mat-label>
+                    <mat-select [(value)]="selectedTamano" (selectionChange)="changeTamano($event.value)" required>
+                        <mat-option [value]="tamano.nombre" *ngFor="let tamano of tamanos" >
+                            {{tamano.nombre}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="ml-5 width-input-20">
+                    <mat-label>Tipo paquete</mat-label>
+                    <mat-select [(value)]="selectedTipoPaquete" (selectionChange)="changeTipoPaquete($event.value)" required>
+                        <mat-option [value]="tipo_paqute.nombre" *ngFor="let tipo_paqute of tipo_paqutes" >
+                            {{tipo_paqute.nombre}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
                 <mat-form-field class="full-width-input">
                     <input 
@@ -87,17 +101,6 @@
                     placeholder="Precio">
                     <mat-error *ngIf="isValidField('precio')">
                         {{ getErrorMessage("precio") }}
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="full-width-input">
-                    <input 
-                    matInput 
-                    class="form-control"
-                    formControlName="tipo_paquete_id"
-                    type="number" 
-                    placeholder="Tipo de paquetes">
-                    <mat-error *ngIf="isValidField('tipo_paquete_id')">
-                        {{ getErrorMessage("tipo_paquete_id") }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="full-width-input">
@@ -116,7 +119,7 @@
                 [disabled] ="agregarPaqueteForm.invalid"
                 mat-raised-button 
                 type="submit" 
-                color="primary">Login</button>
+                color="primary">Agregar paquete</button>
 
             </form>
 

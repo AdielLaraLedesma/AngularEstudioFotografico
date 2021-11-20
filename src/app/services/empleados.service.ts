@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Employee } from "../shared/models/employee.interface"
 import { Observable } from 'rxjs/internal/Observable';
 import { ToastrService } from 'ngx-toastr';
-import { Empleado } from '../interfaces/empleado';
 import { catchError, map } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 

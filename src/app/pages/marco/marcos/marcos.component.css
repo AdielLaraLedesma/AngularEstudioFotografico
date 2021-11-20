@@ -1,5 +1,5 @@
 table {
-    width: 80%;
+    width: 40%;
     margin: auto;
   }
   
@@ -30,4 +30,9 @@ table {
     width: 32px;
     text-align: center;
     font-weight: bold;
+  }
+  .container-btn{
+    width: 40%;
+    margin: auto;
+    text-align: right;
   }

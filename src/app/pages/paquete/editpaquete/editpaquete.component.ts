@@ -4,6 +4,11 @@ import { Paquete } from 'src/app/shared/models/paquete.interface';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Tamano } from 'src/app/shared/models/tamanio.interface';
+import { TipoPaquete } from 'src/app/shared/models/tipo-paquetes.interface';
+import { Marco } from 'src/app/shared/models/marco.interface';
+import { getMatScrollStrategyAlreadyAttachedError } from '@angular/cdk/overlay/scroll/scroll-strategy';
+import { MarcosService } from 'src/app/services/marcos.service';
 
 @Component({
   selector: 'app-editpaquete',
@@ -13,6 +18,19 @@ import { ToastrService } from 'ngx-toastr';
 export class EditpaqueteComponent implements OnInit {
 
   @HostBinding('class') classes = "row";
+
+  public selectedTamano = '';
+  tamanos: Tamano[]=[{id: 1,nombre: '9 x 13'},{id: 2, nombre: '13 x 18'},{id: 3, nombre: '15 x 20'}];
+
+  public selectedTipoPaquete = '';
+  tipo_paqutes : TipoPaquete[] = [
+                  {id: 1, nombre: 'Evento social', descripcion: 'Fiesta de despedida del aviles del tec :c no paso integrador'},
+                  {id: 2, nombre: 'Sesion fotografica', descripcion: 'Sesion de fotos de furros'},
+                  {id: 3, nombre: 'Impresion fotografica', descripcion: 'Impresion fotografica'}];
+
+  public selectedMarco = '';
+  marcos: Marco[] = null!;
+  
 
   isDisabled: boolean = true;
   id: string =  "";
@@ -28,8 +46,8 @@ export class EditpaqueteComponent implements OnInit {
     no_Fotos_Enm: new FormControl('', [Validators.required]),
     marco_id: new FormControl('', [Validators.required]), 
     tamano_id: new FormControl('', [Validators.required]),
-    precio: new FormControl('', [Validators.required]), 
     tipo_paquete_id: new FormControl('', [Validators.required]), 
+    precio: new FormControl('', [Validators.required]), 
     url_imagen: new FormControl('', [Validators.maxLength(300)])     
 
   })
@@ -37,12 +55,17 @@ export class EditpaqueteComponent implements OnInit {
 
   constructor(
     private paqueteService: PaquetesService,
+    private marcoService: MarcosService,
     private rutaActiva: ActivatedRoute,
     private toastr: ToastrService,
     private router: Router
     ) { }
 
   ngOnInit(): void {
+
+    this.getMarco();
+
+
     this.id = this.rutaActiva.snapshot.params.id;
 
     this.paqueteService.getPaquete(this.id).subscribe(data => {
@@ -54,7 +77,6 @@ export class EditpaqueteComponent implements OnInit {
         return
       }
 
-      //console.log(data)
       this.editarPaqueteForm.controls['id'].setValue(data.id)
       this.editarPaqueteForm.controls['nombre'].setValue(data.nombre)
       this.editarPaqueteForm.controls['descripcion'].setValue(data.descripcion)
@@ -69,7 +91,32 @@ export class EditpaqueteComponent implements OnInit {
       this.editarPaqueteForm.controls['tipo_paquete_id'].setValue(data.tipo_paquete_id)
       this.editarPaqueteForm.controls['url_imagen'].setValue(data.url_imagen)
 
+
+
+      this.tamanos.forEach( element => {
+        if (element.id == data.tamano_id){
+          this.selectedTamano = element.nombre
+        }
+      })
+      this.marcos.forEach( element => {
+        if (element.id == data.marco_id){
+          this.selectedMarco = element.nombre
+        }
+      })
+      this.tipo_paqutes.forEach( element => {
+        if (element.id == data.tipo_paquete_id){
+          this.selectedTipoPaquete = element.nombre
+        }
+      })
+      
+
+
+
+
     });
+
+
+
     
 
   }
@@ -85,7 +132,11 @@ export class EditpaqueteComponent implements OnInit {
 
   }
 
-
+  getMarco() {
+    this.marcoService.getMarcos().subscribe( data => {
+        this.marcos = data
+    })
+  }
 
 
 
@@ -105,4 +156,8 @@ export class EditpaqueteComponent implements OnInit {
   }
 
 
+
+
 }
+
+

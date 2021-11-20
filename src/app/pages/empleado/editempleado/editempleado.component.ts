@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Rol } from 'src/app/interfaces/rol';
+import { Rol } from '../../../shared/models/rol.interface';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { Employee } from 'src/app/shared/models/employee.interface';
 
@@ -17,6 +17,7 @@ export class EditempleadoComponent implements OnInit {
 
   //para testear xd
   roles: Rol[]=[{id: 1,nombre: 'administrador'},{id: 3, nombre: 'fotografo'},{id: 4, nombre: 'recepcionista'}];
+  selectedRol = '';
 
 
   @HostBinding('class') classes = "row";
@@ -32,7 +33,7 @@ export class EditempleadoComponent implements OnInit {
     ape_mat: new FormControl('', [Validators.required, Validators.maxLength(20)]),
     celular: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
     direccion: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    correo: new FormControl('', [Validators.required, Validators.maxLength(60)]),
+    correo: new FormControl('', [Validators.required, Validators.maxLength(60), Validators.email]),
     fech_nac: new FormControl({value:'', disabled:true}, Validators.required),
     rol_id: new FormControl('', [Validators.required, Validators.maxLength(20)])
   })
@@ -68,6 +69,14 @@ export class EditempleadoComponent implements OnInit {
       this.editarEmpleadoForm.controls['fech_nac'].setValue(data.fech_nac)
       this.editarEmpleadoForm.controls['rol_id'].setValue(data.rol_id)
       //console.log(this.paquete)
+
+
+      this.roles.forEach( element => {
+        if (element.id == data.rol_id){
+          this.selectedRol = element.nombre
+        }
+      })
+
     });
     
 
@@ -90,8 +99,10 @@ export class EditempleadoComponent implements OnInit {
       message = 'El campo no puede estar vacio';
     }else if (this.editarEmpleadoForm.get(field)?.hasError('maxlength')){
       message = 'El campo sobrepasa el tamaño permitido'
-    }else if (this.editarEmpleadoForm.get(field)?.hasError('minLength')){
+    }else if (this.editarEmpleadoForm.get(field)?.hasError('minlength')){
       message = 'El campo no alcanza el minimo permitido'
+    }else if (this.editarEmpleadoForm.get(field)?.errors?.email){
+      message = 'No es un email valido'
     }
     return message;
   }

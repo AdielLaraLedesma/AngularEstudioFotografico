@@ -1,13 +1,13 @@
-<div class="container mt-3">
-    <a class="btn btn-primary" routerLink="agregar">Agregar</a>
-  </div>
+<div class="container mt-3 container-btn">
+  <a class="btn btn-primary" routerLink="agregar">Agregar</a>
+</div>
   <hr>
   
   <table class="table table-striped">
       <thead>
         <tr>
           <th scope="col">Id</th>
-          <th scope="col">Nombre</th>
+          <th scope="col" style="width: 80%;">Nombre</th>
           <th scope="col">Opciones</th>
         </tr>
       </thead>
@@ -19,7 +19,7 @@
               <a class="nav-link" routerLink="/editmarco/{{marco.id}}">
                   <mat-icon>edit</mat-icon>
               </a>
-              <a class="nav-link" routerLink="/marco/delete/{{marco.id}}">
+              <a class="nav-link" (click) = "eliminarMarco(marco.id)">
                   <mat-icon>delete</mat-icon>
               </a>
           </td>

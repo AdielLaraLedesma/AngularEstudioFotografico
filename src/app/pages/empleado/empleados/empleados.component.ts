@@ -23,4 +23,8 @@ export class EmpleadosComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  eliminarEmpleado(id: number){
+    //TODO
+  }
+
 }

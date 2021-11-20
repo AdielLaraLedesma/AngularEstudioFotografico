@@ -22,4 +22,8 @@ export class MarcosComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  eliminarMarco(id: number){
+    //TODO
+  }
+
 }

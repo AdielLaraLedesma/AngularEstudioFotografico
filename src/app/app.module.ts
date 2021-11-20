@@ -14,11 +14,11 @@ import { AppComponent } from './app.component';
 /*import { MatSliderModule } from '@angular/material/slider';*/
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { PaquetesComponent } from './pages/paquete/paquetes/paquetes.component';
+import { PaquetesComponent } from '../app/pages/paquete/paquetes/paquetes.component';
 
 
 import { PaquetesService } from './services/paquetes.service';
-import { PaqueteFormComponent } from './pages/paquete/paquete-form/paquete-form.component'
+import { PaqueteFormComponent } from '../app/pages/paquete/paquete-form/paquete-form.component'
 
 import { CommonModule } from '@angular/common';
 
@@ -26,12 +26,11 @@ import { ToastrModule } from 'ngx-toastr';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { SidebarModule } from './shared/components/sidebar/sidebar.module';
-import { EmpleadosComponent } from './pages/empleado/empleados/empleados.component';
-import { EmpleadosFormComponent } from './pages/empleado/empleados-form/empleados-form.component';
-import { PerfilComponent } from './pages/empleado/perfil/perfil.component';
+import { EmpleadosComponent } from '../app/pages/empleado/empleados/empleados.component';
+import { EmpleadosFormComponent } from '../app/pages/empleado/empleados-form/empleados-form.component';
+import { PerfilComponent } from '../app/pages/empleado/perfil/perfil.component';
 import { MarcosComponent } from './pages/marco/marcos/marcos.component';
 import { MarcosFormComponent } from './pages/marco/marcos-form/marcos-form.component';
-import { EditmarcoComponent } from './pages/marco/editmarco/editmarco.component';
 
 
 
@@ -49,8 +48,7 @@ import { EditmarcoComponent } from './pages/marco/editmarco/editmarco.component'
     EmpleadosFormComponent,
     PerfilComponent,
     MarcosComponent,
-    MarcosFormComponent,
-    EditmarcoComponent
+    MarcosFormComponent
   ],
   imports: [
     BrowserModule,
