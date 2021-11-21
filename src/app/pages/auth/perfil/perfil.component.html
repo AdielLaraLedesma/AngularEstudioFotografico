@@ -22,13 +22,13 @@
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label">Nombre</label>
-                        <input type="text" class="form-control form-control-alternative" placeholder="Nombre">
+                        <input type="text" class="form-control form-control-alternative" placeholder="Nombre" [(ngModel)]="user.nombre" name="nombre">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label">Email address</label>
-                        <input type="email" class="form-control form-control-alternative" placeholder="Email">
+                        <input type="email" class="form-control form-control-alternative" placeholder="Email" [(ngModel)]="user.correo" name="correo">
                       </div>
                     </div>
                   </div>
@@ -36,13 +36,13 @@
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label">Apellido Paterno</label>
-                        <input type="text" class="form-control form-control-alternative" placeholder="Apellido Paterno">
+                        <input type="text" class="form-control form-control-alternative" placeholder="Apellido Paterno" [(ngModel)]="user.ape_pat" name="ape_pat">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label">Apellido Materno</label>
-                        <input type="text" class="form-control form-control-alternative" placeholder="Apellido Materno">
+                        <input type="text" class="form-control form-control-alternative" placeholder="Apellido Materno" [(ngModel)]="user.ape_mat" name="ape_mat">
                       </div>
                     </div>
                   </div>
@@ -50,13 +50,13 @@
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label">Fecha de Nacimiento</label>
-                        <input type="text" class="form-control form-control-alternative" placeholder="Fecha de Nacimiento">
+                        <input type="text" class="form-control form-control-alternative" placeholder="Fecha de Nacimiento" [(ngModel)]="user.fech_nac" name="fech_nac">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label">Puesto en la empresa</label>
-                        <input type="text" class="form-control form-control-alternative" placeholder="Puesto">
+                        <input type="text" class="form-control form-control-alternative" placeholder="Puesto" [(ngModel)]="user.rol_id" name="rol_id">
                       </div>
                     </div>
                   </div>

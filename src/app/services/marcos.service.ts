@@ -29,6 +29,18 @@ export class MarcosService {
   }
 
 
+  deleteMarco(id: number) {
+    return this.http.delete(`/api/marcos/eliminar/${id}`)
+    .pipe(
+      map((marco: any) => {
+        return marco;
+      }),
+      catchError((err: { message: any; }) => this.handlerError(err))
+    );
+  }
+
+
+
 
 
   private handlerError(err: { message: any; }): Observable<never> {

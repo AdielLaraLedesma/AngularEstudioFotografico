@@ -6,7 +6,7 @@ import { CheckLoginGuard } from './shared/guards/check-login.guard';
 import { EmpleadosComponent } from '../app/pages/empleado/empleados/empleados.component';
 import { EmpleadosFormComponent } from '../app/pages/empleado/empleados-form/empleados-form.component';
 //import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
-import { PerfilComponent } from '../app/pages/empleado/perfil/perfil.component';
+import { PerfilComponent } from './pages/auth/perfil/perfil.component';
 import { CheckNotLoginGuard } from '../app/shared/guards/check-not-login.guard';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { CheckNotAdminGuard } from '../app/shared/guards/check-not-admin.guard';

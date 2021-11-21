@@ -43,12 +43,19 @@ export class PaquetesService {
     );
   }
 
+  savePaquete(fd: any) {
+    return this.http
+    .post('/api/paquetes/agregar', fd).pipe(
+      map((paquete: any) => {
+        return paquete;
+      }),
+      catchError((err: { message: any; }) => this.handlerError(err))
+    );
+  }
 
-  /*savePaquete(paquete: Paquete) {
-    return this.httpClient.post(`https://jsonplaceholder.typicode.com/posts/`, paquete);
-  }*/
   deletePaquete(id: any) {
-    return this.http.delete(`/api/paquetes/updatePaquete/eliminar/${id}`).pipe(
+    return this.http
+    .delete(`/api/paquetes/eliminar/${id}`).pipe(
       map((paquete: any) => {
         return paquete;
       }),

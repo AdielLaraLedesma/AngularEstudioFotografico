@@ -7,6 +7,8 @@ export interface UserResponse extends User{
     nombre: string;
     ape_pat?: string;
     ape_mat?: string;
+    celular: string;
+    direccion: string;
     fech_nac?: Date;
     activo: number;
     rol_id: number;
@@ -14,6 +16,7 @@ export interface UserResponse extends User{
     fecha_registro: Date;
     fecha_modificacion?: Date;
     usuario_modificacion_id?: number;
+    url_imagen: string;
     
 
 }

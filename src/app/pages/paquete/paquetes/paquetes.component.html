@@ -1,7 +1,7 @@
-<div class="container">
-  <a class="btn btn-primary mt-3" routerLink="agregar">Agregar</a>
+<div class="mt-3 container-btn">
+  <a class="btn btn-primary" routerLink="agregar">Agregar</a>
 </div>
-<hr>
+<hr> 
 
 <table class="table table-striped">
     <thead>
@@ -9,14 +9,14 @@
         <th scope="col">Id</th>
         <th scope="col">Nombre</th>
         <th scope="col">Descripcion</th>
-        <th scope="col">Horas_video</th>
-        <th scope="col">Numero_fotos_digitales</th> 
-        <th scope="col">Numero_fotos_fisicas</th> 
-        <th scope="col">Marco_id</th> 
-        <th scope="col">Tamano_id</th> 
+        <th scope="col">Horas de video</th>
+        <th scope="col">Fotos digitales</th> 
+        <th scope="col">Fotos fisicas</th> 
+        <th scope="col">Marco</th> 
+        <th scope="col">Tamaño</th> 
+        <th scope="col">Tipo de paquete</th> 
         <th scope="col">Precio</th> 
-        <th scope="col">Tipo_paquete_id</th> 
-        <th scope="col">Url_imagen</th> 
+        <th scope="col">Imagen</th> 
         <th scope="col">Opciones</th> 
       </tr>
     </thead>
@@ -28,11 +28,13 @@
         <td> {{ paquete.hrs_Video }}</td>
         <td> {{ paquete.no_Fotos_Dig }}</td>
         <td> {{ paquete.no_Fotos_Fis }}</td>
-        <td> {{ paquete.marco_id }}</td>
-        <td> {{ paquete.tamano_id }}</td>
+        <td> {{ paquete.marco_nombre }}</td>
+        <td> {{ paquete.tamano_nombre }}</td>
+        <td> {{ paquete.tipo_paquete_nombre }}</td>
         <td> {{ paquete.precio }}</td>
-        <td> {{ paquete.tipo_paquete_id }}</td>
-        <td> {{ paquete.url_imagen }}</td>
+        <!--<td> {{ paquete.url_imagen }}</td>-->
+        <td><img [src]="paquete.url_imagen"/></td>
+
 
         <td style="display: flex; flex-direction: row;">
             <a class="nav-link" routerLink="/editpaquete/{{paquete.id}}">

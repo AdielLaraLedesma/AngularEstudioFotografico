@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { MarcosService } from 'src/app/services/marcos.service';
 import { Marco } from 'src/app/shared/models/marco.interface';
 
@@ -12,18 +13,31 @@ export class MarcosComponent implements OnInit {
   public marcos: Marco[] = [];
 
   
-  constructor( private marcosService: MarcosService ) {
-    this.marcosService.getMarcos().subscribe(data => {
-      this.marcos = data;
-    });
-
+  constructor( 
+    private marcosService: MarcosService,
+    private toastr: ToastrService
+    ) {
   }
 
   ngOnInit(): void {
+    this.getMarcos();
   }
 
   eliminarMarco(id: number){
-    //TODO
+    this.marcosService.deleteMarco(id).subscribe(data => {
+      //this.paquetes = data;
+      this.toastr.success("El paquete ha sido eliminado con exito");
+      this.getMarcos();
+    })
+    //TODO Implementar http request para eliminar paquete
+
+  }
+
+
+  getMarcos(){
+    this.marcosService.getMarcos().subscribe(data => {
+      this.marcos = data;
+    });
   }
 
 }

@@ -47,8 +47,8 @@ export class EmpleadosService {
   }*/
 
 
-  deleteEmpleado(id: string) {
-    return this.http.delete(`/api/usuarios/actualizarDatos/borrarUsuario/${id}`)
+  deleteEmpleado(id: number) {
+    return this.http.delete(`/api/usuarios/eliminar/${id}`)
     .pipe(
       map((empleado: any) => {
         return empleado;

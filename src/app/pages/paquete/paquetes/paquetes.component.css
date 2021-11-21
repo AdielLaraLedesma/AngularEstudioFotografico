@@ -31,3 +31,8 @@ table {
   text-align: center;
   font-weight: bold;
 }
+.container-btn{
+  width: 80%;
+  margin: auto;
+  text-align: right;
+}

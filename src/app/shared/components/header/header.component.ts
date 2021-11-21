@@ -40,7 +40,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe((user: UserResponse) => {
         if (user) {
           this.isLogged = true;
-          console.log(user)
         }
       });
   }

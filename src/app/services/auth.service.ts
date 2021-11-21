@@ -13,64 +13,26 @@ import { catchError, map } from 'rxjs/operators';
 export class AuthService {
 
   private user = new BehaviorSubject<UserResponse>(null!);
-  //private user2 = new BehaviorSubject<EmployeeResponse>;
-
-  //private loggedIn = new BehaviorSubject<boolean>(false);
-
-
 
   constructor( 
     private http: HttpClient,
     private toastr: ToastrService,
     private router : Router
     ) {
-      //this.getLogin();
       this.checkLogin();
     }
 
-  /*login(authData: Employee) {
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json')
-    headers.append("Access-Control-Allow-Origin", "http://localhost:4200")
-    headers.append("Access-Control-Allow-Credentials", "true")
-    headers.append("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
-    headers.append("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
 
-    this.http.post('/api/usuarios/loginApp',  {
-      correo: authData.correo,
-      contrasena: authData.contrasena
-    }, {
-      withCredentials: true, headers: headers
-    }).subscribe((resp: any) => {
-      this.employeeResponse = resp;
-      console.log(this.employeeResponse)
-      this.loggedIn.next(true);
-      this.toastr.success(resp && resp.nombre ? `Welcome ${resp.nombre}` : 'Logged in!');
-      this.router.navigate(["/paquetes"]).then(() => {
-        window.location.reload();
-      });
-    }, (errorResp) => {
-      this.loggedIn.next(false);
-      errorResp.error ? this.toastr.error('Incorrect email or password.') : this.toastr.error('An unknown error has occured.');
-    });
-  }*/
   login(authData: User): Observable<UserResponse | void> {
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json')
-    headers.append("Access-Control-Allow-Origin", "http://localhost:4200")
-    headers.append("Access-Control-Allow-Credentials", "true")
-    headers.append("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
-    headers.append("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
     return this.http
       .post<UserResponse>('/api/usuarios/loginApp', {
         correo: authData.correo,
         contrasena: authData.contrasena
-      }, {
-        /*withCredentials: true,*/ headers
       })
       .pipe(
-        map((user: UserResponse) => {
+        map((user: any) => {
           this.user.next(user);
+          console.log(user)
           return user;
         }),
         catchError((err) => this.handlerError(err))
@@ -87,77 +49,19 @@ export class AuthService {
   }
 
   
-  
-
-  /*getLogin() {
-
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json')
-    headers.append("Access-Control-Allow-Origin", "http://localhost:4200")
-    headers.append("Access-Control-Allow-Credentials", "true")
-    headers.append("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
-    headers.append("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-
-    this.http.get('/api/usuarios/loginApp', {
-      withCredentials: true , headers: headers // <=========== important!
-    }).subscribe((resp: any) => {
-      this.loggedIn.next(resp.loggedIn);
-    }, (errorResp) => {
-      this.toastr.error('Oops, something went wrong getting the logged in status')
-    })
-  }*/
-
   checkLogin(){
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json')
-    headers.append("Access-Control-Allow-Origin", "http://localhost:4200")
-    headers.append("Access-Control-Allow-Credentials", "true")
-    headers.append("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
-    headers.append("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-
-    this.http.get('/api/usuarios/loginApp', {
-      /*withCredentials: true,*/ headers: headers
-    }).subscribe((res: any) => {
-      console.log('hola desde el login')
+    this.http.get('/api/usuarios/loginApp').subscribe((res: any) => {
       this.user.next(res);
     }, (errorResp) => {
-      //console.log('no ha iniciado sesión')
-      //console.log(errorResp);
+      console.log('no ha iniciado sesión')
       this.user.next(null!);
     });
 
   }
 
-
-  /*logout() {
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json')
-    headers.append("Access-Control-Allow-Origin", "http://localhost:4200")
-    headers.append("Access-Control-Allow-Credentials", "true")
-    headers.append("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
-    headers.append("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-    this.http.post('/api/usuarios/logout', {}, {
-      headers: headers
-    }).subscribe(() => {
-      this.user.next(null!);
-      this.router.navigate(["/login"])
-    });
-  }*/
-  /*logout(): void {
-    this.user.next(null!);
-    this.router.navigate(['/login']);
-  }*/
   logout(): Observable<UserResponse | void> {
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json')
-    headers.append("Access-Control-Allow-Origin", "http://localhost:4200")
-    headers.append("Access-Control-Allow-Credentials", "true")
-    headers.append("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
-    headers.append("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
     return this.http
-      .post<UserResponse>('/api/usuarios/logout',{
-        headers: headers
-      })
+      .post<UserResponse>('/api/usuarios/logout',{})
       .pipe(
         map((res: any) => {
           console.log('hola desde el logout')

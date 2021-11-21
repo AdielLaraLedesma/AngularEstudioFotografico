@@ -25,8 +25,7 @@ export class EditpaqueteComponent implements OnInit {
   public selectedTipoPaquete = '';
   tipo_paqutes : TipoPaquete[] = [
                   {id: 1, nombre: 'Evento social', descripcion: 'Fiesta de despedida del aviles del tec :c no paso integrador'},
-                  {id: 2, nombre: 'Sesion fotografica', descripcion: 'Sesion de fotos de furros'},
-                  {id: 3, nombre: 'Impresion fotografica', descripcion: 'Impresion fotografica'}];
+                  {id: 2, nombre: 'Sesion fotografica', descripcion: 'Sesion de fotos de furros'}];
 
   public selectedMarco = '';
   marcos: Marco[] = null!;

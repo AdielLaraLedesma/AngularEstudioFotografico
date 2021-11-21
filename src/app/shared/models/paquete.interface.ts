@@ -9,9 +9,12 @@ export interface Paquete {
     no_Fotos_Fis: number;
     no_Fotos_Enm: number;
     marco_id: number;
+    marco_nombre?: string;
     tamano_id: number;
+    tamano_nombre?: string;
     precio: number;
     tipo_paquete_id: number;
+    tipo_paquete_nombre: string;
     url_imagen: string; 
 }
 

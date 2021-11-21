@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 import { PaquetesService } from '../../../services/paquetes.service'
 
@@ -15,26 +17,34 @@ export class PaquetesComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'userId', 'title', 'body'];
 
-  constructor( private paquetesService: PaquetesService ) {
-    this.paquetesService.getPaquetes().subscribe(data => {
-      this.paquetes = data;
-    });
-
+  constructor( 
+    private paquetesService: PaquetesService,
+    //private router: Router,
+    private toastr: ToastrService
+    ) {
   }
 
   ngOnInit(): void {
-  }
+    this.getPaquetes();
+  } 
 
   eliminarPaquete(id: number){
-    //console.log(id)
     this.paquetesService.deletePaquete(id).subscribe(data => {
-      this.paquetes = data;
+      //this.paquetes = data;
+      this.toastr.success("El paquete ha sido eliminado con exito");
+      this.getPaquetes();
     })
     //TODO Implementar http request para eliminar paquete
 
-
   }
 
+
+  getPaquetes(){
+    this.paquetesService.getPaquetes().subscribe(data => {
+      this.paquetes = data;
+      console.log(data)
+    });
+  }
 
 
 }

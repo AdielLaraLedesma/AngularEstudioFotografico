@@ -1,4 +1,4 @@
-<div class="col-md-4 offset-md-4">
+<div class="col-md-4">
     <div class="card mt-4">
         <div class="card-body">
             <form [formGroup]="agregarPaqueteForm" (ngSubmit)="agregarPaquetes()">
@@ -28,33 +28,33 @@
                     <input 
                     matInput 
                     class="form-control"
-                    formControlName="hrs_video"
+                    formControlName="hrs_Video"
                     type="text" 
                     placeholder="Horas de video">
-                    <mat-error *ngIf="isValidField('hrs_video')">
-                        {{ getErrorMessage("hrs_video") }}
+                    <mat-error *ngIf="isValidField('hrs_Video')">
+                        {{ getErrorMessage("hrs_Video") }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="ml-4 width-input-20">
                     <input 
                     matInput 
                     class="form-control"
-                    formControlName="no_fotos_dig"
+                    formControlName="no_Fotos_Dig"
                     type="number" 
                     placeholder="Numero de fotos digitales">
-                    <mat-error *ngIf="isValidField('no_fotos_dig')">
-                        {{ getErrorMessage("no_fotos_dig") }}
+                    <mat-error *ngIf="isValidField('no_Fotos_Dig')">
+                        {{ getErrorMessage("no_Fotos_Dig") }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="ml-4 width-input-20">
                     <input 
                     matInput 
                     class="form-control"
-                    formControlName="no_fotos_fis"
+                    formControlName="no_Fotos_Fis"
                     type="number" 
                     placeholder="Numero de fotos fisicas">
-                    <mat-error *ngIf="isValidField('no_fotos_fis')">
-                        {{ getErrorMessage("no_fotos_fis") }}
+                    <mat-error *ngIf="isValidField('no_Fotos_Fis')">
+                        {{ getErrorMessage("no_Fotos_Fis") }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="ml-4 width-input-20">
@@ -103,8 +103,7 @@
                         {{ getErrorMessage("precio") }}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="full-width-input">
-                    <input 
+                    <!--<input 
                     matInput 
                     class="form-control"
                     formControlName="url_imagen"
@@ -112,8 +111,8 @@
                     placeholder="URL de la imagen">
                     <mat-error *ngIf="isValidField('url_imagen')">
                         {{ getErrorMessage("url_imagen") }}
-                    </mat-error>
-                </mat-form-field>
+                    </mat-error>-->
+                    <input class="mb-3" type="file" (change) = "onFileSelected($event)">
 
                 <button 
                 [disabled] ="agregarPaqueteForm.invalid"
@@ -123,6 +122,17 @@
 
             </form>
 
+
         </div>
     </div>
+</div> 
+<div class="col-md-2">
+    <h2>Imagen actual</h2>
+    <ng-container *ngIf="url == null; else viewImage"> 
+        <img [src]="imageSrc" alt="Imagen no encontrada"/>
+    </ng-container>
+    <ng-template #viewImage> 
+        <img [src]="url" alt="">
+    </ng-template>
+    <!--<img [src]="url" alt="">-->
 </div>

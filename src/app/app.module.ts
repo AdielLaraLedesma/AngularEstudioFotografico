@@ -28,7 +28,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { SidebarModule } from './shared/components/sidebar/sidebar.module';
 import { EmpleadosComponent } from '../app/pages/empleado/empleados/empleados.component';
 import { EmpleadosFormComponent } from '../app/pages/empleado/empleados-form/empleados-form.component';
-import { PerfilComponent } from '../app/pages/empleado/perfil/perfil.component';
+import { PerfilComponent } from './pages/auth/perfil/perfil.component';
 import { MarcosComponent } from './pages/marco/marcos/marcos.component';
 import { MarcosFormComponent } from './pages/marco/marcos-form/marcos-form.component';
 
