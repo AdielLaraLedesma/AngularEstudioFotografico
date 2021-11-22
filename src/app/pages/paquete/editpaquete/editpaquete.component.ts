@@ -17,7 +17,13 @@ import { MarcosService } from 'src/app/services/marcos.service';
 })
 export class EditpaqueteComponent implements OnInit {
 
-  @HostBinding('class') classes = "row";
+  //@HostBinding('class') classes = "row";
+
+
+  public newFile: File =  null!;
+  public url: any;
+
+  public imageSrc = 'assets/img/image-not-found.png'   
 
   public selectedTamano = '';
   tamanos: Tamano[]=[{id: 1,nombre: '9 x 13'},{id: 2, nombre: '13 x 18'},{id: 3, nombre: '15 x 20'}];
@@ -40,14 +46,17 @@ export class EditpaqueteComponent implements OnInit {
     nombre: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     descripcion: new FormControl('', [Validators.required, Validators.maxLength(100)]),
     hrs_Video: new FormControl('', [Validators.maxLength(10)]),
-    no_Fotos_Dig: new FormControl('', [Validators.required]),
-    no_Fotos_Fis: new FormControl('', [Validators.required]),
-    no_Fotos_Enm: new FormControl('', [Validators.required]),
-    marco_id: new FormControl('', [Validators.required]), 
-    tamano_id: new FormControl('', [Validators.required]),
+    no_Fotos_Dig: new FormControl(0, [Validators.required]),
+    no_Fotos_Fis: new FormControl(0, [Validators.required]),
+    no_Fotos_Enm: new FormControl(0, [Validators.required]),
+    marco_id: new FormControl(0, [Validators.required]), 
+    tamano_id: new FormControl(0, [Validators.required]),
     tipo_paquete_id: new FormControl('', [Validators.required]), 
     precio: new FormControl('', [Validators.required]), 
-    url_imagen: new FormControl('', [Validators.maxLength(300)])     
+    usuario_registro_id: new FormControl(Validators.required),
+    //url_imagen: new FormControl('', [Validators.maxLength(300)])  
+    
+    file: new FormControl()
 
   })
   
@@ -64,11 +73,11 @@ export class EditpaqueteComponent implements OnInit {
 
     this.getMarco();
 
-
     this.id = this.rutaActiva.snapshot.params.id;
 
     this.paqueteService.getPaquete(this.id).subscribe(data => {
 
+      this.url = 'http://localhost:3000/' + data.url_imagen;
       console.log(data)
       
       if (!data){
@@ -88,7 +97,8 @@ export class EditpaqueteComponent implements OnInit {
       this.editarPaqueteForm.controls['tamano_id'].setValue(data.tamano_id)
       this.editarPaqueteForm.controls['precio'].setValue(data.precio)
       this.editarPaqueteForm.controls['tipo_paquete_id'].setValue(data.tipo_paquete_id)
-      this.editarPaqueteForm.controls['url_imagen'].setValue(data.url_imagen)
+      this.editarPaqueteForm.controls['usuario_registro_id'].setValue(data.usuario_registro_id)
+      //this.editarPaqueteForm.controls['url_imagen'].setValue(data.url_imagen)
 
 
 
@@ -105,27 +115,36 @@ export class EditpaqueteComponent implements OnInit {
       this.tipo_paqutes.forEach( element => {
         if (element.id == data.tipo_paquete_id){
           this.selectedTipoPaquete = element.nombre
+
         }
       })
-      
-
-
-
-
     });
-
-
-
-    
 
   }
 
   editarPaquetes(){
+
+
+    var formData: any = new FormData();
+    formData.append("nombre", this.editarPaqueteForm.get('nombre')?.value);
+    formData.append("descripcion", this.editarPaqueteForm.get('descripcion')?.value);
+    formData.append("hrs_Video", this.editarPaqueteForm.get('hrs_Video')?.value);
+    formData.append("no_Fotos_Dig", this.editarPaqueteForm.get('no_Fotos_Dig')?.value);
+    formData.append("no_Fotos_Fis", this.editarPaqueteForm.get('no_Fotos_Fis')?.value);
+    formData.append("no_Fotos_Enm", this.editarPaqueteForm.get('no_Fotos_Enm')?.value);
+    formData.append("marco_id", this.editarPaqueteForm.get('marco_id')?.value);
+    formData.append("tamano_id", this.editarPaqueteForm.get('tamano_id')?.value);
+    formData.append("precio", this.editarPaqueteForm.get('precio')?.value);
+    formData.append("tipo_paquete_id", this.editarPaqueteForm.get('tipo_paquete_id')?.value);
+    formData.append("usuario_registro_id", this.editarPaqueteForm.get('usuario_registro_id')?.value);
+    formData.append("file", this.editarPaqueteForm.get('file')?.value);
+
     
-    const formValue = this.editarPaqueteForm.value;
-    this.paqueteService.updatePaquete(this.id, formValue).subscribe( data => {
+    //const formValue = this.editarPaqueteForm.value;
+    this.paqueteService.updatePaquete(this.id, formData).subscribe( data => {
       if (data){
-        this.toastr.success("Paquete actualizado correctamente!!!!");
+        this.toastr.success("Paquete actualizado exitosamente");
+        this.router.navigate(['/paquetes'])
       }
     })
 
@@ -135,6 +154,23 @@ export class EditpaqueteComponent implements OnInit {
     this.marcoService.getMarcos().subscribe( data => {
         this.marcos = data
     })
+  }
+
+
+  onFileSelected(event: any){
+    const file = (event.target as HTMLInputElement).files![0];
+    this.editarPaqueteForm.patchValue({
+      file: file
+    });
+    this.editarPaqueteForm.get('file')?.updateValueAndValidity()
+    //this.url = URL.createObjectURL(event.target.files[0]);
+
+    var reader = new FileReader();
+		reader.readAsDataURL(event.target.files[0]);
+
+    reader.onload = (_event) => {
+			this.url = reader.result; 
+		}
   }
 
 
@@ -153,8 +189,6 @@ export class EditpaqueteComponent implements OnInit {
     let campo = this.editarPaqueteForm.get(field)
     return (campo?.touched || campo?.dirty && !campo?.valid);
   }
-
-
 
 
 }

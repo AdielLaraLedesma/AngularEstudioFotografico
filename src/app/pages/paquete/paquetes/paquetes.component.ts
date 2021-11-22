@@ -13,6 +13,10 @@ import { Paquete } from '../../../shared/models/paquete.interface'
 })
 export class PaquetesComponent implements OnInit {
 
+  public imageSrc = 'http://localhost:3000/'  
+  public imageSrcDefault = 'assets/img/image-not-found.png'  
+
+
   public paquetes: Paquete[] = [];
 
   displayedColumns: string[] = ['id', 'userId', 'title', 'body'];

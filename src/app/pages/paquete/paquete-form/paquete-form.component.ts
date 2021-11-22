@@ -25,7 +25,7 @@ export class PaqueteFormComponent implements OnInit, OnDestroy {
   
 
   public url: any;
-  public imageSrc = 'assets/img/image-not-found.png'  
+  public imageSrc = 'assets/img/image-not-found.png'   
 
   private destroy$ = new Subject<any>();
   public user: UserResponse = null!;

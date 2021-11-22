@@ -65,7 +65,7 @@ export class PaquetesService {
 
   updatePaquete(id: string, paquete: Paquete) {
     return this.http
-      .put(`/api/paquetes/updatePaquete/${id}`, paquete)
+      .put(`/api/paquetes/actualizar/${id}`, paquete)
       .pipe(
         map((paquete: any) => {
           return paquete;
