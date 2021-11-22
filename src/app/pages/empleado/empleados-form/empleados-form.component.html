@@ -2,7 +2,7 @@
     <div class="card mt-4">
         <div class="card-body">
             <form [formGroup]="agregarEmpleadoForm" (ngSubmit)="agregarEmpleado()">
-                <mat-form-field class="width-input-30">
+                <mat-form-field class="width-input-20">
                     <input 
                     matInput 
                     class="form-control"
@@ -13,7 +13,7 @@
                         {{ getErrorMessage("nombre") }}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="ml-4 width-input-30">
+                <mat-form-field class="ml-5 width-input-20">
                     <input 
                     matInput 
                     class="form-control"
@@ -24,7 +24,7 @@
                         {{ getErrorMessage("ape_pat") }}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="ml-4 width-input-30">
+                <mat-form-field class="ml-5 width-input-20">
                     <input 
                     matInput 
                     class="form-control"
@@ -35,7 +35,7 @@
                         {{ getErrorMessage("ape_mat") }}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="width-input-60">
+                <mat-form-field class="width-input-80">
                     <input 
                     matInput 
                     class="form-control"
@@ -46,6 +46,19 @@
                         {{ getErrorMessage("correo") }}
                     </mat-error>
                 </mat-form-field>
+
+                <mat-form-field class="ml-4 width-input-30">
+                    <input 
+                    matInput 
+                    class="form-control"
+                    formControlName="contrasena"
+                    type="text" 
+                    placeholder="Contraseña">
+                    <mat-error *ngIf="isValidField('contrasena')">
+                        {{ getErrorMessage("contrasena") }}
+                    </mat-error>
+                </mat-form-field>
+
                 <mat-form-field class="ml-5 width-input-30">
                     <input 
                     matInput 
@@ -88,6 +101,8 @@
                     </mat-select>
                 </mat-form-field>
 
+                <input class="mb-3" type="file" (change) = "onFileSelected($event)">
+
                 <button 
                 [disabled] ="agregarEmpleadoForm.invalid"
                 mat-raised-button 
@@ -97,5 +112,16 @@
             </form>
         </div>
     </div>
+</div>
+
+<div class="col-md-2">
+    <h2>Imagen actual</h2>
+    <ng-container *ngIf="url == null; else viewImage"> 
+        <img [src]="imageSrc" alt="Imagen no encontrada"/>
+    </ng-container>
+    <ng-template #viewImage> 
+        <img [src]="url" alt="">
+    </ng-template>
+    <!--<img [src]="url" alt="">-->
 </div>
 

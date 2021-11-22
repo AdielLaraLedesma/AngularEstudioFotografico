@@ -28,6 +28,16 @@ export class MarcosService {
       );
   }
 
+  saveMarco(fd: any) {
+    return this.http
+    .post('/api/marcos/agregar', fd).pipe(
+      map((marco: any) => {
+        return marco;
+      }),
+      catchError((err: { message: any; }) => this.handlerError(err))
+    );
+  }
+
 
   deleteMarco(id: number) {
     return this.http.delete(`/api/marcos/eliminar/${id}`)

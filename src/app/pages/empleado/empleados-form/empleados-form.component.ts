@@ -3,6 +3,13 @@ import { Employee } from '../../../shared/models/employee.interface';
 import { Rol } from '../../../shared/models/rol.interface'
 import { EmpleadosService } from '../../../services/empleados.service'
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { UserResponse } from 'src/app/shared/models/user.interface';
+import { AuthService } from 'src/app/services/auth.service';
+import { takeUntil } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-empleados-form',
@@ -13,39 +20,94 @@ export class EmpleadosFormComponent implements OnInit {
 
   @HostBinding('class') classes = "row";
 
-  //para testear xd
+  public url: any;
+  public imageSrc = 'assets/img/image-not-found.png'  
+
+  private destroy$ = new Subject<any>();
+  public user: UserResponse = null!;
+
+  public selectedFile: File =  null!;
+
   roles: Rol[]=[{id: 1,nombre: 'administrador'},{id: 3, nombre: 'fotografo'},{id: 4, nombre: 'recepcionista'}];
   selectedRol = 0;
-
 
   agregarEmpleadoForm = new FormGroup({
     id: new FormControl({value:'', disabled:true}, Validators.required),
     nombre: new FormControl('', [Validators.required, Validators.maxLength(20)]),
     ape_pat: new FormControl('', [Validators.required, Validators.maxLength(20)]),
     ape_mat: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+    contrasena: new FormControl('', [Validators.required, Validators.maxLength(20)]),
     celular: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
     direccion: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     correo: new FormControl('', [Validators.required, Validators.maxLength(60), Validators.email]),
     fech_nac: new FormControl('', Validators.required),
-    rol_id: new FormControl('', [Validators.required, Validators.maxLength(20)])
+    rol_id: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+    file: new FormControl()
   })
- 
+  
 
-  constructor(private empleadoService: EmpleadosService) { }
+  constructor(
+    private empleadoService: EmpleadosService, 
+    private authService: AuthService,
+    private toastr: ToastrService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
 
   agregarEmpleado(){
-    console.log("Hola")
+
+    this.authService.user$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((user: UserResponse) => {
+        if (user) {
+          this.user = user;
+        }
+      });
 
 
+    var formData: any = new FormData();
+    formData.append("nombre", this.agregarEmpleadoForm.get('nombre')?.value);
+    formData.append("ape_pat", this.agregarEmpleadoForm.get('ape_pat')?.value);
+    formData.append("ape_mat", this.agregarEmpleadoForm.get('ape_mat')?.value);
+    formData.append("contrasena", this.agregarEmpleadoForm.get('contrasena')?.value);
+    formData.append("celular", this.agregarEmpleadoForm.get('celular')?.value);
+    formData.append("direccion", this.agregarEmpleadoForm.get('direccion')?.value);
+    formData.append("correo", this.agregarEmpleadoForm.get('correo')?.value);
+    formData.append("fech_nac", this.agregarEmpleadoForm.get('fech_nac')?.value);
+    formData.append("rol_id", this.agregarEmpleadoForm.get('rol_id')?.value);
+    formData.append("usuario_registro_id", this.user.id);
+    formData.append("file", this.agregarEmpleadoForm.get('file')?.value);
 
+    this.empleadoService.saveEmpleado(formData).subscribe( data => {
+      if (data){
+        this.toastr.success("Empleado agregado exitosamente");
+        this.router.navigate(['/empleados'])
+      }
+    })
 
   }
 
   changeRol(value: any) {
-    this.agregarEmpleadoForm.controls['rol_id'].setValue(value)
+    this.roles.forEach( element => {
+      if (element.nombre == value)
+        this.agregarEmpleadoForm.controls['rol_id'].setValue(element.id)
+    })
+  }
+
+  onFileSelected(event: any){
+    const file = (event.target as HTMLInputElement).files![0];
+    this.agregarEmpleadoForm.patchValue({
+      file: file
+    });
+    this.agregarEmpleadoForm.get('file')?.updateValueAndValidity()
+
+    var reader = new FileReader();
+		reader.readAsDataURL(event.target.files[0]);
+
+    reader.onload = (_event) => {
+			this.url = reader.result; 
+		}
   }
 
 

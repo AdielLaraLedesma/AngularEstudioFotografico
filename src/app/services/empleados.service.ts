@@ -33,7 +33,7 @@ export class EmpleadosService {
 
   getEmpleado(id: string) {
     return this.http
-    .get<Employee>(`/api/usuarios/${id}`)
+    .get<Employee>(`/api/usuarios/buscar/${id}`)
     .pipe(
       map((empleado: any) => {
         return empleado;
@@ -41,10 +41,17 @@ export class EmpleadosService {
       catchError((err: { message: any; }) => this.handlerError(err))
     );
   }
-/*
-  saveEmpleado(empleado: Employee) {
-    return this.httpClient.post(`https://jsonplaceholder.typicode.com/posts/`, empleado);
-  }*/
+
+
+  saveEmpleado(fd: any) {
+    return this.http
+    .post('/api/usuarios/agregar', fd).pipe(
+      map((empleado: any) => {
+        return empleado;
+      }),
+      catchError((err: { message: any; }) => this.handlerError(err))
+    );
+  }
 
 
   deleteEmpleado(id: number) {

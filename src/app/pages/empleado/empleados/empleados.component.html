@@ -14,6 +14,7 @@
           <th scope="col">direccion</th>
           <th scope="col">rol</th>
           <th scope="col">email</th>
+          <th scope="col">Imagen</th>
           <th scope="col">Opciones</th>
         </tr>
       </thead>
@@ -27,6 +28,7 @@
           <td> {{ empleado.direccion }}</td>
           <td> {{ empleado.rol_id }}</td>
           <td> {{ empleado.correo }}</td>
+          <td><img [src]="empleado.url_imagen"/></td>
           <td style="display: flex; flex-direction: row;">
               <a class="nav-link" routerLink="/editempleado/{{empleado.id}}">
                   <mat-icon>edit</mat-icon>

@@ -90,6 +90,7 @@ export class PaqueteFormComponent implements OnInit, OnDestroy {
         }
       });
 
+
     var formData: any = new FormData();
     formData.append("nombre", this.agregarPaqueteForm.get('nombre')?.value);
     formData.append("descripcion", this.agregarPaqueteForm.get('descripcion')?.value);

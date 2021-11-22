@@ -1,7 +1,13 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
 import { MarcosService } from 'src/app/services/marcos.service';
 import { Marco } from 'src/app/shared/models/marco.interface';
+import { UserResponse } from 'src/app/shared/models/user.interface';
 
 @Component({
   selector: 'app-marcos-form',
@@ -11,25 +17,53 @@ import { Marco } from 'src/app/shared/models/marco.interface';
 export class MarcosFormComponent implements OnInit {
   //@HostBinding('class') classes = "row";
 
+  private destroy$ = new Subject<any>();
+  public user: UserResponse = null!;
 
   agregarMarcoForm = new FormGroup({
     id: new FormControl({value:'', disabled:true}, Validators.required),
     nombre: new FormControl('', [Validators.required, Validators.maxLength(20)])
   })
 
-  marco: Marco = {
-    id: 0,
-    nombre: ""
-  };
-
-
-  constructor(private empleadoService: MarcosService) { }
+  constructor(
+    private marcoService: MarcosService,
+    private toastr: ToastrService,
+    private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next({});
+    this.destroy$.complete();
+
+  }
+
   agregarMarco(){
-    console.log("Hola")
+
+    this.authService.user$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((user: UserResponse) => {
+        if (user) {
+          this.user = user;
+        }
+      });
+
+
+    var formData: any = new FormData();
+    formData.append("nombre", this.agregarMarcoForm.get('nombre')?.value);
+    formData.append("usuario_registro_id", this.user.id);
+
+    console.log(this.agregarMarcoForm)
+    console.log(this.user.id)
+
+    this.marcoService.saveMarco(formData).subscribe( data => {
+      if (data){
+        this.toastr.success("Marco agregado exitosamente");
+        this.router.navigate(['/marcos'])
+      }
+    })
   }
 
 

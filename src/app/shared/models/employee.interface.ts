@@ -13,6 +13,7 @@ export interface Employee{
     fech_nac?: Date;
     activo: number;
     rol_id: number;
+    url_imagen: string; 
     usuario_registrado_id: number;
     fecha_registro: Date;
     fecha_modificacion?: Date;
