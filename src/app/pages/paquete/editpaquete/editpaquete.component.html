@@ -232,7 +232,7 @@
                     <div class="form-group focused">
                       <mat-form-field class="full-width-input">
                         <mat-label>Marco</mat-label>
-                        <mat-select [(value)]="selectedMarco" required>
+                        <mat-select [(value)]="selectedMarco" (selectionChange)="changeMarco($event.value)" required>
                           <mat-option [value]="marco.nombre" *ngFor="let marco of marcos">
                             {{marco.nombre}}
                           </mat-option>
@@ -244,7 +244,7 @@
                     <div class="form-group focused">
                       <mat-form-field class="full-width-input">
                         <mat-label>Tamaño</mat-label>
-                        <mat-select [(value)]="selectedTamano" required>
+                        <mat-select [(value)]="selectedTamano" (selectionChange)="changeTamano($event.value)" required>
                           <mat-option [value]="tamano.nombre" *ngFor="let tamano of tamanos">
                             {{tamano.nombre}}
                           </mat-option>
@@ -256,7 +256,7 @@
                     <div class="form-group focused">
                       <mat-form-field class="full-width-input">
                         <mat-label>Tipo paquete</mat-label>
-                        <mat-select [(value)]="selectedTipoPaquete" required>
+                        <mat-select [(value)]="selectedTipoPaquete" (selectionChange)="changeTipoPaquete($event.value)" required>
                           <mat-option [value]="tipo_paqute.nombre" *ngFor="let tipo_paqute of tipo_paqutes">
                             {{tipo_paqute.nombre}}
                           </mat-option>

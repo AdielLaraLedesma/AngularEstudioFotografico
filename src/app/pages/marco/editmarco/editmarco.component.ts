@@ -1,28 +1,78 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
+import { MarcosService } from 'src/app/services/marcos.service';
+import { Marco } from 'src/app/shared/models/marco.interface';
+import { UserResponse } from 'src/app/shared/models/user.interface';
 
 @Component({
   selector: 'app-editmarco',
   templateUrl: './editmarco.component.html',
   styleUrls: ['./editmarco.component.css']
 })
-export class EditmarcoComponent implements OnInit {
+export class EditmarcoComponent implements OnInit, OnDestroy {
 
   id: string =  "";
+  private destroy$ = new Subject<any>();
+  public user: UserResponse = null!;
+
+  private subscription: Subscription = new Subscription();
+
+
 
   editarMarcoForm = new FormGroup({
-    id: new FormControl({value:'', disabled:true}, Validators.required),
-    nombre: new FormControl('', [Validators.required, Validators.maxLength(20)])
+    nombre: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+    precio: new FormControl(0, [Validators.required]), 
+    usuario_registro_id: new FormControl(0, Validators.required),
+    usuario_modificacion_id: new FormControl(0, Validators.required)
   })
 
 
   constructor(
+    private marcoService: MarcosService,
     private rutaActiva: ActivatedRoute,
+    private authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService,
   ) { }
-
   ngOnInit(): void {
+
+    this.getUsuario();
+
     this.id = this.rutaActiva.snapshot.params.id;
+
+    this.marcoService.getMarco(this.id).subscribe( data => {
+
+      if (!data){
+        this.router.navigate(["/empleados"]);
+        return
+      }
+
+      this.editarMarcoForm.controls['nombre'].setValue(data.nombre)
+      this.editarMarcoForm.controls['precio'].setValue(data.precio)
+      this.editarMarcoForm.controls['usuario_registro_id'].setValue(data.usuario_registro_id)
+      this.editarMarcoForm.controls['usuario_modificacion_id'].setValue(this.user.id)
+    });
+
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+  getUsuario() {
+    this.authService.user$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((user: UserResponse) => {
+        if (user) {
+          this.user = user;
+        }
+      });
+
+
 
   }
 
@@ -30,6 +80,12 @@ export class EditmarcoComponent implements OnInit {
   editarMarco(){
     const formValue = this.editarMarcoForm.value;
     
+    this.marcoService.updateMarco(this.id, formValue).subscribe( data => {
+      if (data){
+        this.toastr.success("Marco actualizado correctamente!!!!");
+        this.router.navigate(['/marcos'])
+      }
+    } )
 
   }
 

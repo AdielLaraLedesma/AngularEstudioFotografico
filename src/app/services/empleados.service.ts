@@ -33,7 +33,7 @@ export class EmpleadosService {
 
   getEmpleado(id: string) {
     return this.http
-    .get<Employee>(`/api/usuarios/buscar/${id}`)
+    .get<Employee>(`/api/usuarios/${id}`)
     .pipe(
       map((empleado: any) => {
         return empleado;

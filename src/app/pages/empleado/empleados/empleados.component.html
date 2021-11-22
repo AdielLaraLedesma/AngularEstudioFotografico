@@ -28,7 +28,14 @@
           <td> {{ empleado.direccion }}</td>
           <td> {{ empleado.rol_id }}</td>
           <td> {{ empleado.correo }}</td>
-          <td><img [src]="empleado.url_imagen"/></td>
+          <td style="width: 15%;" >
+            <ng-container *ngIf="empleado.url_imagen != null; else fotoDefault">
+              <img style="width: 100%;" [src]="imageSrc + empleado.url_imagen"/>
+            </ng-container>
+            <ng-template #fotoDefault>
+              <img style="width: 100%;" [src]="imageSrcDefault" alt="Imagen no encontrada"/>
+            </ng-template>
+          </td>
           <td style="display: flex; flex-direction: row;">
               <a class="nav-link" routerLink="/editempleado/{{empleado.id}}">
                   <mat-icon>edit</mat-icon>

@@ -7,9 +7,17 @@
     </div>
     <span class="spacer"></span>
     <button mat-button [matMenuTriggerFor]="menu">
-      <mat-icon class="logo-personal">tag_faces</mat-icon>
+      <img style="width: 13%; margin-right: 5px;" [src]="urlPreffix + user.url_imagen">
 
-      <strong>ADMINISTRADOR</strong>
+      <ng-container *ngIf="user.rol_id == 1;">
+        <strong>ADMINISTRADOR</strong>
+      </ng-container>
+      <ng-container *ngIf="user.rol_id == 3;">
+        <strong>FOTOGRAFO</strong>
+      </ng-container>
+      <ng-container *ngIf="user.rol_id == 4;">
+        <strong>RECEPCIONISTA</strong>
+      </ng-container>
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item routerLink="/miPerfil">Mi perfil</button>

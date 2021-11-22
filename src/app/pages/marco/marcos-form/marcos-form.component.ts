@@ -15,14 +15,14 @@ import { UserResponse } from 'src/app/shared/models/user.interface';
   styleUrls: ['./marcos-form.component.css']
 })
 export class MarcosFormComponent implements OnInit {
-  //@HostBinding('class') classes = "row";
 
   private destroy$ = new Subject<any>();
   public user: UserResponse = null!;
 
   agregarMarcoForm = new FormGroup({
-    id: new FormControl({value:'', disabled:true}, Validators.required),
-    nombre: new FormControl('', [Validators.required, Validators.maxLength(20)])
+    nombre: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+    precio: new FormControl('', [Validators.required]), 
+    usuario_registro_id: new FormControl(0, Validators.required)
   })
 
   constructor(
@@ -32,6 +32,13 @@ export class MarcosFormComponent implements OnInit {
     private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.user$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((user: UserResponse) => {
+        if (user) {
+          this.user = user;
+        }
+      });
   }
 
   ngOnDestroy(): void {
@@ -42,23 +49,13 @@ export class MarcosFormComponent implements OnInit {
 
   agregarMarco(){
 
-    this.authService.user$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((user: UserResponse) => {
-        if (user) {
-          this.user = user;
-        }
-      });
+    this.agregarMarcoForm.controls['usuario_registro_id'].setValue(this.user.id);
 
+    const formValue = this.agregarMarcoForm.value;
 
-    var formData: any = new FormData();
-    formData.append("nombre", this.agregarMarcoForm.get('nombre')?.value);
-    formData.append("usuario_registro_id", this.user.id);
+    console.log(formValue)
 
-    console.log(this.agregarMarcoForm)
-    console.log(this.user.id)
-
-    this.marcoService.saveMarco(formData).subscribe( data => {
+    this.marcoService.saveMarco(formValue).subscribe( data => {
       if (data){
         this.toastr.success("Marco agregado exitosamente");
         this.router.navigate(['/marcos'])

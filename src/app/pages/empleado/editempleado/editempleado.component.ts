@@ -14,13 +14,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class EditempleadoComponent implements OnInit {
 
-
-  //para testear xd
   roles: Rol[]=[{id: 1,nombre: 'administrador'},{id: 3, nombre: 'fotografo'},{id: 4, nombre: 'recepcionista'}];
   selectedRol = '';
 
 
-  @HostBinding('class') classes = "row";
 
   isDisabled: boolean = true;
   id: string =  "";
@@ -87,11 +84,18 @@ export class EditempleadoComponent implements OnInit {
     this.empleadosService.updateEmpleado(this.id, formValue).subscribe( data => {
       if (data){
         this.toastr.success("Empleado actualizado correctamente!!!!");
+        this.router.navigate(['/empleados'])
       }
     })
 
   }
 
+  changeRol(value: any) {
+    this.roles.forEach( element => {
+      if (element.nombre == value)
+        this.editarEmpleadoForm.controls['marco_id'].setValue(element.id)
+    })
+  }
 
   getErrorMessage(field: string): string{
     let message: string = "";

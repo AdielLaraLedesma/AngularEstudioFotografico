@@ -10,9 +10,12 @@ import { Employee } from '../../../shared/models/employee.interface'
 })
 export class EmpleadosComponent implements OnInit {
 
+
+  public imageSrc = 'http://localhost:3000/'  
+  public imageSrcDefault = 'assets/img/image-not-found.png'  
+
   public empleados: Employee[] = [];
 
-  //displayedColumns: string[] = ['id', 'nombre', 'apellido paterno','apellido materno', 'email'];
 
   constructor( private empleadosService: EmpleadosService,
     private toastr: ToastrService
@@ -37,6 +40,7 @@ export class EmpleadosComponent implements OnInit {
   getEmpleados(){
     this.empleadosService.getEmpleados().subscribe(data => {
       this.empleados = data;
+      console.log(data)
     });
   }
 

@@ -18,7 +18,6 @@ import { Router } from '@angular/router';
 })
 export class EmpleadosFormComponent implements OnInit {
 
-  @HostBinding('class') classes = "row";
 
   public url: any;
   public imageSrc = 'assets/img/image-not-found.png'  
@@ -53,10 +52,6 @@ export class EmpleadosFormComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-  }
-
-  agregarEmpleado(){
-
     this.authService.user$
       .pipe(takeUntil(this.destroy$))
       .subscribe((user: UserResponse) => {
@@ -64,7 +59,9 @@ export class EmpleadosFormComponent implements OnInit {
           this.user = user;
         }
       });
+  }
 
+  agregarEmpleado(){
 
     var formData: any = new FormData();
     formData.append("nombre", this.agregarEmpleadoForm.get('nombre')?.value);
@@ -79,11 +76,12 @@ export class EmpleadosFormComponent implements OnInit {
     formData.append("usuario_registro_id", this.user.id);
     formData.append("file", this.agregarEmpleadoForm.get('file')?.value);
 
+      
+
     this.empleadoService.saveEmpleado(formData).subscribe( data => {
-      if (data){
-        this.toastr.success("Empleado agregado exitosamente");
-        this.router.navigate(['/empleados'])
-      }
+      console.log(data)
+      this.toastr.success("Empleado agregado exitosamente");
+      this.router.navigate(['/empleados'])
     })
 
   }

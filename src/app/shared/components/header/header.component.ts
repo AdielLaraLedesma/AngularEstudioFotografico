@@ -13,11 +13,14 @@ import { UserResponse } from '../../models/user.interface';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
+  public urlPreffix = 'http://localhost:3000/'
+
   private subscription: Subscription = new Subscription();
 
   isLogged = false;
 
   private destroy$ = new Subject<any>();
+  user: UserResponse = null!;
 
 
 
@@ -40,6 +43,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe((user: UserResponse) => {
         if (user) {
           this.isLogged = true;
+          this.user = user;
+          console.log(this.user)
         }
       });
   }

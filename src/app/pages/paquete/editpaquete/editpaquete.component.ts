@@ -78,7 +78,6 @@ export class EditpaqueteComponent implements OnInit {
     this.paqueteService.getPaquete(this.id).subscribe(data => {
 
       this.url = 'http://localhost:3000/' + data.url_imagen;
-      console.log(data)
       
       if (!data){
         this.router.navigate(["/paquetes"]);
@@ -171,6 +170,25 @@ export class EditpaqueteComponent implements OnInit {
     reader.onload = (_event) => {
 			this.url = reader.result; 
 		}
+  }
+
+  changeTamano(value: any) {
+    this.tamanos.forEach( element => {
+      if (element.nombre == value)
+        this.editarPaqueteForm.controls['tamano_id'].setValue(element.id)
+    })
+  }
+  changeTipoPaquete(value: any) {
+    this.tipo_paqutes.forEach( element => {
+      if (element.nombre == value)
+        this.editarPaqueteForm.controls['tipo_paquete_id'].setValue(element.id)
+    })
+  }
+  changeMarco(value: any) {
+    this.marcos.forEach( element => {
+      if (element.nombre == value)
+        this.editarPaqueteForm.controls['marco_id'].setValue(element.id)
+    })
   }
 
 

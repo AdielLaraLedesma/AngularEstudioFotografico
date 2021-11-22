@@ -17,6 +17,17 @@ export class MarcosService {
     //console.log("Is working!")
   }
 
+  getMarco(id: string) {
+    return this.http
+    .get<Marco>(`/api/marcos/${id}`)
+    .pipe(
+      map((marco: any) => {
+        return marco[0];
+      }),
+      catchError((err: { message: any; }) => this.handlerError(err))
+    );
+  }
+
   getMarcos(): Observable<Marco[]>{
     return this.http
       .get<Marco[]>('/api/marcos')
@@ -36,6 +47,16 @@ export class MarcosService {
       }),
       catchError((err: { message: any; }) => this.handlerError(err))
     );
+  }
+  updateMarco(id: string, marco: Marco) {
+    return this.http
+      .put(`/api/marcos/actualizar/${id}`, marco)
+      .pipe(
+        map((marco: any) => {
+          return marco;
+        }),
+        catchError((err: { message: any; }) => this.handlerError(err))
+      );
   }
 
 

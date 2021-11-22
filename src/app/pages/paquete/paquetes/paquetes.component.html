@@ -32,12 +32,12 @@
         <td> {{ paquete.tamano_nombre }}</td>
         <td> {{ paquete.tipo_paquete_nombre }}</td>
         <td> {{ paquete.precio }}</td>
-        <td>
+        <td style="width: 15%;" >
           <ng-container *ngIf="paquete.url_imagen != null; else fotoDefault">
-            <img style="width: 20%;" [src]="imageSrc + paquete.url_imagen"/>
+            <img style="width: 100%;" [src]="imageSrc + paquete.url_imagen"/>
           </ng-container>
           <ng-template #fotoDefault>
-            <img style="width: 20%;" [src]="imageSrcDefault" alt="Imagen no encontrada"/>
+            <img style="width: 100%;" [src]="imageSrcDefault" alt="Imagen no encontrada"/>
           </ng-template>
         </td>
 

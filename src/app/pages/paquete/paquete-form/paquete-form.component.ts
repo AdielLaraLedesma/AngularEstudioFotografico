@@ -32,15 +32,15 @@ export class PaqueteFormComponent implements OnInit, OnDestroy {
 
   public selectedFile: File =  null!;
 
-  public selectedTamano = 0;
+  public selectedTamano = '';
   tamanos: Tamano[]=[{id: 1,nombre: '9 x 13'},{id: 2, nombre: '13 x 18'},{id: 3, nombre: '15 x 20'}];
 
-  public selectedTipoPaquete = 0;
+  public selectedTipoPaquete = '';
   tipo_paqutes : TipoPaquete[] = [
                   {id: 1, nombre: 'Evento social', descripcion: 'Fiesta de despedida del aviles del tec :c no paso integrador'},
                   {id: 2, nombre: 'Sesion fotografica', descripcion: 'Sesion de fotos de furros'}];
 
-  public selectedMarco = 0;
+  public selectedMarco = '';
   marcos: Marco[] = null!;
 
 
@@ -90,7 +90,7 @@ export class PaqueteFormComponent implements OnInit, OnDestroy {
         }
       });
 
-
+ 
     var formData: any = new FormData();
     formData.append("nombre", this.agregarPaqueteForm.get('nombre')?.value);
     formData.append("descripcion", this.agregarPaqueteForm.get('descripcion')?.value);
@@ -121,15 +121,28 @@ export class PaqueteFormComponent implements OnInit, OnDestroy {
     })
   }
   changeTipoPaquete(value: any) {
+    console.log(value)
     this.tipo_paqutes.forEach( element => {
       if (element.nombre == value)
         this.agregarPaqueteForm.controls['tipo_paquete_id'].setValue(element.id)
+      if (value == "Evento social"){
+        this.agregarPaqueteForm.controls['marco_id'].setValue(1)
+        this.selectedMarco = "Sin Marco";
+        //this.agregarPaqueteForm.get('marco_id')?.disable
+        //TODO
+        //Inhabilitar Marco
+      }else{
+        //TODO
+        //Habilitar Marco formGroup
+      }
     })
   }
   changeMarco(value: any) {
     this.marcos.forEach( element => {
       if (element.nombre == value)
         this.agregarPaqueteForm.controls['marco_id'].setValue(element.id)
+
+      
     })
   }
 

@@ -11,6 +11,8 @@ import { UserResponse } from 'src/app/shared/models/user.interface';
 })
 export class PerfilComponent implements OnInit {
 
+  public botonEditarDisabled = true;
+
   private destroy$ = new Subject<any>();
 
   public user: UserResponse = null!;
@@ -34,6 +36,11 @@ export class PerfilComponent implements OnInit {
     //this.subscription.unsubscribe();
     this.destroy$.next({});
     this.destroy$.complete();
+
+  }
+
+  formularioEditar(){
+    console.log("hola")
 
   }
 

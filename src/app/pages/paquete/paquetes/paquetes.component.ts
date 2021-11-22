@@ -46,7 +46,6 @@ export class PaquetesComponent implements OnInit {
   getPaquetes(){
     this.paquetesService.getPaquetes().subscribe(data => {
       this.paquetes = data;
-      console.log(data)
     });
   }
 
