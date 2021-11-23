@@ -6,6 +6,9 @@ import { Employee } from 'src/app/shared/models/employee.interface';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { UserResponse } from 'src/app/shared/models/user.interface';
 
 @Component({
   selector: 'app-editempleado',
@@ -16,6 +19,9 @@ export class EditempleadoComponent implements OnInit {
 
   public newFile: File =  null!;
   public url: any;
+
+  private destroy$ = new Subject<any>();
+  public user: UserResponse = null!;
 
   public imageSrc = 'assets/img/image-not-found.png'   
 
@@ -29,16 +35,21 @@ export class EditempleadoComponent implements OnInit {
 
  
   editarEmpleadoForm = new FormGroup({
-    id: new FormControl({value:'', disabled:true}, Validators.required),
+    id: new FormControl(0,  Validators.required),
     nombre: new FormControl('', [Validators.required, Validators.maxLength(20)]),
     ape_pat: new FormControl('', [Validators.required, Validators.maxLength(20)]),
     ape_mat: new FormControl('', [Validators.required, Validators.maxLength(20)]),
-    celular: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
+    celular: new FormControl(0, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
     direccion: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     correo: new FormControl('', [Validators.required, Validators.maxLength(60), Validators.email]),
-    fech_nac: new FormControl({value:'', disabled:true}, Validators.required),
-    rol_id: new FormControl('', [Validators.required, Validators.maxLength(20)])
+    fech_nac: new FormControl('', Validators.required),
+    rol_id: new FormControl(0, [Validators.required]),
+    usuario_modificacion_id: new FormControl(0, [Validators.required]),
+
+
+    file: new FormControl()
   })
+  authService: any;
   
 
   constructor(
@@ -48,10 +59,30 @@ export class EditempleadoComponent implements OnInit {
     private router: Router
     ) { }
 
+
+  ngOnDestroy(): void {
+    //this.subscription.unsubscribe();
+    this.destroy$.next({});
+    this.destroy$.complete();
+  
+  }
+
   ngOnInit(): void {
+
+    this.authService.user$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((user: UserResponse) => {
+        if (user) {
+          this.user = user;
+        }
+      });
+
+
     this.id = this.rutaActiva.snapshot.params.id;
 
     this.empleadosService.getEmpleado(this.id).subscribe(data => {
+
+
 
       //console.log(!data)
       
@@ -60,7 +91,9 @@ export class EditempleadoComponent implements OnInit {
         return
       }
 
-      //console.log(data)
+      this.url = 'http://localhost:3000/' + data.url_imagen;
+
+      console.log(data)
       this.editarEmpleadoForm.controls['id'].setValue(data.id)
       this.editarEmpleadoForm.controls['nombre'].setValue(data.nombre)
       this.editarEmpleadoForm.controls['ape_pat'].setValue(data.ape_pat)
@@ -70,8 +103,11 @@ export class EditempleadoComponent implements OnInit {
       this.editarEmpleadoForm.controls['correo'].setValue(data.correo)
       this.editarEmpleadoForm.controls['fech_nac'].setValue(data.fech_nac)
       this.editarEmpleadoForm.controls['rol_id'].setValue(data.rol_id)
-      this.editarEmpleadoForm.controls['usuario_registro_id'].setValue(data.usuario_registro_id)
+      this.editarEmpleadoForm.controls['usuario_modificacion_id'].setValue(this.user.id)
+
       //console.log(this.paquete)
+
+      console.log(this.editarEmpleadoForm.invalid)
 
 
       this.roles.forEach( element => {
@@ -112,7 +148,7 @@ export class EditempleadoComponent implements OnInit {
   changeRol(value: any) {
     this.roles.forEach( element => {
       if (element.nombre == value)
-        this.editarEmpleadoForm.controls['marco_id'].setValue(element.id)
+        this.editarEmpleadoForm.controls['rol_id'].setValue(element.id)
     })
   }
 
@@ -122,7 +158,6 @@ export class EditempleadoComponent implements OnInit {
       file: file
     });
     this.editarEmpleadoForm.get('file')?.updateValueAndValidity()
-    //this.url = URL.createObjectURL(event.target.files[0]);
 
     var reader = new FileReader();
 		reader.readAsDataURL(event.target.files[0]);

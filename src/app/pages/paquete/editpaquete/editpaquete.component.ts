@@ -99,6 +99,8 @@ export class EditpaqueteComponent implements OnInit {
       this.editarPaqueteForm.controls['usuario_registro_id'].setValue(data.usuario_registro_id)
       //this.editarPaqueteForm.controls['url_imagen'].setValue(data.url_imagen)
 
+      console.log(data)
+
 
 
       this.tamanos.forEach( element => {
