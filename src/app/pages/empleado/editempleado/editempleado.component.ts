@@ -14,6 +14,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class EditempleadoComponent implements OnInit {
 
+  public newFile: File =  null!;
+  public url: any;
+
+  public imageSrc = 'assets/img/image-not-found.png'   
+
   roles: Rol[]=[{id: 1,nombre: 'administrador'},{id: 3, nombre: 'fotografo'},{id: 4, nombre: 'recepcionista'}];
   selectedRol = '';
 
@@ -65,6 +70,7 @@ export class EditempleadoComponent implements OnInit {
       this.editarEmpleadoForm.controls['correo'].setValue(data.correo)
       this.editarEmpleadoForm.controls['fech_nac'].setValue(data.fech_nac)
       this.editarEmpleadoForm.controls['rol_id'].setValue(data.rol_id)
+      this.editarEmpleadoForm.controls['usuario_registro_id'].setValue(data.usuario_registro_id)
       //console.log(this.paquete)
 
 
@@ -80,10 +86,23 @@ export class EditempleadoComponent implements OnInit {
   }
 
   editarEmpleado(){
-    const formValue = this.editarEmpleadoForm.value;
-    this.empleadosService.updateEmpleado(this.id, formValue).subscribe( data => {
+    var formData: any = new FormData();
+    formData.append("nombre", this.editarEmpleadoForm.get('nombre')?.value);
+    formData.append("ape_pat", this.editarEmpleadoForm.get('ape_pat')?.value);
+    formData.append("ape_mat", this.editarEmpleadoForm.get('ape_mat')?.value);
+    formData.append("celular", this.editarEmpleadoForm.get('celular')?.value);
+    formData.append("direccion", this.editarEmpleadoForm.get('direccion')?.value);
+    formData.append("correo", this.editarEmpleadoForm.get('correo')?.value);
+    formData.append("fech_nac", this.editarEmpleadoForm.get('fech_nac')?.value);
+    formData.append("rol_id", this.editarEmpleadoForm.get('rol_id')?.value);
+    formData.append("usuario_registro_id", this.editarEmpleadoForm.get('usuario_registro_id')?.value);
+    formData.append("file", this.editarEmpleadoForm.get('file')?.value);
+
+    
+    //const formValue = this.editarPaqueteForm.value;
+    this.empleadosService.updateEmpleado(this.id, formData).subscribe( data => {
       if (data){
-        this.toastr.success("Empleado actualizado correctamente!!!!");
+        this.toastr.success("Empleado actualizado exitosamente");
         this.router.navigate(['/empleados'])
       }
     })
@@ -95,6 +114,22 @@ export class EditempleadoComponent implements OnInit {
       if (element.nombre == value)
         this.editarEmpleadoForm.controls['marco_id'].setValue(element.id)
     })
+  }
+
+  onFileSelected(event: any){
+    const file = (event.target as HTMLInputElement).files![0];
+    this.editarEmpleadoForm.patchValue({
+      file: file
+    });
+    this.editarEmpleadoForm.get('file')?.updateValueAndValidity()
+    //this.url = URL.createObjectURL(event.target.files[0]);
+
+    var reader = new FileReader();
+		reader.readAsDataURL(event.target.files[0]);
+
+    reader.onload = (_event) => {
+			this.url = reader.result; 
+		}
   }
 
   getErrorMessage(field: string): string{

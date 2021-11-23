@@ -4,6 +4,7 @@ export interface Marco {
     /** "userId"?: number **/
     id: number;
     nombre: string;
+    precio: number;
     usuario_registro_id?: number;
     usuario_modificacion_id?: number;
     
