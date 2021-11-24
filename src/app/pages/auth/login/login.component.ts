@@ -31,9 +31,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private toastr: ToastrService
   ) { 
-    //this.authService.isLogged.subscribe(res => {
-    //  this.isLogged = res;
-    //});
+
   }
 
   ngOnInit(): void {
@@ -42,16 +40,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  /*onLogin() {
-
-    if(this.loginForm.invalid){
-      return;
-    }
-
-    const formValue = this.loginForm.value
-    this.authService.login(formValue);
-    
-  }*/
   onLogin(): void {
     if (this.loginForm.invalid) {
       return;
@@ -64,18 +52,13 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.router.navigate(['']).then(() => {
             window.location.reload();
           });
-          this.toastr.success(res && res.nombre ? `Welcome ${res.nombre}` : 'Logged in!');
+          this.toastr.success(`Welcome ${res.nombre}`, "Inicio de sesión", {
+            positionClass: 'toast-bottom-right'
+          });
         }
       })
     );
   }
-
-  /*doLogout() {
-    this.authService.logout();
-  }*/
-
-
-
 
   getErrorMessage(field: string): string{
     let message: string = "";

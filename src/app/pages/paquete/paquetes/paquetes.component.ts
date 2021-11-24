@@ -19,11 +19,9 @@ export class PaquetesComponent implements OnInit {
 
   public paquetes: Paquete[] = [];
 
-  displayedColumns: string[] = ['id', 'userId', 'title', 'body'];
 
   constructor( 
     private paquetesService: PaquetesService,
-    //private router: Router,
     private toastr: ToastrService
     ) {
   }
@@ -34,19 +32,17 @@ export class PaquetesComponent implements OnInit {
 
   eliminarPaquete(id: number){
     this.paquetesService.deletePaquete(id).subscribe(data => {
-      //this.paquetes = data;
-      this.toastr.success("El paquete ha sido eliminado con exito");
+      this.toastr.success("El paquete fue eliminado exitosamente", "Paquete eliminado", {
+        positionClass: 'toast-bottom-right'
+      });
       this.getPaquetes();
     })
-    //TODO Implementar http request para eliminar paquete
-
   }
 
 
   getPaquetes(){
     this.paquetesService.getPaquetes().subscribe(data => {
       this.paquetes = data;
-      console.log(data)
     });
   }
 

@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Rol } from '../../../shared/models/rol.interface';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { Employee } from 'src/app/shared/models/employee.interface';
@@ -7,25 +7,28 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { UserResponse } from 'src/app/shared/models/user.interface';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-editempleado',
   templateUrl: './editempleado.component.html',
   styleUrls: ['./editempleado.component.css']
 })
-export class EditempleadoComponent implements OnInit {
+export class EditempleadoComponent implements OnInit, OnDestroy {
 
   public newFile: File =  null!;
   public url: any;
+  public imageSrc = 'assets/img/image-not-found.png'   
+  public imageDefault = 'http://localhost:3000/'
 
   private destroy$ = new Subject<any>();
   public user: UserResponse = null!;
+  private subscription: Subscription = new Subscription();
 
-  public imageSrc = 'assets/img/image-not-found.png'   
 
-  roles: Rol[]=[{id: 1,nombre: 'administrador'},{id: 3, nombre: 'fotografo'},{id: 4, nombre: 'recepcionista'}];
+  roles: Rol[]=[{id: 1,nombre: 'Administrador'},{id: 3, nombre: 'Fotografo'},{id: 4, nombre: 'Recepcionista'}];
   selectedRol = '';
 
 
@@ -49,11 +52,11 @@ export class EditempleadoComponent implements OnInit {
 
     file: new FormControl()
   })
-  authService: any;
   
 
   constructor(
     private empleadosService: EmpleadosService,
+    private authService: AuthService,
     private rutaActiva: ActivatedRoute,
     private toastr: ToastrService,
     private router: Router
@@ -61,7 +64,7 @@ export class EditempleadoComponent implements OnInit {
 
 
   ngOnDestroy(): void {
-    //this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
     this.destroy$.next({});
     this.destroy$.complete();
   
@@ -69,31 +72,20 @@ export class EditempleadoComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.authService.user$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((user: UserResponse) => {
-        if (user) {
-          this.user = user;
-        }
-      });
-
-
+    this.getUser();
+ 
     this.id = this.rutaActiva.snapshot.params.id;
 
     this.empleadosService.getEmpleado(this.id).subscribe(data => {
 
-
-
-      //console.log(!data)
       
       if (!data){
         this.router.navigate(["/empleados"]);
         return
       }
 
-      this.url = 'http://localhost:3000/' + data.url_imagen;
+      this.url = this.imageDefault + data.url_imagen;
 
-      console.log(data)
       this.editarEmpleadoForm.controls['id'].setValue(data.id)
       this.editarEmpleadoForm.controls['nombre'].setValue(data.nombre)
       this.editarEmpleadoForm.controls['ape_pat'].setValue(data.ape_pat)
@@ -105,9 +97,10 @@ export class EditempleadoComponent implements OnInit {
       this.editarEmpleadoForm.controls['rol_id'].setValue(data.rol_id)
       this.editarEmpleadoForm.controls['usuario_modificacion_id'].setValue(this.user.id)
 
-      //console.log(this.paquete)
 
-      console.log(this.editarEmpleadoForm.invalid)
+      console.log(data);
+
+      //console.log(this.editarEmpleadoForm.invalid)
 
 
       this.roles.forEach( element => {
@@ -137,12 +130,23 @@ export class EditempleadoComponent implements OnInit {
     
     //const formValue = this.editarPaqueteForm.value;
     this.empleadosService.updateEmpleado(this.id, formData).subscribe( data => {
+      console.log(data);
       if (data){
         this.toastr.success("Empleado actualizado exitosamente");
         this.router.navigate(['/empleados'])
       }
     })
 
+  }
+
+  getUser(){
+    this.subscription.add(this.authService.user$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((user: UserResponse) => {
+        if (user) {
+          this.user = user;
+        }
+      }));
   }
 
   changeRol(value: any) {

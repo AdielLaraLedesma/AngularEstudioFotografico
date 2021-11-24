@@ -67,7 +67,7 @@ export class EmpleadosService {
 
   updateEmpleado(id: string, empleado: Employee) {
     return this.http
-      .put(`/api/usuarios/actualizarDatos/${id}`, empleado)
+      .put(`/api/usuarios/actualizar/${id}`, empleado)
       .pipe(
         map((empleado: any) => {
           return empleado;

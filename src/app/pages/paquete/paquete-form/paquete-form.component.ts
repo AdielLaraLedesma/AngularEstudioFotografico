@@ -107,7 +107,9 @@ export class PaqueteFormComponent implements OnInit, OnDestroy {
 
     this.paqueteService.savePaquete(formData).subscribe( data => {
       if (data){
-        this.toastr.success("Paquete agregado exitosamente");
+        this.toastr.success("El paquete fue agregado exitosamente", "Paquete agregado", {
+          positionClass: 'toast-bottom-right'
+        });
         this.router.navigate(['/paquetes'])
       }
     })
@@ -141,8 +143,10 @@ export class PaqueteFormComponent implements OnInit, OnDestroy {
     this.marcos.forEach( element => {
       if (element.nombre == value)
         this.agregarPaqueteForm.controls['marco_id'].setValue(element.id)
-
-      
+      if (value != "Sin Marco"){
+        this.agregarPaqueteForm.controls['tipo_paquete_id'].setValue(2)
+        this.selectedTipoPaquete = "Sesion fotografica";
+      }
     })
   }
 

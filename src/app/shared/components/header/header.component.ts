@@ -44,7 +44,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         if (user) {
           this.isLogged = true;
           this.user = user;
-          console.log(this.user)
         }
       });
   }

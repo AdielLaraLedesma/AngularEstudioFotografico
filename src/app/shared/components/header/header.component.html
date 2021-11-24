@@ -7,7 +7,7 @@
     </div>
     <span class="spacer"></span>
     <button mat-button [matMenuTriggerFor]="menu">
-      <img style="width: 13%; margin-right: 5px;" [src]="urlPreffix + user.url_imagen">
+      <img class="auth-img" [src]="urlPreffix + user.url_imagen">
 
       <ng-container *ngIf="user.rol_id == 1;">
         <strong>ADMINISTRADOR</strong>

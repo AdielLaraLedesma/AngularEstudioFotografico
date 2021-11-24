@@ -30,3 +30,7 @@ a {
     text-decoration: none;
     color: #ffff;
 }
+
+.auth-img{
+    width: 100px; margin-right: 5px;
+}

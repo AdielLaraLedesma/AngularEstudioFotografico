@@ -40,7 +40,6 @@ export class EmpleadosComponent implements OnInit {
   getEmpleados(){
     this.empleadosService.getEmpleados().subscribe(data => {
       this.empleados = data;
-      console.log(data)
     });
   }
 

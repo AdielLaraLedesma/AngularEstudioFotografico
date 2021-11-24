@@ -9,6 +9,10 @@ import { TipoPaquete } from 'src/app/shared/models/tipo-paquetes.interface';
 import { Marco } from 'src/app/shared/models/marco.interface';
 import { getMatScrollStrategyAlreadyAttachedError } from '@angular/cdk/overlay/scroll/scroll-strategy';
 import { MarcosService } from 'src/app/services/marcos.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { UserResponse } from 'src/app/shared/models/user.interface';
 
 @Component({
   selector: 'app-editpaquete',
@@ -17,13 +21,13 @@ import { MarcosService } from 'src/app/services/marcos.service';
 })
 export class EditpaqueteComponent implements OnInit {
 
-  //@HostBinding('class') classes = "row";
-
-
+  /* Imagen */
   public newFile: File =  null!;
   public url: any;
-
-  public imageSrc = 'assets/img/image-not-found.png'   
+  public imageSrc = 'assets/img/image-not-found.png' 
+  
+  private destroy$ = new Subject<any>();
+  public user: UserResponse = null!;
 
   public selectedTamano = '';
   tamanos: Tamano[]=[{id: 1,nombre: '9 x 13'},{id: 2, nombre: '13 x 18'},{id: 3, nombre: '15 x 20'}];
@@ -54,14 +58,12 @@ export class EditpaqueteComponent implements OnInit {
     tipo_paquete_id: new FormControl('', [Validators.required]), 
     precio: new FormControl('', [Validators.required]), 
     usuario_registro_id: new FormControl(Validators.required),
-    //url_imagen: new FormControl('', [Validators.maxLength(300)])  
-    
     file: new FormControl()
-
   })
   
 
   constructor(
+    private authService: AuthService,
     private paqueteService: PaquetesService,
     private marcoService: MarcosService,
     private rutaActiva: ActivatedRoute,
@@ -70,6 +72,14 @@ export class EditpaqueteComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+
+    this.authService.user$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((user: UserResponse) => {
+        if (user) {
+          this.user = user;
+        }
+      });
 
     this.getMarco();
 
@@ -144,12 +154,14 @@ export class EditpaqueteComponent implements OnInit {
     //const formValue = this.editarPaqueteForm.value;
     this.paqueteService.updatePaquete(this.id, formData).subscribe( data => {
       if (data){
-        this.toastr.success("Paquete actualizado exitosamente");
+        this.toastr.success("El paquete fue actualizado exitosamente", "Paquete actualizado", {
+          positionClass: 'toast-bottom-right'
+        });
         this.router.navigate(['/paquetes'])
       }
     })
 
-  }
+  } 
 
   getMarco() {
     this.marcoService.getMarcos().subscribe( data => {
@@ -164,11 +176,8 @@ export class EditpaqueteComponent implements OnInit {
       file: file
     });
     this.editarPaqueteForm.get('file')?.updateValueAndValidity()
-    //this.url = URL.createObjectURL(event.target.files[0]);
-
     var reader = new FileReader();
 		reader.readAsDataURL(event.target.files[0]);
-
     reader.onload = (_event) => {
 			this.url = reader.result; 
 		}
@@ -181,15 +190,24 @@ export class EditpaqueteComponent implements OnInit {
     })
   }
   changeTipoPaquete(value: any) {
+    console.log(value)
     this.tipo_paqutes.forEach( element => {
       if (element.nombre == value)
         this.editarPaqueteForm.controls['tipo_paquete_id'].setValue(element.id)
+      if (value == "Evento social"){
+        this.editarPaqueteForm.controls['marco_id'].setValue(1)
+        this.selectedMarco = "Sin Marco";
+      }
     })
   }
   changeMarco(value: any) {
     this.marcos.forEach( element => {
       if (element.nombre == value)
         this.editarPaqueteForm.controls['marco_id'].setValue(element.id)
+      if (value != "Sin Marco"){
+        this.editarPaqueteForm.controls['tipo_paquete_id'].setValue(2)
+        this.selectedTipoPaquete = "Sesion fotografica";
+      }
     })
   }
 
