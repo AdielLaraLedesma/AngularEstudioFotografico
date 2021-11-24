@@ -1,32 +1,31 @@
 <div class="mt-3 container-btn">
   <a class="btn btn-primary" routerLink="agregar">Agregar</a>
-</div>
   <hr>
-  
-  <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Id</th>
-          <th scope="col" style="width: 80%;">Nombre</th>
-          <th scope="col">Precio</th>
-          <th scope="col">Opciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let marco of marcos">
-          <th scope="row">{{ marco.id }}</th>
-          <td> {{ marco.nombre }}</td>
-          <td> {{ marco.precio }}</td>
-          <td style="display: flex; flex-direction: row;">
-              <a class="nav-link" routerLink="/editmarco/{{marco.id}}">
-                  <mat-icon>edit</mat-icon>
-              </a>
-              <a class="nav-link" (click) = "eliminarMarco(marco.id)">
-                  <mat-icon>delete</mat-icon>
-              </a>
-          </td>
-  
-        </tr>
-      </tbody>
-  </table>
+</div>
 
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col" style="width: 80%;">Nombre</th>
+      <th scope="col">Precio</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let marco of marcos">
+      <th scope="row">{{ marco.id }}</th>
+      <td> {{ marco.nombre }}</td>
+      <td> {{ marco.precio }}</td>
+      <td style="display: flex; flex-direction: row;">
+        <a class="nav-link" routerLink="/editmarco/{{marco.id}}">
+          <mat-icon>edit</mat-icon>
+        </a>
+        <a class="nav-link" (click)="eliminarMarco(marco.id)">
+          <mat-icon>delete</mat-icon>
+        </a>
+      </td>
+
+    </tr>
+  </tbody>
+</table>

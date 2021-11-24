@@ -45,7 +45,7 @@ export class EditempleadoComponent implements OnInit, OnDestroy {
     celular: new FormControl(0, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
     direccion: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     correo: new FormControl('', [Validators.required, Validators.maxLength(60), Validators.email]),
-    fech_nac: new FormControl('', Validators.required),
+    //fech_nac: new FormControl('', Validators.required),
     rol_id: new FormControl(0, [Validators.required]),
     usuario_modificacion_id: new FormControl(0, [Validators.required]),
 
@@ -93,7 +93,7 @@ export class EditempleadoComponent implements OnInit, OnDestroy {
       this.editarEmpleadoForm.controls['celular'].setValue(data.celular)
       this.editarEmpleadoForm.controls['direccion'].setValue(data.direccion)
       this.editarEmpleadoForm.controls['correo'].setValue(data.correo)
-      this.editarEmpleadoForm.controls['fech_nac'].setValue(data.fech_nac)
+      //this.editarEmpleadoForm.controls['fech_nac'].setValue(new Date(data.fech_nac))
       this.editarEmpleadoForm.controls['rol_id'].setValue(data.rol_id)
       this.editarEmpleadoForm.controls['usuario_modificacion_id'].setValue(this.user.id)
 
@@ -122,17 +122,18 @@ export class EditempleadoComponent implements OnInit, OnDestroy {
     formData.append("celular", this.editarEmpleadoForm.get('celular')?.value);
     formData.append("direccion", this.editarEmpleadoForm.get('direccion')?.value);
     formData.append("correo", this.editarEmpleadoForm.get('correo')?.value);
-    formData.append("fech_nac", this.editarEmpleadoForm.get('fech_nac')?.value);
+    //formData.append("fech_nac", this.editarEmpleadoForm.get('fech_nac')?.value);
     formData.append("rol_id", this.editarEmpleadoForm.get('rol_id')?.value);
-    formData.append("usuario_registro_id", this.editarEmpleadoForm.get('usuario_registro_id')?.value);
+    formData.append("usuario_modificacion_id", this.editarEmpleadoForm.get('usuario_modificacion_id')?.value);
     formData.append("file", this.editarEmpleadoForm.get('file')?.value);
 
     
-    //const formValue = this.editarPaqueteForm.value;
     this.empleadosService.updateEmpleado(this.id, formData).subscribe( data => {
       console.log(data);
-      if (data){
-        this.toastr.success("Empleado actualizado exitosamente");
+      if (data){ 
+        this.toastr.success("El empleado fue actualizado exitosamente", "Empleado actualizado", {
+          positionClass: 'toast-bottom-right'
+        });
         this.router.navigate(['/empleados'])
       }
     })
@@ -140,13 +141,15 @@ export class EditempleadoComponent implements OnInit, OnDestroy {
   }
 
   getUser(){
-    this.subscription.add(this.authService.user$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((user: UserResponse) => {
+    this.subscription.add(
+      this.authService.user$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((user: UserResponse) => {
         if (user) {
           this.user = user;
         }
-      }));
+      })
+    );
   }
 
   changeRol(value: any) {

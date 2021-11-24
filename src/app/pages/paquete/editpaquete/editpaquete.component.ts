@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { PaquetesService } from 'src/app/services/paquetes.service';
 import { Paquete } from 'src/app/shared/models/paquete.interface';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { getMatScrollStrategyAlreadyAttachedError } from '@angular/cdk/overlay/s
 import { MarcosService } from 'src/app/services/marcos.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { UserResponse } from 'src/app/shared/models/user.interface';
 
 @Component({
@@ -19,7 +19,7 @@ import { UserResponse } from 'src/app/shared/models/user.interface';
   templateUrl: './editpaquete.component.html',
   styleUrls: ['./editpaquete.component.css']
 })
-export class EditpaqueteComponent implements OnInit {
+export class EditpaqueteComponent implements OnInit, OnDestroy {
 
   /* Imagen */
   public newFile: File =  null!;
@@ -28,6 +28,7 @@ export class EditpaqueteComponent implements OnInit {
   
   private destroy$ = new Subject<any>();
   public user: UserResponse = null!;
+  private subscription: Subscription = new Subscription();
 
   public selectedTamano = '';
   tamanos: Tamano[]=[{id: 1,nombre: '9 x 13'},{id: 2, nombre: '13 x 18'},{id: 3, nombre: '15 x 20'}];
@@ -57,7 +58,7 @@ export class EditpaqueteComponent implements OnInit {
     tamano_id: new FormControl(0, [Validators.required]),
     tipo_paquete_id: new FormControl('', [Validators.required]), 
     precio: new FormControl('', [Validators.required]), 
-    usuario_registro_id: new FormControl(Validators.required),
+    usuario_modificacion_id: new FormControl(Validators.required),
     file: new FormControl()
   })
   
@@ -70,17 +71,17 @@ export class EditpaqueteComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router
     ) { }
+    ngOnDestroy(): void {
+      //this.subscription.unsubscribe();
+      this.destroy$.next({});
+      this.destroy$.complete();
+      this.subscription.unsubscribe();
+  
+    }
 
   ngOnInit(): void {
 
-    this.authService.user$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((user: UserResponse) => {
-        if (user) {
-          this.user = user;
-        }
-      });
-
+    this.getUser();
     this.getMarco();
 
     this.id = this.rutaActiva.snapshot.params.id;
@@ -106,7 +107,7 @@ export class EditpaqueteComponent implements OnInit {
       this.editarPaqueteForm.controls['tamano_id'].setValue(data.tamano_id)
       this.editarPaqueteForm.controls['precio'].setValue(data.precio)
       this.editarPaqueteForm.controls['tipo_paquete_id'].setValue(data.tipo_paquete_id)
-      this.editarPaqueteForm.controls['usuario_registro_id'].setValue(data.usuario_registro_id)
+      this.editarPaqueteForm.controls['usuario_modificacion_id'].setValue(this.user.id)
       //this.editarPaqueteForm.controls['url_imagen'].setValue(data.url_imagen)
 
       console.log(data)
@@ -147,11 +148,10 @@ export class EditpaqueteComponent implements OnInit {
     formData.append("tamano_id", this.editarPaqueteForm.get('tamano_id')?.value);
     formData.append("precio", this.editarPaqueteForm.get('precio')?.value);
     formData.append("tipo_paquete_id", this.editarPaqueteForm.get('tipo_paquete_id')?.value);
-    formData.append("usuario_registro_id", this.editarPaqueteForm.get('usuario_registro_id')?.value);
+    formData.append("usuario_modificacion_id", this.editarPaqueteForm.get('usuario_modificacion_id')?.value);
     formData.append("file", this.editarPaqueteForm.get('file')?.value);
 
     
-    //const formValue = this.editarPaqueteForm.value;
     this.paqueteService.updatePaquete(this.id, formData).subscribe( data => {
       if (data){
         this.toastr.success("El paquete fue actualizado exitosamente", "Paquete actualizado", {
@@ -167,6 +167,17 @@ export class EditpaqueteComponent implements OnInit {
     this.marcoService.getMarcos().subscribe( data => {
         this.marcos = data
     })
+  }
+  getUser(){
+    this.subscription.add(
+      this.authService.user$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((user: UserResponse) => {
+        if (user) {
+          this.user = user;
+        }
+      })
+    );
   }
 
 

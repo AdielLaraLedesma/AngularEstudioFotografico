@@ -1,9 +1,9 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Employee } from '../../../shared/models/employee.interface';
 import { Rol } from '../../../shared/models/rol.interface'
 import { EmpleadosService } from '../../../services/empleados.service'
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { UserResponse } from 'src/app/shared/models/user.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { takeUntil } from 'rxjs/operators';
@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   templateUrl: './empleados-form.component.html',
   styleUrls: ['./empleados-form.component.css']
 })
-export class EmpleadosFormComponent implements OnInit {
+export class EmpleadosFormComponent implements OnInit, OnDestroy {
 
 
   public url: any;
@@ -27,8 +27,10 @@ export class EmpleadosFormComponent implements OnInit {
 
   public selectedFile: File =  null!;
 
-  roles: Rol[]=[{id: 1,nombre: 'administrador'},{id: 3, nombre: 'fotografo'},{id: 4, nombre: 'recepcionista'}];
+  roles: Rol[]=[{id: 1,nombre: 'Administrador'},{id: 3, nombre: 'Fotografo'},{id: 4, nombre: 'Recepcionista'}];
   selectedRol = 0;
+
+  private subscription: Subscription = new Subscription();
 
   agregarEmpleadoForm = new FormGroup({
     id: new FormControl({value:'', disabled:true}, Validators.required),
@@ -50,6 +52,9 @@ export class EmpleadosFormComponent implements OnInit {
     private authService: AuthService,
     private toastr: ToastrService,
     private router: Router) { }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.authService.user$
@@ -78,11 +83,14 @@ export class EmpleadosFormComponent implements OnInit {
 
       
 
-    this.empleadoService.saveEmpleado(formData).subscribe( data => {
-      console.log(data)
-      this.toastr.success("Empleado agregado exitosamente");
-      this.router.navigate(['/empleados'])
-    })
+    this.subscription.add(
+      this.empleadoService.saveEmpleado(formData).subscribe( data => {
+        this.toastr.success("El empleado fue agregado exitosamente", "Empleado agregado", {
+          positionClass: 'toast-bottom-right'
+        });
+        this.router.navigate(['/empleados'])
+      })
+    );
 
   }
 

@@ -1,26 +1,21 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { Paquete } from "../shared/models/paquete.interface"
-import { Observable } from 'rxjs/internal/Observable';
-import { catchError, map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { ServicioEvento } from '../shared/models/servicioevento.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PaquetesService {
-
-
+export class FotografoService {
 
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
-    ) { 
-  }
+  ) { }
 
-  getPaquetes(): Observable<Paquete[]>{
+  getServicios(): Observable<Paquete[]>{
     return this.http
       .get<Paquete[]>('/api/paquetes/')
       .pipe(
@@ -31,9 +26,9 @@ export class PaquetesService {
       );
   }
 
-  getPaquete(id: string) {
+  getServicio(id: string) {
     return this.http
-    .get<Paquete>(`/api/paquetes/${id}`)
+    .get<Paquete>(`/api/servicios_evento/${id}`)
     .pipe(
       map((paquete: any) => {
         return paquete;
@@ -42,36 +37,31 @@ export class PaquetesService {
     );
   }
 
-  savePaquete(fd: any) {
-    return this.http
-    .post('/api/paquetes/agregar', fd).pipe(
-      map((paquete: any) => {
-        return paquete;
-      }),
-      catchError((err: { message: any; }) => this.handlerError(err))
-    );
-  }
 
-  deletePaquete(id: any) {
-    return this.http
-    .delete(`/api/paquetes/eliminar/${id}`).pipe(
-      map((paquete: any) => {
-        return paquete;
-      }),
-      catchError((err: { message: any; }) => this.handlerError(err))
-    );
-  } 
 
-  updatePaquete(id: string, paquete: Paquete) {
+  updateImg(id: string, fd: any) {
     return this.http
-      .put(`/api/paquetes/actualizar/${id}`, paquete)
+      .put(`/api/servicios_evento/subir_imagenes/${id}`, fd)
       .pipe(
-        map((paquete: any) => {
-          return paquete;
+        map((servicioEvento: any) => {
+          return servicioEvento;
         }),
         catchError((err: { message: any; }) => this.handlerError(err))
       );
   }
+  updateVideo(id: string, fd: any) {
+    return this.http
+      .put(`/api/servicios_evento/subir_videos/${id}`, fd)
+      .pipe(
+        map((servicioEvento: any) => {
+          return servicioEvento;
+        }),
+        catchError((err: { message: any; }) => this.handlerError(err))
+      );
+  }
+
+
+
 
 
   private handlerError(err: { message: any; }): Observable<never> {

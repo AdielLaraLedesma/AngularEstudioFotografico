@@ -1,7 +1,7 @@
 <div class="mt-3 container-btn">
     <a class="btn btn-primary" routerLink="agregar">Agregar</a>
+    <hr>
   </div>
-  <hr>
   
   <table class="table table-striped">
       <thead> 
@@ -30,10 +30,10 @@
           <td> {{ empleado.correo }}</td>
           <td style="width: 15%;" >
             <ng-container *ngIf="empleado.url_imagen != null; else fotoDefault">
-              <img style="width: 100%;" [src]="imageSrc + empleado.url_imagen"/>
+              <img class="img-table" [src]="imageSrc + empleado.url_imagen"/>
             </ng-container>
             <ng-template #fotoDefault>
-              <img style="width: 100%;" [src]="imageSrcDefault" alt="Imagen no encontrada"/>
+              <img class="img-table" [src]="imageSrcDefault" alt="Imagen no encontrada"/>
             </ng-template>
           </td>
           <td style="display: flex; flex-direction: row;">

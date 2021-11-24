@@ -1,9 +1,14 @@
 <mat-toolbar color="primary">
   <ng-container *ngIf="isLogged; else viewNoLogged">
     <div>
-      <a mat-button routerLink="/paquetes">Paquetes</a>
-      <a mat-button routerLink="/empleados">Empleados</a>
-      <a mat-button routerLink="/marcos">Marcos</a>
+      <ng-container *ngIf="user.rol_id == 1;">
+        <a mat-button routerLink="/paquetes">Paquetes</a>
+        <a mat-button routerLink="/empleados">Empleados</a>
+        <a mat-button routerLink="/marcos">Marcos</a>
+      </ng-container>
+      <ng-container *ngIf="user.rol_id == 3;">
+        <a mat-button routerLink="/serviciosfotografo/{{user.id}}">Mis servicios</a>
+      </ng-container>
     </div>
     <span class="spacer"></span>
     <button mat-button [matMenuTriggerFor]="menu">

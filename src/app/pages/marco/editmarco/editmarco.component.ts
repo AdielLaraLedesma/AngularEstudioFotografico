@@ -17,9 +17,9 @@ import { UserResponse } from 'src/app/shared/models/user.interface';
 export class EditmarcoComponent implements OnInit, OnDestroy {
 
   id: string =  "";
+
   private destroy$ = new Subject<any>();
   public user: UserResponse = null!;
-
   private subscription: Subscription = new Subscription();
 
 
@@ -64,16 +64,15 @@ export class EditmarcoComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
   getUsuario() {
-    this.authService.user$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((user: UserResponse) => {
+    this.subscription.add(
+      this.authService.user$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((user: UserResponse) => {
         if (user) {
           this.user = user;
         }
-      });
-
-
-
+      })
+    );
   }
 
 
@@ -82,7 +81,9 @@ export class EditmarcoComponent implements OnInit, OnDestroy {
     
     this.marcoService.updateMarco(this.id, formValue).subscribe( data => {
       if (data){
-        this.toastr.success("Marco actualizado correctamente!!!!");
+        this.toastr.success("El marco fue actualizado exitosamente", "Marco actualizado", {
+          positionClass: 'toast-bottom-right'
+        });
         this.router.navigate(['/marcos'])
       }
     } )

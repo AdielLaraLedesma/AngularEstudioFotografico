@@ -92,7 +92,8 @@ const routes: Routes = [
     path: 'editmarco/:id', 
     loadChildren: () => import('../app/pages/marco/editmarco/editmarco.module').then(m => m.EditmarcoModule),
     canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
-  }
+  },
+  { path: 'serviciosfotografo/:id', loadChildren: () => import('./pages/misservicios/misservicios.module').then(m => m.MisserviciosModule) }
 
 ];
 

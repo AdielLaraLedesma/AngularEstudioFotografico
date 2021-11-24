@@ -37,3 +37,9 @@ table {
     margin: auto;
     text-align: right;
   }
+
+
+  .img-table {
+    width: 100%; 
+    max-width: 100px;
+  }

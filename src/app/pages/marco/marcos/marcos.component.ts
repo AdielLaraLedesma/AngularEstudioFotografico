@@ -21,12 +21,13 @@ export class MarcosComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMarcos();
-  }
+  } 
 
   eliminarMarco(id: number){
     this.marcosService.deleteMarco(id).subscribe(data => {
-      //this.paquetes = data;
-      this.toastr.success("El paquete ha sido eliminado con exito");
+      this.toastr.success("El marco fue eliminado exitosamente", "Marco eliminado", {
+        positionClass: 'toast-bottom-right'
+      });
       this.getMarcos();
     })
     //TODO Implementar http request para eliminar paquete
