@@ -127,6 +127,8 @@ export class EditempleadoComponent implements OnInit, OnDestroy {
     formData.append("usuario_modificacion_id", this.editarEmpleadoForm.get('usuario_modificacion_id')?.value);
     formData.append("file", this.editarEmpleadoForm.get('file')?.value);
 
+
+    console.log(this.editarEmpleadoForm.controls['file']?.value)
     
     this.empleadosService.updateEmpleado(this.id, formData).subscribe( data => {
       console.log(data);

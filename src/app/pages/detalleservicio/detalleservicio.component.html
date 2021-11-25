@@ -1,7 +1,20 @@
 <div class="main-content">
     <div class="container mt-4">
         <div class="row">
-            <div class="col-xl-9 m-auto order-xl-1">
+            <div class="col-xl-3 order-xl-1">
+                <h2>Videos seleccionados</h2>
+                <ng-container *ngIf="videosHtml == []; else viewVideo">
+                    <p>No hay videos</p>
+                </ng-container>
+                <ng-template #viewVideo>
+
+                    <video *ngFor='let url of videosHtml;' width="200" height="200" controls
+                        (click)="removeImagen(url)">
+                        <source [src]="url" type="video/mp4">
+                    </video>
+                </ng-template>
+            </div>
+            <div class="col-xl-6 m-auto order-xl-1">
                 <div class="card bg-secondary shadow">
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
@@ -46,42 +59,42 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="row mt-4">
-                            <form [formGroup]="agregarImagenesForm" (ngSubmit)="agregarImagenes()">
+                        <form [formGroup]="agregarImagenesVideoForm" (ngSubmit)="agregarMultimedia()">
+                            <div class="row mt-4">
                                 <div class="col-lg-6">
                                     <div class="form-group focused">
-                                        <input class="mb-3" 
-                                        formControlName="file"
-                                        multiple=""
-                                        type="file" (change)="onImageSelected($event)">
-                                        <mat-icon>add</mat-icon> Agregar imagenes
-                                        <button [disabled]="agregarImagenesForm.invalid" mat-raised-button type="submit"
-                                            color="primary">Agregar imagenes
-                                        </button>
-
+                                        <input class="mb-3" multiple="" id="img" class="hiden" style="display:none;" type="file" (change)="onImageSelected($event)">
+                                        <label for="img" class="btn btn-primary"><mat-icon style="font-size: 20px !important;">add</mat-icon>Seleccionar imagenes</label>
                                     </div>
                                 </div>
-                                <!--<div class="col-lg-6">
+                                <div class="col-lg-6">
                                     <div class="form-group focused">
-                                        <input class="mb-3" type="file" (change)="onVideoSelected($event)">
-                                        <mat-icon>add</mat-icon> Agregar video
+                                        <input class="mb-3" multiple="" id="vid" class="hiden" style="display:none;" type="file" (change)="onVideoSelected($event)">
+                                        <label for="vid" class="btn btn-primary"><mat-icon style="font-size: 20px !important;">add</mat-icon>Seleccionar video</label>
                                     </div>
-                                </div>-->
-                            </form>
-                        </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <button style="width: 100%;" [disabled]="agregarImagenesVideoForm.invalid" mat-raised-button type="submit"
+                                    color="primary">
+                                    Guardar cambios
+                                </button>
+                            </div>
+                        </form>
                     </div>
 
                 </div>
             </div>
             <div class="col-xl-3 order-xl-1">
                 <h2>Imagenes seleccionadas</h2>
-                <ng-container *ngIf="images == []; else viewImage">
-                  <img class="img-form" [src]="imageSrc" alt="Imagen no encontrada" />
+                <ng-container *ngIf="imagesHtml == []; else viewImage">
+                    <img class="img-form" [src]="imageSrc" alt="Imagen no encontrada" />
                 </ng-container>
                 <ng-template #viewImage>
-                    <img class="img-form" *ngFor='let url of images'  [src]="url" style="margin: 3px;"> <br/>
+                    <img class="img-form" *ngFor='let url of imagesHtml; let i = index' [src]="url" style="margin: 3px;"
+                        (click)="removeImagen(url)"> <br />
                 </ng-template>
-              </div>
+            </div>
         </div>
     </div>
 </div>

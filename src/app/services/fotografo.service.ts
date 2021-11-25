@@ -40,6 +40,7 @@ export class FotografoService {
 
 
   updateImg(id: string, fd: any) {
+    console.log(fd);
     return this.http
       .put(`/api/servicios_evento/subir_imagenes/${id}`, fd)
       .pipe(
