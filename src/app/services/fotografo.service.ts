@@ -15,12 +15,12 @@ export class FotografoService {
     private toastr: ToastrService,
   ) { }
 
-  getServicios(): Observable<Paquete[]>{
+  getServicios(id: string): Observable<ServicioEvento[]>{
     return this.http
-      .get<Paquete[]>('/api/paquetes/')
+      .get<ServicioEvento[]>(`/api/servicios_evento/byFotografo/${id}`)
       .pipe(
-        map((paquetes: Paquete[]) => {
-          return paquetes;
+        map((servicios: ServicioEvento[]) => {
+          return servicios;
         }),
         catchError((err: { message: any; }) => this.handlerError(err))
       );
@@ -28,10 +28,10 @@ export class FotografoService {
 
   getServicio(id: string) {
     return this.http
-    .get<Paquete>(`/api/servicios_evento/${id}`)
+    .get<ServicioEvento>(`/api/servicios_evento/${id}`)
     .pipe(
-      map((paquete: any) => {
-        return paquete;
+      map((servicio: any) => {
+        return servicio;
       }),
       catchError((err: { message: any; }) => this.handlerError(err))
     );

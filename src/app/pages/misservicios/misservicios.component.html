@@ -1,1 +1,13 @@
-<p>misservicios works!</p>
+<div class="main-content">
+    <div class="container">
+        <div *ngFor="let servicioEvento of servicioEventos" class="card mt-3" routerLink="/detalleservicio/{{servicioEvento.id}}">
+            <div class="card-header">
+                <h2>{{ servicioEvento.nombre_cliente }}</h2>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title">{{ servicioEvento.paquete_nombre }}</h3>
+                <h3 class="card-text"> {{ servicioEvento.estatus_nombre }} </h3>
+            </div>
+        </div>
+    </div>
+</div>

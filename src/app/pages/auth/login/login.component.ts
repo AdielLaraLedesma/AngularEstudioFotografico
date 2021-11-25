@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm = new FormGroup({
     correo: new FormControl('', [Validators.required, Validators.email]),
-    contrasena: new FormControl('', [Validators.required, Validators.pattern('((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30})')])
+  contrasena: new FormControl('', [Validators.required/*, Validators.pattern("/^(?=.*\d)(?=.*[a-zA-Z]).{6,20}$/")*/])
   })
 
   isLogged = false;

@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserResponse } from 'src/app/shared/models/user.interface';
 
 @Component({
   selector: 'app-changepassword',
@@ -12,6 +18,10 @@ export class ChangepasswordComponent implements OnInit {
   public hideNewPassword = true;
   public hideConfirmPassword = true;
 
+  private destroy$ = new Subject<any>();
+  public user: UserResponse = null!;
+  private subscription: Subscription = new Subscription();
+
 
   changeForm = new FormGroup({
     contrasena: new FormControl('', [Validators.required, Validators.pattern('((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30})')]),
@@ -20,24 +30,46 @@ export class ChangepasswordComponent implements OnInit {
   })
 
 
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
   }
 
   changePassword(){
 
-    
-    if(this.changeForm.invalid){
-      return;
-    }
+    this.getUser();
 
-    
+
+
+  
     //TODO Aqui poner el metodo post para cambiar la contraseña
+    const formValue = this.changeForm.value;
+    this.authService.changePassword(formValue, this.user.id).subscribe( (data: { message: string; }) => {
+      if (data.message == "Se ha modificado la contraseña"){
+        this.toastr.success('El cambio de contraseña fue realizado exitosamente', "Cambio de contraseña", {
+          positionClass: 'toast-bottom-right'
+        });
+        this.router.navigate([''])
+      }
+    })
 
 
 
-
+  }
+  getUser(){
+    this.subscription.add(
+      this.authService.user$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((user: UserResponse) => {
+        if (user) {
+          this.user = user;
+        }
+      })
+    );
   }
 
 

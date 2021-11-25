@@ -18,6 +18,8 @@ import { Router } from '@angular/router';
 })
 export class EmpleadosFormComponent implements OnInit, OnDestroy {
 
+  /* Necesario para ocultar el password */
+  public hide = true;
 
   public url: any;
   public imageSrc = 'assets/img/image-not-found.png'  

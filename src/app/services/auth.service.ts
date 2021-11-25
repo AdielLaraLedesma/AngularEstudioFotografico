@@ -64,7 +64,6 @@ export class AuthService {
       .post<UserResponse>('/api/usuarios/logout',{})
       .pipe(
         map((res: any) => {
-          console.log('hola desde el logout')
           this.user.next(null!);
           return res;
         }),
@@ -73,9 +72,18 @@ export class AuthService {
 
   }
 
-  /*get isLogged(): Observable<boolean>{
-    return this.loggedIn.asObservable();
-  }*/
+  changePassword(user: any, id: number): any{
+    return this.http
+      .put<any>(`/api/usuarios/cambiarContrasena/${id}`, user)
+      .pipe(
+        map((res: any) => {
+        return res;
+      }),
+      catchError((err) => this.handlerError(err))
+    );
+  }
+
+ 
 
   get user$(): Observable<UserResponse> {
     return this.user.asObservable();

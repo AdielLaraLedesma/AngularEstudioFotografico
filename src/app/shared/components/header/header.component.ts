@@ -53,12 +53,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onLogout() {
     this.isLogged = false;
     //this.authService.logout();
+    const nombre = this.user.nombre;
 
     this.subscription.add(
       this.authService.logout().subscribe((res) => {
         if (res) {
           this.router.navigate(['/login']);
-          this.toastr.warning('Goodbye see you later!');
+          this.toastr.warning(`Nos vemos pronto ${nombre}`, "Acabas de cerrar sesión", {
+            positionClass: 'toast-bottom-right'
+          });
         }
       })
     );

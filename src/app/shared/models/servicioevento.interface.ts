@@ -16,5 +16,8 @@ export interface ServicioEvento{
     fecha_registro: number;
     fecha_modificacion?: Date;
     usuario_modificacion_id?: number;
+    nombre_cliente: string;
+    paquete_nombre: string;
+    estatus_nombre: string;
 
 }

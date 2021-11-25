@@ -4,6 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
+import { FotografoService } from 'src/app/services/fotografo.service';
+import { ServicioEvento } from 'src/app/shared/models/servicioevento.interface';
 import { UserResponse } from '../../shared/models/user.interface';
 
 @Component({
@@ -19,9 +21,12 @@ export class MisserviciosComponent implements OnInit, OnDestroy {
   public user: UserResponse = null!;
   private subscription: Subscription = new Subscription();
 
+  public servicioEventos: ServicioEvento[] | undefined;
+
   constructor(
     private rutaActiva: ActivatedRoute,
     private authService: AuthService,
+    private fotografoService: FotografoService, 
     private router: Router,
     private toastr: ToastrService,
   ) { }
@@ -33,6 +38,14 @@ export class MisserviciosComponent implements OnInit, OnDestroy {
       this.router.navigate(["/"]);
         return
     }
+
+    this.subscription.add(
+      this.fotografoService.getServicios(this.id).subscribe( data => {
+        this.servicioEventos = data;
+        console.log(this.servicioEventos)
+      })
+    );
+
 
     
 

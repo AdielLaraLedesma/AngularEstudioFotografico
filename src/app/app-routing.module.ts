@@ -76,7 +76,7 @@ const routes: Routes = [
   { 
     path: 'changepassword', 
     loadChildren: () => import('./pages/auth/changepassword/changepassword.module').then(m => m.ChangepasswordModule) ,
-    canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
+    canActivate: [CheckNotLoginGuard]
   },
   { 
     path: 'editpaquete/:id', 
@@ -93,7 +93,14 @@ const routes: Routes = [
     loadChildren: () => import('../app/pages/marco/editmarco/editmarco.module').then(m => m.EditmarcoModule),
     canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
-  { path: 'serviciosfotografo/:id', loadChildren: () => import('./pages/misservicios/misservicios.module').then(m => m.MisserviciosModule) }
+  { 
+    path: 'serviciosfotografo/:id', 
+    loadChildren: () => import('./pages/misservicios/misservicios.module').then(m => m.MisserviciosModule)
+  },
+  { 
+    path: 'detalleservicio/:id', 
+    loadChildren: () => import('./pages/detalleservicio/detalleservicio.module').then(m => m.DetalleservicioModule) 
+  }
 
 ];
 

@@ -1,129 +1,3 @@
-<!--<div class="col-md-4 offset-md-4">
-    <div class="card mt-4">
-        <div class="card-body">
-            <form [formGroup]="agregarEmpleadoForm" (ngSubmit)="agregarEmpleado()">
-                <mat-form-field class="width-input-20">
-                    <input 
-                    matInput 
-                    class="form-control"
-                    formControlName="nombre"
-                    type="text" 
-                    placeholder="Nombre del empleado">
-                    <mat-error *ngIf="isValidField('nombre')">
-                        {{ getErrorMessage("nombre") }}
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="ml-5 width-input-20">
-                    <input 
-                    matInput 
-                    class="form-control"
-                    formControlName="ape_pat"
-                    type="text" 
-                    placeholder="Apellido Paterno">
-                    <mat-error *ngIf="isValidField('ape_pat')">
-                        {{ getErrorMessage("ape_pat") }}
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="ml-5 width-input-20">
-                    <input 
-                    matInput 
-                    class="form-control"
-                    formControlName="ape_mat"
-                    type="text" 
-                    placeholder="Apellido Materno">
-                    <mat-error *ngIf="isValidField('ape_mat')">
-                        {{ getErrorMessage("ape_mat") }}
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="width-input-80">
-                    <input 
-                    matInput 
-                    class="form-control"
-                    formControlName="correo"
-                    type="email" 
-                    placeholder="correo">
-                    <mat-error *ngIf="isValidField('correo')">
-                        {{ getErrorMessage("correo") }}
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field class="ml-4 width-input-30">
-                    <input 
-                    matInput 
-                    class="form-control"
-                    formControlName="contrasena"
-                    type="text" 
-                    placeholder="Contraseña">
-                    <mat-error *ngIf="isValidField('contrasena')">
-                        {{ getErrorMessage("contrasena") }}
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field class="ml-5 width-input-30">
-                    <input 
-                    matInput 
-                    class="form-control"
-                    formControlName="celular"
-                    type="tel" 
-                    placeholder="celular">
-                    <mat-error *ngIf="isValidField('celular')">
-                        {{ getErrorMessage("celular") }}
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="full-width-input">
-                    <textarea 
-                    matInput 
-                    class="form-control"
-                    formControlName="direccion"
-                    placeholder="direccion"
-                    rows="5"></textarea>
-                    <mat-error *ngIf="isValidField('direccion')">
-                        {{ getErrorMessage("direccion") }}
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="width-input-75">
-                    <input 
-                    matInput 
-                    class="form-control"
-                    formControlName="fech_nac"
-                    type="date" 
-                    placeholder="Fecha de nacimiento">
-                    <mat-error *ngIf="isValidField('fech_nac')">
-                        {{ getErrorMessage("fech_nac") }}
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class=" ml-4 width-input-20">
-                    <mat-label>Rol</mat-label>
-                    <mat-select [(value)]="selectedRol"  (selectionChange)="changeRol($event.value)" required>
-                        <mat-option [value]="rol.nombre" *ngFor="let rol of roles" >
-                            {{rol.nombre}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-                <input class="mb-3" type="file" (change) = "onFileSelected($event)">
-
-                <button 
-                [disabled] ="agregarEmpleadoForm.invalid"
-                mat-raised-button 
-                type="submit" 
-                color="primary">Agregar empleado</button>
-
-            </form>
-        </div>
-    </div>
-</div>
-
-<div class="col-md-2">
-    <h2>Imagen actual</h2>
-    <ng-container *ngIf="url == null; else viewImage"> 
-        <img [src]="imageSrc" alt="Imagen no encontrada"/>
-    </ng-container>
-    <ng-template #viewImage> 
-        <img [src]="url" alt="">
-    </ng-template>
-</div>-->
-
 <div class="main-content">
   <div class="container mt-7">
     <!-- Table -->
@@ -207,7 +81,7 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="form-group focused">
-                        <mat-form-field class="full-width-input">
+                        <!--<mat-form-field class="full-width-input">
                             <input 
                             matInput 
                             class="form-control"
@@ -217,6 +91,20 @@
                             <mat-error *ngIf="isValidField('contrasena')">
                                 {{ getErrorMessage("contrasena") }}
                             </mat-error>
+                        </mat-form-field>-->
+                        <mat-form-field class="full-width-input">
+                          <input 
+                          matInput 
+                          class="form-control"
+                          formControlName="contrasena"
+                          [type] = "hide ? 'password' : 'text'"
+                          placeholder="Contraseña">
+                          <button type="button" mat-icon-button matSuffix (click) = "hide = !hide">
+                              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+                          </button>
+                          <mat-error *ngIf="isValidField('contrasena')">
+                              {{ getErrorMessage("contrasena") }}
+                          </mat-error>
                         </mat-form-field>
                     </div>
                   </div>
