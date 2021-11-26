@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PaquetesComponent } from '../app/pages/paquete/paquetes/paquetes.component';
-import { PaqueteFormComponent } from '../app/pages/paquete/paquete-form/paquete-form.component';
+import { PaquetesComponent } from '../app/pages/administrador/paquete/paquetes/paquetes.component';
+import { PaqueteFormComponent } from '../app/pages/administrador/paquete/paquete-form/paquete-form.component';
 import { CheckLoginGuard } from './shared/guards/check-login.guard';
-import { EmpleadosComponent } from '../app/pages/empleado/empleados/empleados.component';
-import { EmpleadosFormComponent } from '../app/pages/empleado/empleados-form/empleados-form.component';
+import { EmpleadosComponent } from '../app/pages/administrador/empleado/empleados/empleados.component';
+import { EmpleadosFormComponent } from '../app/pages/administrador/empleado/empleados-form/empleados-form.component';
 //import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 import { PerfilComponent } from './pages/auth/perfil/perfil.component';
 import { CheckNotLoginGuard } from '../app/shared/guards/check-not-login.guard';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { CheckNotAdminGuard } from '../app/shared/guards/check-not-admin.guard';
-import { MarcosComponent } from './pages/marco/marcos/marcos.component'
-import { MarcosFormComponent } from './pages/marco/marcos-form/marcos-form.component';
+import { MarcosComponent } from './pages/administrador/marco/marcos/marcos.component'
+import { MarcosFormComponent } from './pages/administrador/marco/marcos-form/marcos-form.component';
 
 const routes: Routes = [
   {
@@ -69,7 +69,7 @@ const routes: Routes = [
     canActivate: [CheckLoginGuard]
   },
   { 
-    path: 'recoverpassword', 
+    path: 'recoverpassword/:id', 
     loadChildren: () => import('../app/pages/auth/recoverpassword/recoverpassword.module').then(m => m.RecoverpasswordModule),
     canActivate: [CheckLoginGuard] 
   },
@@ -80,27 +80,29 @@ const routes: Routes = [
   },
   { 
     path: 'editpaquete/:id', 
-    loadChildren: () => import('../app/pages/paquete/editpaquete/editpaquete.module').then(m => m.EditpaqueteModule),
+    loadChildren: () => import('../app/pages/administrador/paquete/editpaquete/editpaquete.module').then(m => m.EditpaqueteModule),
     canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
   { 
     path: 'editempleado/:id', 
-    loadChildren: () => import('../app/pages/empleado/editempleado/editempleado.module').then(m => m.EditempleadoModule),
+    loadChildren: () => import('../app/pages/administrador/empleado/editempleado/editempleado.module').then(m => m.EditempleadoModule),
     canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
   { 
     path: 'editmarco/:id', 
-    loadChildren: () => import('../app/pages/marco/editmarco/editmarco.module').then(m => m.EditmarcoModule),
+    loadChildren: () => import('../app/pages/administrador/marco/editmarco/editmarco.module').then(m => m.EditmarcoModule),
     canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
   { 
     path: 'serviciosfotografo/:id', 
-    loadChildren: () => import('./pages/misservicios/misservicios.module').then(m => m.MisserviciosModule)
+    loadChildren: () => import('./pages/fotografo/misservicios/misservicios.module').then(m => m.MisserviciosModule)
   },
   { 
     path: 'detalleservicio/:id', 
-    loadChildren: () => import('./pages/detalleservicio/detalleservicio.module').then(m => m.DetalleservicioModule) 
-  }
+    loadChildren: () => import('./pages/fotografo/detalleservicio/detalleservicio.module').then(m => m.DetalleservicioModule) 
+  },
+  { path: 'servicios', loadChildren: () => import('./pages/recepcionista/servicios/servicios.module').then(m => m.ServiciosModule) },
+  { path: 'servicios/agregar', loadChildren: () => import('./pages/recepcionista/agregarservicios/agregarservicios.module').then(m => m.AgregarserviciosModule) }
 
 ];
 

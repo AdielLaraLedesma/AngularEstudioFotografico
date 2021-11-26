@@ -1,0 +1,18 @@
+.mt-3 {
+    margin-top: 3rem !important;
+  }
+  
+
+.card-header{
+  border-width: 1px;
+  border-style: solid;
+}  
+
+.card-body{
+  display: flex;
+  justify-content: space-between;
+}
+
+.card:hover{
+  cursor: pointer;
+}

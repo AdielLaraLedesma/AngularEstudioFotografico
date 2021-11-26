@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, throwError } from 'rxjs';
@@ -59,6 +59,34 @@ export class FotografoService {
         }),
         catchError((err: { message: any; }) => this.handlerError(err))
       );
+  }
+
+  getImages(id: string){
+    return this.http
+    .get<any>(`/api/servicios_evento/imagenes/${id}`)
+    .pipe(
+      map((images: any) => {
+        return images;
+      }),
+      catchError((err: { message: any; }) => this.handlerError(err))
+    );
+  }
+  getVideos(id: string){
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json')
+    headers.append("Access-Control-Allow-Headers", "application/json")
+
+
+
+
+    return this.http
+    .get<any>(`/api/servicios_evento/videos/${id}`, { headers })
+    .pipe(
+      map((videos: any) => {
+        return videos;
+      }),
+      catchError((err: { message: any; }) => this.handlerError(err))
+    );
   }
 
 

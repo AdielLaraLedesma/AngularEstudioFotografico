@@ -1,0 +1,188 @@
+<div class="main-content">
+    <div class="container mt-7">
+        <!-- Table -->
+        <div class="row">
+            <div class="col-md-7 m-auto order-xl-1">
+                <div class="card bg-secondary shadow">
+                    <div class="card-header bg-white border-0">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <h3 class="mb-0">Agregar paquete</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="agregarServicioForm" (ngSubmit)="agregarServicio()">
+                            <!--<h6 class="heading-small text-muted mb-4">Informacion del usuario</h6>-->
+                            <div class="pl-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group focused">
+                                            <mat-form-field class="full-width-input">
+                                                <input matInput class="form-control" formControlName="nombre"
+                                                    type="text" placeholder="Nombre del empleado">
+                                                <mat-error *ngIf="isValidField('nombre')">
+                                                    {{ getErrorMessage("nombre") }}
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <mat-form-field class="full-width-input">
+                                                <input matInput class="form-control" formControlName="ape_pat"
+                                                    type="text" placeholder="Apellido Paterno">
+                                                <mat-error *ngIf="isValidField('ape_pat')">
+                                                    {{ getErrorMessage("ape_pat") }}
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <mat-form-field class="full-width-input">
+                                                <input matInput class="form-control" formControlName="ape_mat"
+                                                    type="text" placeholder="Apellido Materno">
+                                                <mat-error *ngIf="isValidField('ape_mat')">
+                                                    {{ getErrorMessage("ape_mat") }}
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <mat-form-field class="full-width-input">
+                                                <input matInput class="form-control" formControlName="celular"
+                                                    type="tel" placeholder="Celular">
+                                                <mat-error *ngIf="isValidField('celular')">
+                                                    {{ getErrorMessage("celular") }}
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group focused">
+                                            <mat-form-field class="full-width-input">
+                                                <mat-label>Tipo paquete</mat-label>
+                                                <mat-select [(value)]="selectedTipoPaquete"
+                                                    (selectionChange)="changeTipoPaquete($event.value)" required>
+                                                    <mat-option [value]="tipo_paqute.nombre"
+                                                        *ngFor="let tipo_paqute of tipo_paqutes">
+                                                        {{tipo_paqute.nombre}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            Precio: {{ agregarServicioForm.controls['precio'].value }}
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group focused">
+                                            <input class="mb-3" type="file" (change)="onFileSelected($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <button [disabled]="agregarServicioForm.invalid" mat-raised-button type="submit"
+                                        color="primary">Agregar servicio
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 order-xl-1">
+                <h2>Imagen actual</h2>
+                <ng-container *ngIf="url == null; else viewImage">
+                    <img class="img-form" [src]="imageSrc" alt="Imagen no encontrada" />
+                </ng-container>
+                <ng-template #viewImage>
+                    <img class="img-form" [src]="url" alt="" (click)="open(mymodal)">
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #mymodal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Opciones para la imagen</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="agregarDetalleImagenForm" (ngSubmit)="agregarDetalleImagen()">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group focused">
+                        <mat-form-field class="full-width-input">
+                            <mat-label>Marco</mat-label>
+                            <mat-select [(value)]="selectedMarco" (selectionChange)="changeMarco($event.value)"
+                                required>
+                                <mat-option [value]="marco.nombre" *ngFor="let marco of marcos">
+                                    {{marco.nombre}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="form-group focused">
+                        <mat-form-field class="full-width-input">
+                            <mat-label>Tamaño</mat-label>
+                            <mat-select [(value)]="selectedTamano" (selectionChange)="changeTamano($event.value)"
+                                required>
+                                <mat-option [value]="this.tamano.nombre" *ngFor="let tamano of tamanos">
+                                    {{tamano.nombre}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group focused">
+                        <mat-form-field class="full-width-input">
+                            <input matInput class="form-control" formControlName="no_Fotos" type="number"
+                                placeholder="Numero de fotos">
+                            <mat-error *ngIf="isValidField('no_Fotos')">
+                                {{ getErrorMessage("no_Fotos") }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <button  mat-raised-button type="submit" color="primary">Agregar
+                    servicio
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+    </div>
+</ng-template>

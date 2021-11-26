@@ -83,6 +83,29 @@ export class AuthService {
     );
   }
 
+  forgotPassword(form: any){
+    return this.http
+      .put<any>(`/api/usuarios/forgot-password`, form)
+      .pipe(
+        map((res: any) => {
+        return res;
+      }),
+      catchError((err) => this.handlerError(err))
+    );
+  }
+
+  newPassword(form: any, headers: any){
+    return this.http
+      .put<any>(`/api/usuarios/new-password`, form, {headers})
+      .pipe(
+        map((res: any) => {
+        return res;
+      }),
+      catchError((err) => this.handlerError(err))
+    );
+  }
+
+
  
 
   get user$(): Observable<UserResponse> {

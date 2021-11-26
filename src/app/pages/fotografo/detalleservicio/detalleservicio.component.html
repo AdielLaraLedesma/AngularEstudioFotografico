@@ -1,0 +1,108 @@
+<div class="main-content">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-xl-3 order-xl-1" *ngIf="imagesHtml.length != 0">
+                <h2>Imagenes seleccionadas</h2>
+                <img class="img-form" *ngFor='let url of imagesHtml; let i = index' [src]="url" style="margin: 3px;"
+                    (click)="removeImagen(url)"> <br />
+            </div>
+            <div class="m-auto order-xl-1" [class.col-xl-6]="videosHtml.length != 0 && imagesHtml.length != 0"
+                [class.col-xl-12]="videosHtml.length == 0 && imagesHtml.length == 0"
+                [class.col-xl-9]="videosHtml.length == 0 || imagesHtml.length == 0">
+                <div class="card bg-secondary shadow">
+                    <div class="card-header bg-white border-0">
+                        <div class="row align-items-center">
+                            <div class="col-12 header">
+                                <h3 *ngIf="servicioEvento != null" class="mb-0">{{ servicioEvento.paquete_nombre }}</h3>
+                                <h3 *ngIf="servicioEvento != null">{{ servicioEvento.estatus_nombre }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <span *ngIf="servicioEvento != null">
+                                    <mat-icon>calendar_today</mat-icon> Fecha del evento : {{
+                                    servicioEvento.fecha_evento }}
+                                </span>
+                            </div>
+                            <div class="col-lg-6">
+                                <span *ngIf="servicioEvento != null">
+                                    <mat-icon>place</mat-icon> Direccion : {{ servicioEvento.direccion }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-lg-6">
+                                <span *ngIf="servicioEvento != null">
+                                    <mat-icon>face</mat-icon> Nombre del cliente : {{ servicioEvento.nombre_cliente }}
+                                </span>
+                            </div>
+                            <div class="col-lg-6">
+                                <span *ngIf="servicioEvento != null">
+                                    <mat-icon>credit_card</mat-icon> El total es : {{ servicioEvento.total }}
+
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-lg-6">
+                                <span *ngIf="servicioEvento != null">
+                                    <mat-icon>image</mat-icon> Total de imagenes digitales :
+                                </span>
+                            </div>
+                        </div>
+
+                        <div
+                            *ngIf="servicioEvento != null && servicioEvento.estatus_nombre == 'En espera de interaccion del fotografo'">
+                            <form [formGroup]="agregarImagenesVideoForm" (ngSubmit)="agregarMultimedia()">
+                                <div class="row mt-4">
+                                    <div class="col-lg-6">
+                                        <div class="form-group focused">
+                                            <input class="mb-3" multiple="" id="img" class="hiden" style="display:none;"
+                                                type="file" (change)="onImageSelected($event)">
+                                            <label for="img" class="btn btn-outline-primary">
+                                                <mat-icon style="font-size: 20px !important;">add</mat-icon>Seleccionar
+                                                imagenes
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group focused">
+                                            <input class="mb-3" multiple="" id="vid" class="hiden" style="display:none;"
+                                                type="file" (change)="onVideoSelected($event)">
+                                            <label for="vid" class="btn btn-outline-primary">
+                                                <mat-icon style="font-size: 20px !important;">add</mat-icon>Seleccionar
+                                                video
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <button style="width: 100%;" [disabled]="agregarImagenesVideoForm.invalid"
+                                        mat-raised-button type="submit" color="primary">
+                                        Guardar cambios
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 order-xl-1" *ngIf="videosHtml.length != 0">
+                <h2>Videos seleccionados</h2>
+                    <video *ngFor='let url of videosHtml;' width="200" height="200" controls
+                        (click)="removeImagen(url)">
+                        <source [src]="url" type="video/mp4">
+                    </video>
+            </div>
+        </div>
+    </div>
+    <!--<video  width="200" height="200" controls>
+        <source src="http://localhost:3000/videos\\servicios_evento\\video-1637950854268-313403982.mp4" type="video/mp4">
+    </video>-->
+
+
+
+</div>

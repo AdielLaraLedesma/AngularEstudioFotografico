@@ -14,11 +14,11 @@ import { AppComponent } from './app.component';
 /*import { MatSliderModule } from '@angular/material/slider';*/
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { PaquetesComponent } from '../app/pages/paquete/paquetes/paquetes.component';
+import { PaquetesComponent } from '../app/pages/administrador/paquete/paquetes/paquetes.component';
 
 
 import { PaquetesService } from './services/paquetes.service';
-import { PaqueteFormComponent } from '../app/pages/paquete/paquete-form/paquete-form.component'
+import { PaqueteFormComponent } from '../app/pages/administrador/paquete/paquete-form/paquete-form.component'
 
 import { CommonModule } from '@angular/common';
 
@@ -26,11 +26,11 @@ import { ToastrModule } from 'ngx-toastr';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { SidebarModule } from './shared/components/sidebar/sidebar.module';
-import { EmpleadosComponent } from '../app/pages/empleado/empleados/empleados.component';
-import { EmpleadosFormComponent } from '../app/pages/empleado/empleados-form/empleados-form.component';
+import { EmpleadosComponent } from '../app/pages/administrador/empleado/empleados/empleados.component';
+import { EmpleadosFormComponent } from '../app/pages/administrador/empleado/empleados-form/empleados-form.component';
 import { PerfilComponent } from './pages/auth/perfil/perfil.component';
-import { MarcosComponent } from './pages/marco/marcos/marcos.component';
-import { MarcosFormComponent } from './pages/marco/marcos-form/marcos-form.component';
+import { MarcosComponent } from './pages/administrador/marco/marcos/marcos.component';
+import { MarcosFormComponent } from './pages/administrador/marco/marcos-form/marcos-form.component';
 
 
 
@@ -39,11 +39,10 @@ import { MarcosFormComponent } from './pages/marco/marcos-form/marcos-form.compo
 @NgModule({
   declarations: [
     AppComponent,
-    //BodyComponent,
-    PaquetesComponent,
     PaqueteFormComponent,
     HeaderComponent,
     FooterComponent,
+    PaquetesComponent,
     EmpleadosComponent,
     EmpleadosFormComponent,
     PerfilComponent,
