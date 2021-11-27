@@ -26,6 +26,17 @@ export class RecepcionistaService {
       );
     }
 
+    addServicio(fd: any){
+      return this.http
+      .post<any[]>('/api/servicios_impresion/recepcionista_agregar/', fd)
+      .pipe(
+        map((servicios: any[]) => {
+          return servicios;
+        }),
+        catchError((err: { message: any; }) => this.handlerError(err))
+      );
+    }
+
 
     private handlerError(err: { message: any; }): Observable<never> {
       let errorMessage = 'An errror occured retrienving data';

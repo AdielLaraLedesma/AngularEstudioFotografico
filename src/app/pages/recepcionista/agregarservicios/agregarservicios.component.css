@@ -10,6 +10,13 @@
   }
 
 
+  .full-width-input{
+    width: 100%;
+  }
+  .btn-submit{
+    width: 80%;
+  }
+  
 /** Desde aqui **/
 
 .card {
@@ -86,6 +93,12 @@
   }
   
 
-  .form-control, mat-form-field{
+  /*.form-control, mat-form-field{
       width: 100% !important;
+  }*/
+
+  .img-form {
+    /*height: 100px;*/
+    max-height: 100px;
+    max-width: 150px;
   }
