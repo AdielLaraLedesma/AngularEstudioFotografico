@@ -9,6 +9,9 @@
       <ng-container *ngIf="user.rol_id == 3;">
         <a mat-button routerLink="/serviciosfotografo/{{user.id}}">Mis servicios</a>
       </ng-container>
+      <ng-container *ngIf="user.rol_id == 4;">
+        <a mat-button routerLink="/servicios">Servicios</a>
+      </ng-container>
     </div>
     <span class="spacer"></span>
     <button mat-button [matMenuTriggerFor]="menu">

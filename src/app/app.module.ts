@@ -31,6 +31,7 @@ import { EmpleadosFormComponent } from '../app/pages/administrador/empleado/empl
 import { PerfilComponent } from './pages/auth/perfil/perfil.component';
 import { MarcosComponent } from './pages/administrador/marco/marcos/marcos.component';
 import { MarcosFormComponent } from './pages/administrador/marco/marcos-form/marcos-form.component';
+import { SafePipePipe } from './shared/pipe/safe-pipe.pipe';
 
 
 
@@ -47,7 +48,8 @@ import { MarcosFormComponent } from './pages/administrador/marco/marcos-form/mar
     EmpleadosFormComponent,
     PerfilComponent,
     MarcosComponent,
-    MarcosFormComponent
+    MarcosFormComponent,
+    SafePipePipe
   ],
   imports: [
     BrowserModule,

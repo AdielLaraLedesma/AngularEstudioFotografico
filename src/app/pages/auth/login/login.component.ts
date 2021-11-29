@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.router.navigate(['']).then(() => {
             window.location.reload();
           });
+          console.log(res)
           this.toastr.success(`Welcome ${res.nombre}`, "Inicio de sesión", {
             positionClass: 'toast-bottom-right'
           });

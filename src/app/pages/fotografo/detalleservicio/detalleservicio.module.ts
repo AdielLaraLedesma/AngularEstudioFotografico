@@ -8,6 +8,8 @@ import { MaterialModule } from '../../../material.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { SafePipePipe } from '../../../shared/pipe/safe-pipe.pipe';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +21,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule
+  ],
+  providers: [
+    SafePipePipe
   ]
 })
 export class DetalleservicioModule { }

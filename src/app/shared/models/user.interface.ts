@@ -17,6 +17,7 @@ export interface UserResponse extends User{
     fecha_modificacion?: Date;
     usuario_modificacion_id?: number;
     url_imagen: string;
+    accessToken: string;
     
 
 }

@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { MarcosService } from 'src/app/services/marcos.service';
 import { RecepcionistaService } from 'src/app/services/recepcionista.service';
@@ -20,6 +22,8 @@ export class AgregarserviciosComponent implements OnInit, OnDestroy {
 
   public url: any;
   public imageSrc = 'assets/img/image-not-found.png' 
+
+  showBtnAgregarImagenes = false;
 
 
   
@@ -62,7 +66,9 @@ export class AgregarserviciosComponent implements OnInit, OnDestroy {
   constructor(
     private modalService: NgbModal,
     private marcoService: MarcosService,
-    private recepcionistaService: RecepcionistaService
+    private recepcionistaService: RecepcionistaService,
+    private toastr: ToastrService,
+    private router: Router,
   ) { }
 
 
@@ -71,6 +77,9 @@ export class AgregarserviciosComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    console.log(this.imagesHtml.length)
+
     this.subscription.add(
     this.marcoService.getMarcos().subscribe( data => {
       this.marcos = data
@@ -84,26 +93,38 @@ export class AgregarserviciosComponent implements OnInit, OnDestroy {
     form.append('nombre',this.agregarServicioForm.get('nombre')?.value);
     form.append('ape_pat',this.agregarServicioForm.get('ape_pat')?.value);
     form.append('ape_mat',this.agregarServicioForm.get('ape_mat')?.value);
-    form.append('nombre',this.agregarServicioForm.get('nombre')?.value);
     form.append('celular',this.agregarServicioForm.get('celular')?.value);
-    form.append('precio',this.agregarServicioForm.get('precio')?.value);
+    form.append('total',this.agregarServicioForm.get('precio')?.value);
     form.append('tipo_paquete_id',this.agregarServicioForm.get('tipo_paquete_id')?.value);
+
     for (var i = 0; i < this.images.length; i++) {
-      form.append(`file[${i}]`, this.images[i].file);
-      form.append(`file[${i}].tamano_id`, this.images[i].tamano_id);
-      form.append(`file[${i}].fotos`, this.images[i].fotos);
-      form.append(`file[${i}].marco_id`, this.images[i].marco_id);
+      form.append(`files`, this.images[i].file);
+  
+    }
+
+
+    for (var i = 0; i < this.images.length; i++) {
+      //form.append(`imagenes_impresion[${i}]`, this.images[i].file);
+      form.append(`imagenes_impresion[${i}][tamano_id]`, this.images[i].tamano_id);
+      form.append(`imagenes_impresion[${i}][cantidad_copias]`, this.images[i].fotos);
+      form.append(`imagenes_impresion[${i}][marco_id]`, this.images[i].marco_id);
 
     }
 
-    console.log(form.get('file[0]'))
-    console.log(form.get('file[1]'))
-    console.log(form.get('file[2]'))
+
+
 
     //TODO Para enviar peticion al back
     this.subscription.add(
       this.recepcionistaService.addServicio(form).subscribe( data => {
-        console.log(data)
+        this.toastr.success(
+          'Se ha agregado el paquete correctamente',
+          'Paquetes agregadas',
+          {
+            positionClass: 'toast-bottom-right',
+          }
+        );
+        this.router.navigate([`/servicios`])
       })
     )
 
@@ -121,7 +142,6 @@ export class AgregarserviciosComponent implements OnInit, OnDestroy {
       }
 
     }
-    console.log(this.images)
 
 
   }
@@ -132,7 +152,6 @@ export class AgregarserviciosComponent implements OnInit, OnDestroy {
       //this.images.push(event.target.files[i]);
 
       var test: imageStructure = {file: event.target.files[i], marco_id: "", tamano_id: "", fotos: ""};
-      console.log(test)
       this.images.push(test)
 
       const readerImage = new FileReader();
@@ -141,7 +160,6 @@ export class AgregarserviciosComponent implements OnInit, OnDestroy {
       };
       readerImage.readAsDataURL(event.target.files[i]);
     }
-    console.log(this.images)
   }
   removeImagen(element: string) {
  
@@ -175,7 +193,6 @@ export class AgregarserviciosComponent implements OnInit, OnDestroy {
   }
 
   changeTamano(value: any) {
-    console.log("hola")
     this.tamanos.forEach( element => {
       if (element.nombre == value)
         this.agregarDetalleImagenForm.controls['tamano_id'].setValue(element.id)
@@ -183,11 +200,15 @@ export class AgregarserviciosComponent implements OnInit, OnDestroy {
     })
   }
   changeTipoPaquete(value: any) {
-    console.log(value)
     this.tipo_paqutes.forEach( element => {
       if (element.nombre == value)
         this.agregarServicioForm.controls['tipo_paquete_id'].setValue(element.id)
     })
+    if (this.agregarServicioForm.controls['tipo_paquete_id'].value == 1)
+      this.showBtnAgregarImagenes = true;
+    else
+    this.showBtnAgregarImagenes = false;
+
   }
   changeMarco(value: any) {
     this.marcos.forEach( element => {

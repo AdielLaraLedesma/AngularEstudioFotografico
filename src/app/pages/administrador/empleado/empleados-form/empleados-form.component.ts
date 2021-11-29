@@ -86,7 +86,12 @@ export class EmpleadosFormComponent implements OnInit, OnDestroy {
 
     this.subscription.add(
       this.empleadoService.saveEmpleado(formData).subscribe( data => {
+        console.log(data)
+        /*
         this.toastr.success("El empleado fue agregado exitosamente", "Empleado agregado", {
+          positionClass: 'toast-bottom-right'
+        });*/
+        this.toastr.success(`Se ha enviado un correo a ${this.agregarEmpleadoForm.controls['correo'].value} para validar su identidad`, "Correo enviado", {
           positionClass: 'toast-bottom-right'
         });
         this.router.navigate(['/empleados'])

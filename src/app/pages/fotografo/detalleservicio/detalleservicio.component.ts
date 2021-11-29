@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, Subscription } from 'rxjs';
@@ -18,6 +18,7 @@ import { UserResponse } from 'src/app/shared/models/user.interface';
 export class DetalleservicioComponent implements OnInit, OnDestroy {
   public defaultUrl = 'http://localhost:3000/'
 
+  contador: number = 0;
   id: string = '';
   public servicioEvento: ServicioEvento = {
     id: 0,
@@ -44,6 +45,9 @@ export class DetalleservicioComponent implements OnInit, OnDestroy {
 
   images: string[] = [];
   imagesHtml: string[] = [];
+
+  videoCollection: string[] = [];
+  videoCollectionSafe: SafeResourceUrl[] = [];
 
 
   //displayURL: any;
@@ -102,13 +106,15 @@ export class DetalleservicioComponent implements OnInit, OnDestroy {
       this.fotografoService.getVideos(this.id).subscribe( data => {
         console.log(data)
 
-        //TODO Corregir esta madre
-        data.forEach((element: { url_video: string; }) => {
-          this.videosHtml.push(this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/tgbNymZ7vqY'));
 
+        
 
-          
-        });
+        for (var i = 0; i < data.length; i++) {         
+          //this.videosHtml.push(this.defaultUrl + data[i].url_video);
+          //this.videosHtml.push(this.sanitizer.bypassSecurityTrustUrl(data[i].url_video))
+          this.videosHtml.push(this.defaultUrl + data[i].url_video);
+        }
+
         console.log(this.videosHtml)
         console.log(this.imagesHtml)
 
