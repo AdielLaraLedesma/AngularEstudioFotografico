@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm = new FormGroup({
     correo: new FormControl('', [Validators.required, Validators.email]),
-  contrasena: new FormControl('', [Validators.required/*, Validators.pattern("/^(?=.*\d)(?=.*[a-zA-Z]).{6,20}$/")*/])
+    contrasena: new FormControl('', [Validators.required/*, Validators.pattern("/^(?=.*\d)(?=.*[a-zA-Z]).{6,20}$/")*/])
   })
 
   isLogged = false;
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  onLogin(): void {
+  /*onLogin(): void {
     if (this.loginForm.invalid) {
       return;
     }
@@ -58,6 +58,22 @@ export class LoginComponent implements OnInit, OnDestroy {
           });
         }
       })
+    );
+  }*/
+  onLogin(): void {
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    const formValue = this.loginForm.value;
+    this.subscription.add(
+      this.authService.loginJWT(formValue).subscribe((res) => {
+        if (res) {
+          this.router.navigate(['']).then(() => {
+            window.location.reload();
+      })
+    }
+    })
     );
   }
 

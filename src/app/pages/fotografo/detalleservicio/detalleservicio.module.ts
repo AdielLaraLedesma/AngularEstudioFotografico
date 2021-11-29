@@ -8,7 +8,7 @@ import { MaterialModule } from '../../../material.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { SafePipePipe } from '../../../shared/pipe/safe-pipe.pipe';
+import { SafePipePipe } from '../../../shared/pipes/safe-pipe.pipe';
 
 
 @NgModule({

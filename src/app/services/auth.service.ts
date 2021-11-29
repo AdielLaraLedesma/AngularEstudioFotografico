@@ -22,10 +22,10 @@ export class AuthService {
     private toastr: ToastrService,
     private router : Router
     ) {
-      this.checkLogin();
+      this.checkToken();
     }
 
-  login(authData: User): Observable<UserResponse | void> {
+  /*login(authData: User): Observable<UserResponse | void> {
     return this.http
       .post<UserResponse>('/api/usuarios/loginApp', {
         correo: authData.correo,
@@ -39,17 +39,14 @@ export class AuthService {
         }),
         catchError((err) => this.handlerError(err))
       );
-  }
+  }*/
 
 
-  /*loginJWT(authData: User): Observable<UserResponse | void> {
+  loginJWT(authData: User): Observable<UserResponse | void> {
     return this.http
-      .post<UserResponse>('/api/usuarios/loginJWT', {
-        correo: authData.correo,
-        contrasena: authData.contrasena
-      })
+      .post<UserResponse>('/api/usuarios/loginJWT', authData)
       .pipe(
-        map((user: any) => {
+        map((user: UserResponse) => {
           this.user.next(user);
           console.log(user)
           this.saveLocalStorage(user);
@@ -57,7 +54,7 @@ export class AuthService {
         }),
         catchError((err) => this.handlerError(err))
       );
-  }*/
+  }
 
   private handlerError(err: { message: any; }): Observable<never> {
     let errorMessage = 'An errror occured retrienving data';
@@ -70,19 +67,21 @@ export class AuthService {
   }
 
   checkToken() {
+    const user: UserResponse = JSON.parse(localStorage.getItem('user')!);
 
-    const accessToken = JSON.parse(localStorage.getItem('user')!).accessToken;
+    if(user == null){
+      this.router.navigate(["/login"])
+      return;
+    }
 
-    console.log(accessToken)
-
-    const headers = new HttpHeaders().set('accessToken', accessToken);
+    const headers = new HttpHeaders().set('accessToken', user.accessToken);
 
     this.http.post('/api/usuarios/checkLogin', {}, {headers}).subscribe( (res: any) => {
 
-      console.log(res.status)
-      if(res.error == "Acceso denegado"){
+      if(res && res.isLogged == false)
         this.router.navigate(["/login"])
-      }
+      else
+        this.user.next(user)
     })
   }
 
@@ -93,10 +92,9 @@ export class AuthService {
     }, (errorResp) => {
       this.user.next(null!);
     });
-
   }
 
-  logout(): Observable<UserResponse | void> {
+  /*logout(): Observable<UserResponse | void> {
     return this.http
       .post<UserResponse>('/api/usuarios/logout',{})
       .pipe(
@@ -107,12 +105,15 @@ export class AuthService {
         catchError((err) => this.handlerError(err))
       );
 
-  }
+  }*/
 
   logoutJWT() {
     localStorage.removeItem('user');
     this.user.next(null!);
     this.router.navigate(['/login']);
+    this.toastr.warning(`Nos vemos pronto`, "Acabas de cerrar sesión", {
+      positionClass: 'toast-bottom-right'
+    });
   }
 
 

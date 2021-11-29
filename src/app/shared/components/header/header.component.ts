@@ -53,9 +53,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onLogout() {
     this.isLogged = false;
     const nombre = this.user.nombre;
-    /*this.authService.logoutJWT();*/
+    this.authService.logoutJWT();
 
-    this.subscription.add(
+    /*this.subscription.add(
       this.authService.logout().subscribe((res) => {
         if (res) {
           this.router.navigate(['/login']);
@@ -64,7 +64,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           });
         }
       })
-    );
+    );*/
     
 
   }

@@ -10,24 +10,16 @@ import { AuthService } from './services/auth.service';
 
 export class AppComponent implements OnInit{
 
-  isLogged = false;
-
-  rol: string;
 
   constructor(
     private authService : AuthService
   ){
-    this.rol = "SECRETARIA";
   }
   ngOnInit(): void {
     //this.authService.isLogged.subscribe( (res) => this.isLogged = res);
     
   }
 
-
-  doLogout() {
-    this.authService.logout();
-  }
 
 
 }

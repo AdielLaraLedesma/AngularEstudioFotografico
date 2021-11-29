@@ -69,9 +69,9 @@ export class PaqueteFormComponent implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit(): void {
-    this.marcoService.getMarcos().subscribe( data => {
-      this.marcos = data
-    })
+
+    this.getMarcos();
+
   }
   ngOnDestroy(): void {
     //this.subscription.unsubscribe();
@@ -147,6 +147,11 @@ export class PaqueteFormComponent implements OnInit, OnDestroy {
         this.agregarPaqueteForm.controls['tipo_paquete_id'].setValue(2)
         this.selectedTipoPaquete = "Sesion fotografica";
       }
+    })
+  }
+  getMarcos() {
+    this.marcoService.getMarcos().subscribe( data => {
+      this.marcos = data
     })
   }
 

@@ -83,14 +83,47 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row" *ngIf="showSeleccionarPaquetes">
+                                    <div class="col-lg-12">
+                                        <div class="form-group focused">
+                                            <mat-form-field class="full-width-input">
+                                                <mat-label>Seleccionar paquete</mat-label>
+                                                <mat-select [(value)]="selectedPaquete"
+                                                    (selectionChange)="changePaquete($event.value)" required>
+                                                    <mat-option [value]="paquete.tipo_paquete_nombre"
+                                                        *ngFor="let paquete of paquetes">
+                                                        {{paquete.nombre}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" *ngIf="showSeleccionarPaquetes">
+                                    <div class="col-lg-12">
+                                        <div class="form-group focused">
+                                            <mat-form-field class="full-width-input">
+                                                <input 
+                                                matInput 
+                                                class="form-control"
+                                                formControlName="fecha_agendada"
+                                                type="date" 
+                                                placeholder="Fecha de nacimiento">
+                                                <mat-error *ngIf="isValidField('fecha_agendada')">
+                                                    {{ getErrorMessage("fecha_agendada") }}
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                      </div>
+                                </div>
+                                <div class="row" *ngIf="showBtnAgregarImagenesyPrecio">
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             Precio: {{ agregarServicioForm.controls['precio'].value }}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" *ngIf="showBtnAgregarImagenes">
+                                <div class="row" *ngIf="showBtnAgregarImagenesyPrecio">
                                     <div class="col-lg-12">
                                         <div class="form-group focused">
                                             <input class="mb-3" multiple="" id="img" class="hiden" style="display:none;"

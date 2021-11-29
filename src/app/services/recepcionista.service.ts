@@ -26,7 +26,7 @@ export class RecepcionistaService {
       );
     }
 
-    addServicio(fd: any){
+    addServicioImpresion(fd: any){
       return this.http
       .post<any[]>('/api/servicios_impresion/recepcionista_agregar/', fd)
       .pipe(
@@ -36,6 +36,18 @@ export class RecepcionistaService {
         catchError((err: { message: any; }) => this.handlerError(err))
       );
     }
+    addServicioSesion(fd: any){
+      return this.http
+      .post<any[]>('/api/servicios_sesion/recepcionista_agregar', fd)
+      .pipe(
+        map((servicios: any[]) => {
+          return servicios;
+        }),
+        catchError((err: { message: any; }) => this.handlerError(err))
+      );
+    }
+
+
 
 
     private handlerError(err: { message: any; }): Observable<never> {
