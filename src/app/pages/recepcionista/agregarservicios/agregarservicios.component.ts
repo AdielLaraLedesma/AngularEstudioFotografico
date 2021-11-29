@@ -51,7 +51,7 @@ export class AgregarserviciosComponent implements OnInit, OnDestroy {
       Validators.maxLength(20),
     ]),
     celular: new FormControl('', [Validators.maxLength(10)]),
-    precio: new FormControl(123, [Validators.required]),
+    total: new FormControl(123, [Validators.required]),
     tipo_paquete_id: new FormControl('', [Validators.required]),
     paquete_id: new FormControl(0),
     fecha_agendada: new FormControl(''),
@@ -210,15 +210,11 @@ export class AgregarserviciosComponent implements OnInit, OnDestroy {
       console.log(formServicioSesion.get('paquete_id'));
       console.log(formServicioSesion.get('fecha_agendada'));
 
-      this.http.post<any>('/api/servicios_sesion/recepcionista_agregar', {formServicioSesion}).subscribe((data) => {
-        console.log(data)
-      })
 
-
-
-      /*this.subscription.add(
+      const formValue = this.agregarServicioForm.value;
+      this.subscription.add(
         this.recepcionistaService
-          .addServicioSesion(formServicioSesion)
+          .addServicioSesion(formValue)
           .subscribe((data) => {
             this.toastr.success(
               'Se ha agregado el paquete correctamente',
@@ -229,7 +225,7 @@ export class AgregarserviciosComponent implements OnInit, OnDestroy {
             );
             this.router.navigate([`/servicios`]);
           })
-      );*/
+      )
     }
   }
   agregarDetalleImagen() {
