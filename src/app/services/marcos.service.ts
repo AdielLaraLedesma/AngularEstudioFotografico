@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { Marco } from '../shared/models/marco.interface'
 
 @Injectable({
@@ -19,7 +20,7 @@ export class MarcosService {
 
   getMarco(id: string) {
     return this.http
-    .get<Marco>(`/api/marcos/${id}`)
+    .get<Marco>(`${environment.apiUrl}/marcos/${id}`)
     .pipe(
       map((marco: any) => {
         return marco[0];
@@ -30,7 +31,7 @@ export class MarcosService {
 
   getMarcos(): Observable<Marco[]>{
     return this.http
-      .get<Marco[]>('/api/marcos')
+      .get<Marco[]>(`${environment.apiUrl}/marcos`)
       .pipe(
         map((marco: Marco[]) => {
           return marco;
@@ -41,7 +42,7 @@ export class MarcosService {
 
   saveMarco(fd: any) {
     return this.http
-    .post('/api/marcos/agregar', fd).pipe(
+    .post(`${environment.apiUrl}/marcos/agregar`, fd).pipe(
       map((marco: any) => {
         return marco;
       }),
@@ -50,7 +51,7 @@ export class MarcosService {
   }
   updateMarco(id: string, marco: Marco) {
     return this.http
-      .put(`/api/marcos/actualizar/${id}`, marco)
+      .put(`${environment.apiUrl}/marcos/actualizar/${id}`, marco)
       .pipe(
         map((marco: any) => {
           return marco;
@@ -61,7 +62,8 @@ export class MarcosService {
 
 
   deleteMarco(id: number) {
-    return this.http.delete(`/api/marcos/eliminar/${id}`)
+    return this.http
+    .delete(`${environment.apiUrl}/marcos/eliminar/${id}`)
     .pipe(
       map((marco: any) => {
         return marco;

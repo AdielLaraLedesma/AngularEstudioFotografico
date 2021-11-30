@@ -15,11 +15,6 @@ import { MarcosFormComponent } from './pages/administrador/marco/marcos-form/mar
 
 const routes: Routes = [
   {
-    path: '', 
-    loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
-    canActivate: [CheckNotLoginGuard]
-  },
-  {
     path: 'paquetes', 
     component: PaquetesComponent,
     canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
@@ -59,11 +54,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule) 
   },
   { 
-    path: 'login', 
-    loadChildren: () => import('./pages/auth/login/login.module').then(m => m.LoginModule), 
-    canActivate: [CheckLoginGuard] 
-  },
-  { 
     path: 'forgotpassword', 
     loadChildren: () => import('./pages/auth/forgotpassword/forgotpassword.module').then(m => m.ForgotpasswordModule),
     canActivate: [CheckLoginGuard]
@@ -71,7 +61,7 @@ const routes: Routes = [
   { 
     path: 'recoverpassword/:id', 
     loadChildren: () => import('../app/pages/auth/recoverpassword/recoverpassword.module').then(m => m.RecoverpasswordModule),
-    canActivate: [CheckLoginGuard] 
+    //canActivate: [CheckLoginGuard] 
   },
   { 
     path: 'changepassword', 
@@ -103,7 +93,17 @@ const routes: Routes = [
   },
   { path: 'servicios', loadChildren: () => import('./pages/recepcionista/servicios/servicios.module').then(m => m.ServiciosModule) },
   { path: 'servicios/agregar', loadChildren: () => import('./pages/recepcionista/agregarservicios/agregarservicios.module').then(m => m.AgregarserviciosModule) },
-  { path: 'editservicio/:id', loadChildren: () => import('./pages/recepcionista/editservicio/editservicio.module').then(m => m.EditservicioModule) }
+  { path: 'editservicio/:id/:tipo_paquete_id', loadChildren: () => import('./pages/recepcionista/editservicio/editservicio.module').then(m => m.EditservicioModule) },
+  {
+    path: '', 
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
+    canActivate: [CheckNotLoginGuard]
+  },
+  { 
+    path: 'login', 
+    loadChildren: () => import('./pages/auth/login/login.module').then(m => m.LoginModule), 
+    canActivate: [CheckLoginGuard] 
+  },
 
 ];
 

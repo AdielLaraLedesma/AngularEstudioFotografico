@@ -8,6 +8,9 @@ import { identifierModuleUrl } from '@angular/compiler';
 import { catchError, map } from 'rxjs/operators';
 
 
+import { environment } from '../../environments/environment';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -44,7 +47,8 @@ export class AuthService {
 
   loginJWT(authData: User): Observable<UserResponse | void> {
     return this.http
-      .post<UserResponse>('/api/usuarios/loginJWT', authData)
+      .post<UserResponse>(`api/usuarios/loginJWT`, authData)
+      //.post<UserResponse>(`${environment.apiUrl}/usuarios/loginJWT`, authData)
       .pipe(
         map((user: UserResponse) => {
           this.user.next(user);
@@ -70,13 +74,13 @@ export class AuthService {
     const user: UserResponse = JSON.parse(localStorage.getItem('user')!);
 
     if(user == null){
-      this.router.navigate(["/login"])
+      //this.router.navigate(["/login"])
       return;
     }
 
     const headers = new HttpHeaders().set('accessToken', user.accessToken);
-
-    this.http.post('/api/usuarios/checkLogin', {}, {headers}).subscribe( (res: any) => {
+    this.http.post(`api/usuarios/checkLogin`, {}, {headers}).subscribe( (res: any) => {
+    //this.http.post(`${environment.apiUrl}/usuarios/checkLogin`, {}, {headers}).subscribe( (res: any) => {
 
       if(res && res.isLogged == false)
         this.router.navigate(["/login"])
@@ -86,13 +90,13 @@ export class AuthService {
   }
 
   
-  checkLogin(){
+  /*checkLogin(){
     this.http.get('/api/usuarios/loginApp').subscribe((res: any) => {
       this.user.next(res);
     }, (errorResp) => {
       this.user.next(null!);
     });
-  }
+  }*/
 
   /*logout(): Observable<UserResponse | void> {
     return this.http
@@ -119,7 +123,8 @@ export class AuthService {
 
   changePassword(user: any, id: number): any{
     return this.http
-      .put<any>(`/api/usuarios/cambiarContrasena/${id}`, user)
+      .put<any>(`api/usuarios/cambiarContrasena/${id}`, user)
+      //.put<any>(`${environment.apiUrl}/usuarios/cambiarContrasena/${id}`, user)
       .pipe(
         map((res: any) => {
         return res;
@@ -130,7 +135,8 @@ export class AuthService {
 
   forgotPassword(form: any){
     return this.http
-      .put<any>(`/api/usuarios/forgot-password`, form)
+      .put<any>(`api/usuarios/forgot-password`, form)
+      //.put<any>(`${environment.apiUrl}/usuarios/forgot-password`, form)
       .pipe(
         map((res: any) => {
         return res;
@@ -141,13 +147,19 @@ export class AuthService {
 
   newPassword(form: any, headers: any){
     return this.http
-      .put<any>(`/api/usuarios/new-password`, form, {headers})
+      .put<any>(`api/usuarios/new-password`, form, {headers})
+      //.put<any>(`${environment.apiUrl}/usuarios/new-password`, form, {headers})
       .pipe(
         map((res: any) => {
         return res;
       }),
       catchError((err) => this.handlerError(err))
     );
+  }
+
+  getUser(): UserResponse{
+    const user: UserResponse = JSON.parse(localStorage.getItem('user')!);
+    return user;
   }
 
 
@@ -163,7 +175,7 @@ export class AuthService {
 
 
   private saveLocalStorage(user: UserResponse): void {
-    const { id, ape_mat, ape_pat, direccion, activo, celular, fech_nac, usuario_registrado_id, usuario_modificacion_id, fecha_registro, contrasena, fecha_modificacion, ...rest } = user;
+    const { ape_mat, ape_pat, direccion, activo, celular, fech_nac, usuario_registrado_id, usuario_modificacion_id, fecha_registro, contrasena, fecha_modificacion, ...rest } = user;
     localStorage.setItem('user', JSON.stringify(rest));
   }
 

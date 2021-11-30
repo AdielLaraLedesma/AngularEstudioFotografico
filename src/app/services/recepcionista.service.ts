@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class RecepcionistaService {
 
     getServicios(){
       return this.http
-      .get<any[]>('/api/servicios/')
+      .get<any[]>(`api/servicios/`)
+      //.get<any[]>(`${environment.apiUrl}/servicios/`)
       .pipe(
         map((servicios: any[]) => {
           return servicios;
@@ -28,7 +30,7 @@ export class RecepcionistaService {
 
     addServicioImpresion(fd: any){
       return this.http
-      .post<any[]>('/api/servicios_impresion/recepcionista_agregar/', fd)
+      .post<any[]>(`${environment.apiUrl}/servicios_impresion/recepcionista_agregar/`, fd)
       .pipe(
         map((servicios: any[]) => {
           return servicios;
@@ -38,13 +40,80 @@ export class RecepcionistaService {
     }
     addServicioSesion(fd: any){
       return this.http
-      .post<any[]>('/api/servicios_sesion/recepcionista_agregar', fd)
+      .post<any[]>(`${environment.apiUrl}/servicios_sesion/recepcionista_agregar`, fd)
       .pipe(
         map((servicios: any[]) => {
           return servicios;
         }),
         catchError((err: { message: any; }) => this.handlerError(err))
       );
+    }
+
+    getServicioImpresion(id: string){
+      return this.http
+      .get<any[]>(`${environment.apiUrl}/servicios_impresion/${id}`,)
+      .pipe(
+        map((servicios: any[]) => {
+          return servicios;
+        }),
+        catchError((err: { message: any; }) => this.handlerError(err))
+      );
+    }
+    getServicioEvento(id: string){
+      return this.http
+      .get<any[]>(`${environment.apiUrl}/servicios_evento/${id}`,)
+      .pipe(
+        map((servicios: any[]) => {
+          return servicios;
+        }),
+        catchError((err: { message: any; }) => this.handlerError(err))
+      );
+    }
+    getServicioSesion(id: string){
+      return this.http
+      .get<any[]>(`${environment.apiUrl}/servicios_sesion/${id}`,)
+      .pipe(
+        map((servicios: any[]) => {
+          return servicios;
+        }),
+        catchError((err: { message: any; }) => this.handlerError(err))
+      );
+    }
+    getVideos(id: string){
+      const headers = new HttpHeaders();
+      headers.append('Content-Type', 'application/json')
+      headers.append("Access-Control-Allow-Headers", "application/json")
+  
+      return this.http
+      .get<any>(`${environment.apiUrl}/servicios_evento/videos/${id}`, { headers })
+      .pipe(
+        map((videos: any) => {
+          return videos;
+        }),
+        catchError((err: { message: any; }) => this.handlerError(err))
+      );
+    }
+
+    getImages(id: string){
+      return this.http
+      .get<any>(`${environment.apiUrl}/servicios_evento/imagenes/${id}`)
+      .pipe(
+        map((images: any) => {
+          return images;
+        }),
+        catchError((err: { message: any; }) => this.handlerError(err))
+      );
+    }
+
+    updateServicioImpresion(fd: any){
+      /*return this.http
+      .post<any[]>(`${environment.apiUrl}/servicios_sesion/recepcionista_agregar`, fd)
+      .pipe(
+        map((servicios: any[]) => {
+          return servicios;
+        }),
+        catchError((err: { message: any; }) => this.handlerError(err))
+      );*/
     }
 
 
