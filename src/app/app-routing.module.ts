@@ -102,7 +102,8 @@ const routes: Routes = [
     loadChildren: () => import('./pages/fotografo/detalleservicio/detalleservicio.module').then(m => m.DetalleservicioModule) 
   },
   { path: 'servicios', loadChildren: () => import('./pages/recepcionista/servicios/servicios.module').then(m => m.ServiciosModule) },
-  { path: 'servicios/agregar', loadChildren: () => import('./pages/recepcionista/agregarservicios/agregarservicios.module').then(m => m.AgregarserviciosModule) }
+  { path: 'servicios/agregar', loadChildren: () => import('./pages/recepcionista/agregarservicios/agregarservicios.module').then(m => m.AgregarserviciosModule) },
+  { path: 'editservicio/:id', loadChildren: () => import('./pages/recepcionista/editservicio/editservicio.module').then(m => m.EditservicioModule) }
 
 ];
 
