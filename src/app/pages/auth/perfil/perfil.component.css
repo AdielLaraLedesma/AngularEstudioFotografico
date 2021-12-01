@@ -1,3 +1,60 @@
+.editpaquete-form {
+  padding: 4rem 1rem;
+}
+
+mat-card {
+  max-width: 300px;
+  margin: 2rem auto;
+  text-align: center;
+  height: 350px;
+}
+
+.full-width-input,
+button {
+  width: 100%;
+}
+
+
+.width-input-20 {
+  width: 20%;
+}
+
+.width-input-30 {
+  width: 30%;
+}
+
+.width-input-40 {
+  width: 40%;
+}
+
+.width-input-50 {
+  width: 50%;
+}
+
+.width-input-60 {
+  width: 60%;
+}
+
+.width-input-70 {
+  width: 70%;
+}
+
+.width-input-75 {
+  width: 75%;
+}
+
+.width-input-80 {
+  width: 80%;
+}
+
+.width-input-90 {
+  width: 90%;
+}
+
+.separator {
+  margin-bottom: 2rem;
+}
+
 
 .card {
   position: relative;
@@ -32,8 +89,8 @@ button.bg-secondary:focus {
   background-color: #d2e3ee !important;
 }
 
-.mt-4 {
-  margin-top: 4rem !important;
+.mt-7 {
+  margin-top: 6rem !important;
 }
 
 h2,
@@ -67,28 +124,7 @@ h3,
   font-size: 1.0625rem;
 }
 
-
-.header{
-  display: flex;
-  justify-content: space-between;
-}
-
 .img-form {
-  height: 50px;
+  width: 100%;
   max-width: 400px;
-}
-
-.container-status{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-}
-
-.container-status button {
-  margin-right: 10px;
-}
-
-.container-status h3{
-  margin-bottom: 0;
 }

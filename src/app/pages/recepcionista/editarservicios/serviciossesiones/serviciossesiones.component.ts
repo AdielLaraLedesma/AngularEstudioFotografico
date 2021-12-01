@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
@@ -27,7 +28,8 @@ export class ServiciossesionesComponent implements OnInit, OnDestroy {
   constructor(
     private rutaActiva: ActivatedRoute,
     private recepcionistaService: RecepcionistaService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService,
   ) {}
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -42,6 +44,9 @@ export class ServiciossesionesComponent implements OnInit, OnDestroy {
 
     this.id = this.rutaActiva.snapshot.params.id;
 
+  }
+
+  getServicio(){
     this.subscription.add(
       this.recepcionistaService.getServicioSesion(this.id).subscribe((data) => {
         console.log(data);
@@ -63,5 +68,12 @@ export class ServiciossesionesComponent implements OnInit, OnDestroy {
       );
   }
 
-  finalizarServicio() {}
+  finalizarServicio() {
+    this.recepcionistaService.changeStatusServicioSesion(this.id).subscribe( data => {
+      this.getServicio()
+      this.toastr.success(`Se ha cambiado el estado del servicio exitosamente`, "Estado cambiado", {
+        positionClass: 'toast-bottom-right'
+      });
+    } )
+  }
 }

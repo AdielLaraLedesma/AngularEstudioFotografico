@@ -31,7 +31,8 @@ export class MarcosService {
 
   getMarcos(): Observable<Marco[]>{
     return this.http
-      .get<Marco[]>(`${environment.apiUrl}/marcos`)
+      .get<Marco[]>(`api/marcos`)
+      //.get<Marco[]>(`${environment.apiUrl}/marcos`)
       .pipe(
         map((marco: Marco[]) => {
           return marco;

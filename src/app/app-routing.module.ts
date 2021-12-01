@@ -77,17 +77,17 @@ const routes: Routes = [
     canActivate: [CheckNotLoginGuard]
   },
   { 
-    path: 'editpaquete/:id', 
+    path: 'paquetes/:id', 
     loadChildren: () => import('../app/pages/administrador/paquete/editpaquete/editpaquete.module').then(m => m.EditpaqueteModule),
     canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
   { 
-    path: 'editempleado/:id', 
+    path: 'empleados/:id', 
     loadChildren: () => import('../app/pages/administrador/empleado/editempleado/editempleado.module').then(m => m.EditempleadoModule),
     canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
   { 
-    path: 'editmarco/:id', 
+    path: 'marcos/:id', 
     loadChildren: () => import('../app/pages/administrador/marco/editmarco/editmarco.module').then(m => m.EditmarcoModule),
     canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },

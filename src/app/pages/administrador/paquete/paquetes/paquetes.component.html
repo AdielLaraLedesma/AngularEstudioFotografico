@@ -1,90 +1,61 @@
-<div class="mt-3 container-btn">
-  <a class="btn btn-primary" routerLink="agregar">Agregar</a>
-  <hr> 
-</div>
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-body">
+      <span class="h3">Lista de paquetes</span>
+      <a class="btn btn-dark btn-lg float-right" routerLink="/paquetes/agregar">Agregar</a>
 
-<table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Descripcion</th>
-        <th scope="col">Horas de video</th>
-        <th scope="col">Fotos digitales</th> 
-        <th scope="col">Fotos fisicas</th> 
-        <th scope="col">Fotos enmarcadas</th> 
-        <th scope="col">Marco</th> 
-        <th scope="col">Tamaño</th> 
-        <th scope="col">Tipo de paquete</th> 
-        <th scope="col">Precio</th> 
-        <th scope="col">Imagen</th> 
-        <th scope="col">Opciones</th> 
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let paquete of paquetes">
-        <th scope="row">{{ paquete.id }}</th>
-        <td> {{ paquete.nombre }}</td>
-        <td> {{ paquete.descripcion }}</td>
-        <td> {{ paquete.hrs_Video }}</td>
-        <td> {{ paquete.no_Fotos_Dig }}</td>
-        <td> {{ paquete.no_Fotos_Fis }}</td>
-        <td> {{ paquete.no_Fotos_Enm }}</td>
-        <td> {{ paquete.marco_nombre }}</td>
-        <td> {{ paquete.tamano_nombre }}</td>
-        <td> {{ paquete.tipo_paquete_nombre }}</td>
-        <td> {{ paquete.precio }}</td>
-        <td style="width: 15%;" >
-          <ng-container *ngIf="paquete.url_imagen != null; else fotoDefault">
-            <img class="img-table" [src]="imageSrc + paquete.url_imagen"/>
-          </ng-container>
-          <ng-template #fotoDefault>
-            <img class="img-table" [src]="imageSrcDefault" alt="Imagen no encontrada"/>
-          </ng-template>
-        </td>
+      <table class="table table-striped mt-4">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Horas de video</th>
+            <th scope="col">Fotos digitales</th>
+            <th scope="col">Fotos fisicas</th>
+            <th scope="col">Fotos enmarcadas</th>
+            <th scope="col">Marco</th>
+            <th scope="col">Tamaño</th>
+            <th scope="col">Tipo de paquete</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Imagen</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let paquete of paquetes">
+            <th scope="row">{{ paquete.id }}</th>
+            <td> {{ paquete.nombre }}</td>
+            <td> {{ paquete.descripcion }}</td>
+            <td> {{ paquete.hrs_Video }}</td>
+            <td> {{ paquete.no_Fotos_Dig }}</td>
+            <td> {{ paquete.no_Fotos_Fis }}</td>
+            <td> {{ paquete.no_Fotos_Enm }}</td>
+            <td> {{ paquete.marco_nombre }}</td>
+            <td> {{ paquete.tamano_nombre }}</td>
+            <td> {{ paquete.tipo_paquete_nombre }}</td>
+            <td> {{ paquete.precio }}</td>
+            <td style="width: 15%;">
+              <ng-container *ngIf="paquete.url_imagen != null; else fotoDefault">
+                <img class="img-table" [src]="imageSrc + paquete.url_imagen" />
+              </ng-container>
+              <ng-template #fotoDefault>
+                <img class="img-table" [src]="imageSrcDefault" alt="Imagen no encontrada" />
+              </ng-template>
+            </td>
 
 
-        <td style="display: flex; flex-direction: row;">
-            <a class="nav-link" routerLink="/editpaquete/{{paquete.id}}">
+            <td style="display: flex; flex-direction: row;">
+              <a class="nav-link" routerLink="/paquetes/{{paquete.id}}">
                 <mat-icon>edit</mat-icon>
-            </a>
-            <a class="nav-link" (click)="eliminarPaquete(paquete.id)">
+              </a>
+              <a class="nav-link" (click)="eliminarPaquete(paquete.id)">
                 <mat-icon>delete</mat-icon>
-            </a>
-        </td>
+              </a>
+            </td>
 
-      </tr>
-    </tbody>
-</table>
-
-<!--
-<table mat-table [dataSource]="paquetes" class="mat-elevation-z8 demo-table">
-
-
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> ID. </th>
-      <td mat-cell *matCellDef="let paquete"> {{paquete.id}} </td>
-    </ng-container>
-  
-
-    <ng-container matColumnDef="userId">
-      <th mat-header-cell *matHeaderCellDef> UserId </th>
-      <td mat-cell *matCellDef="let paquete"> {{paquete.userId}} </td>
-    </ng-container>
-  
- 
-    <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef> Title </th>
-      <td mat-cell *matCellDef="let paquete"> {{paquete.title}} </td>
-    </ng-container>
-  
-
-    <ng-container matColumnDef="body">
-      <th mat-header-cell *matHeaderCellDef> Body </th>
-      <td mat-cell *matCellDef="let paquete"> {{paquete.body}} </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
--->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

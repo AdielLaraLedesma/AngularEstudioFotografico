@@ -123,15 +123,35 @@ export class RecepcionistaService {
       );
     }
 
-    updateServicioImpresion(fd: any){
-      /*return this.http
-      .post<any[]>(`${environment.apiUrl}/servicios_sesion/recepcionista_agregar`, fd)
+    changeStatusServicioImpresion(id: string){
+      this.http
+      .put(`api/servicios_impresion/finalizarSevicio/${id}`, {})
       .pipe(
-        map((servicios: any[]) => {
-          return servicios;
+        map((data: any) => {
+          return data;
         }),
         catchError((err: { message: any; }) => this.handlerError(err))
-      );*/
+      );
+    }
+    changeStatusServicioSesion(id: string){
+      return this.http
+      .put(`api/servicios_sesion/finalizarSevicio/${id}`, {})
+      .pipe(
+        map((data: any) => {
+          return data;
+        }),
+        catchError((err: { message: any; }) => this.handlerError(err))
+      );
+    }
+    changeStatusServicioEvento(id: string){
+      this.http
+      .put(`api/servicios_evento/finalizarSevicio/${id}`, {})
+      .pipe(
+        map((data: any) => {
+          return data;
+        }),
+        catchError((err: { message: any; }) => this.handlerError(err))
+      );
     }
 
 

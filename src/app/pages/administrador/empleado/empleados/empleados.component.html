@@ -1,50 +1,55 @@
-<div class="mt-3 container-btn">
-    <a class="btn btn-primary" routerLink="agregar">Agregar</a>
-    <hr>
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-body">
+      <span class="h3">Lista de empleados</span>
+      <a class="btn btn-dark btn-lg float-right" routerLink="agregar">Agregar</a>
+
+      <table class="table table-striped mt-5">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido Paterno</th>
+            <th scope="col">Apellido Materno</th>
+            <th scope="col">celular</th>
+            <th scope="col">direccion</th>
+            <th scope="col">rol</th>
+            <th scope="col">email</th>
+            <th scope="col">Imagen</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let empleado of empleados">
+            <th scope="row">{{ empleado.id }}</th>
+            <td> {{ empleado.nombre }}</td>
+            <td> {{ empleado.ape_pat }}</td>
+            <td> {{ empleado.ape_mat }}</td>
+            <td> {{ empleado.celular }}</td>
+            <td> {{ empleado.direccion }}</td>
+            <td> {{ empleado.rol_nombre }}</td>
+            <td> {{ empleado.correo }}</td>
+            <td style="width: 15%;">
+              <ng-container *ngIf="empleado.url_imagen != null; else fotoDefault">
+                <img class="img-table" [src]="imageSrc + empleado.url_imagen" />
+              </ng-container>
+              <ng-template #fotoDefault>
+                <img class="img-table" [src]="imageSrcDefault" alt="Imagen no encontrada" />
+              </ng-template>
+            </td>
+            <td style="display: flex; flex-direction: row;">
+              <a class="nav-link" routerLink="/empleados/{{empleado.id}}">
+                <mat-icon>edit</mat-icon>
+              </a>
+              <a class="nav-link" (click)="eliminarEmpleado(empleado.id)">
+                <mat-icon>delete</mat-icon>
+              </a>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+
+
+    </div>
   </div>
-  
-  <table class="table table-striped">
-      <thead> 
-        <tr>
-          <th scope="col">Id</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Apellido Paterno</th>
-          <th scope="col">Apellido Materno</th>
-          <th scope="col">celular</th>
-          <th scope="col">direccion</th>
-          <th scope="col">rol</th>
-          <th scope="col">email</th>
-          <th scope="col">Imagen</th>
-          <th scope="col">Opciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let empleado of empleados">
-          <th scope="row">{{ empleado.id }}</th>
-          <td> {{ empleado.nombre }}</td>
-          <td> {{ empleado.ape_pat }}</td>
-          <td> {{ empleado.ape_mat }}</td>
-          <td> {{ empleado.celular }}</td>
-          <td> {{ empleado.direccion }}</td>
-          <td> {{ empleado.rol_nombre }}</td>
-          <td> {{ empleado.correo }}</td>
-          <td style="width: 15%;" >
-            <ng-container *ngIf="empleado.url_imagen != null; else fotoDefault">
-              <img class="img-table" [src]="imageSrc + empleado.url_imagen"/>
-            </ng-container>
-            <ng-template #fotoDefault>
-              <img class="img-table" [src]="imageSrcDefault" alt="Imagen no encontrada"/>
-            </ng-template>
-          </td>
-          <td style="display: flex; flex-direction: row;">
-              <a class="nav-link" routerLink="/editempleado/{{empleado.id}}">
-                  <mat-icon>edit</mat-icon>
-              </a>
-              <a class="nav-link" (click) = "eliminarEmpleado(empleado.id)">
-                  <mat-icon>delete</mat-icon>
-              </a>
-          </td>
-  
-        </tr>
-      </tbody>
-  </table>

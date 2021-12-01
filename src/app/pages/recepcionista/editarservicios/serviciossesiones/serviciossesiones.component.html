@@ -8,7 +8,7 @@
                             <div class="col-12 header">
                                 <h3 *ngIf="servicio != null" class="mb-0">{{ servicio.paquete_nombre }}</h3>
                                 <div class="container-status">
-                                    <button *ngIf="servicio != null && mostrarBotonFinalizar" type="button"
+                                    <button *ngIf="servicio != null && servicio.estatus_id == 5" type="button"
                                         class="btn btn-primary btn-sm" (click)="finalizarServicio()">Finalizar
                                         servicio</button>
                                     <h3 *ngIf="servicio != null">{{ servicio.estatus_nombre }}</h3>
