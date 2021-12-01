@@ -24,13 +24,13 @@
 
 
             <td style="display: flex; flex-direction: row;">
-              <a *ngIf="servicio.tipo_paquete_id == 1" class="nav-link" routerLink="/servicioevento/{{servicio.id}}">
+              <a *ngIf="servicio.id_Tipo_Paquete == 1" class="nav-link" routerLink="/servicioevento/{{servicio.id}}">
                 <mat-icon>edit</mat-icon>
               </a>
-              <a *ngIf="servicio.tipo_paquete_id == 2" class="nav-link" routerLink="/serviciosesion/{{servicio.id}}">
+              <a *ngIf="servicio.id_Tipo_Paquete == 2" class="nav-link" routerLink="/serviciosesion/{{servicio.id}}">
                 <mat-icon>edit</mat-icon>
               </a>
-              <a *ngIf="servicio.tipo_paquete_id == 3" class="nav-link" routerLink="/servicioimpresion/{{servicio.id}}">
+              <a *ngIf="servicio.id_Tipo_Paquete == 3" class="nav-link" routerLink="/servicioimpresion/{{servicio.id}}">
                 <mat-icon>edit</mat-icon>
               </a>
             </td>

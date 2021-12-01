@@ -23,7 +23,8 @@ export class EmpleadosService {
 
   getEmpleados(): Observable<Employee[]>{
     return this.http
-      .get<Employee[]>(`${environment.apiUrl}/usuarios/`)
+      .get<Employee[]>(`api/usuarios/`)
+      //.get<Employee[]>(`${environment.apiUrl}/usuarios/`)
       .pipe(
         map((empleados: Employee[]) => {
           return empleados;
@@ -34,7 +35,8 @@ export class EmpleadosService {
 
   getEmpleado(id: string) {
     return this.http
-    .get<Employee>(`${environment.apiUrl}/usuarios/${id}`)
+    .get<Employee>(`api/usuarios/${id}`)
+    //.get<Employee>(`${environment.apiUrl}/usuarios/${id}`)
     .pipe(
       map((empleado: any) => {
         return empleado;
@@ -57,7 +59,9 @@ export class EmpleadosService {
 
 
   deleteEmpleado(id: number) {
-    return this.http.delete(`${environment.apiUrl}/usuarios/eliminar/${id}`)
+    return this.http
+    .delete(`api/usuarios/eliminar/${id}`)
+    //.delete(`${environment.apiUrl}/usuarios/eliminar/${id}`)
     .pipe(
       map((empleado: any) => {
         return empleado;
@@ -69,7 +73,8 @@ export class EmpleadosService {
 
   updateEmpleado(id: string, empleado: Employee) {
     return this.http
-      .put(`${environment.apiUrl}/usuarios/actualizar/${id}`, empleado)
+      .put(`api/usuarios/actualizar/${id}`, empleado)
+      //.put(`${environment.apiUrl}/usuarios/actualizar/${id}`, empleado)
       .pipe(
         map((empleado: any) => {
           return empleado;

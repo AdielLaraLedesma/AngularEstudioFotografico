@@ -16,20 +16,18 @@ export class PerfilComponent implements OnInit {
   private destroy$ = new Subject<any>();
 
   public user: UserResponse = null!;
+  subscription: any;
 
   constructor(
     private authService: AuthService
   ) { }
 
   ngOnInit(): void {
-    this.authService.user$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((user: UserResponse) => {
-        if (user) {
-          this.user = user;
-          console.log(this.user)
-        }
-      });
+
+
+
+
+   this.getUser();
   }
 
   ngOnDestroy(): void {
@@ -37,6 +35,21 @@ export class PerfilComponent implements OnInit {
     this.destroy$.next({});
     this.destroy$.complete();
 
+  }
+
+  getUser() {
+    this.user = this.authService.getUser();
+    if (this.user == null)
+      this.subscription.add(
+        this.authService.user$
+          .pipe(takeUntil(this.destroy$))
+          .subscribe((user: UserResponse) => {
+            if (user) {
+              this.user = user;
+            }
+          })
+      );
+      console.log(this.user)
   }
 
   formularioEditar(){

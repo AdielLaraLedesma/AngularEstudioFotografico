@@ -1,73 +1,76 @@
 <div class="main-content">
     <div class="container mt-4">
         <div class="row">
-            <div class="col-xl-3 order-xl-1" *ngIf="imagesHtml.length != 0">
-                <h2>Imagenes seleccionadas</h2>
-                <img class="img-form" *ngFor='let url of imagesHtml; let i = index' [src]="url" style="margin: 3px;"> <br />
-            </div>
-            <div class="m-auto order-xl-1" [class.col-xl-6]="videosHtml.length != 0 && imagesHtml.length != 0"
-                [class.col-xl-12]="videosHtml.length == 0 && imagesHtml.length == 0"
-                [class.col-xl-9]="videosHtml.length == 0 || imagesHtml.length == 0">
+            <div class="m-auto order-xl-1 col-xl-7">
                 <div class="card bg-secondary shadow">
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
                             <div class="col-12 header">
                                 <h3 *ngIf="servicio != null" class="mb-0">{{ servicio.paquete_nombre }}</h3>
                                 <div class="container-status">
-                                    <button *ngIf="servicio != null && mostrarBotonFinalizar" type="button" class="btn btn-primary" (click)="finalizarServicio()" >Finalizar servicio</button>
+                                    <button *ngIf="servicio != null && mostrarBotonFinalizar" type="button"
+                                        class="btn btn-primary btn-sm" (click)="finalizarServicio()">Finalizar
+                                        servicio</button>
                                     <h3 *ngIf="servicio != null">{{ servicio.estatus_nombre }}</h3>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row mt-3" *ngIf="servicio != null">
                             <div class="col-lg-6">
-                                <span *ngIf="servicio != null">
-                                    <mat-icon>calendar_today</mat-icon> Fecha de la sesión : {{
-                                        servicio.fecha_sesion }}
-                                </span>
-                            </div>
-                            <div class="col-lg-6">
-                                <span *ngIf="servicio != null">
-                                    <mat-icon>place</mat-icon> Direccion : {{ servicio.direccion }}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="row mt-4">
-                            <div class="col-lg-6">
-                                <span *ngIf="servicio != null">
-                                    <mat-icon>face</mat-icon> Nombre del cliente : {{ servicio.nombre_cliente }}
-                                </span>
-                            </div>
-                            <div class="col-lg-6">
-                                <span *ngIf="servicio != null">
-                                    <mat-icon>credit_card</mat-icon> El total es : {{ servicio.total }}
+                                <mat-icon>calendar_today</mat-icon> Fecha de la sesión :
 
-                                </span>
                             </div>
-                        </div>
-                        <div class="row mt-4">
-                            <div class="col-lg-6">
-                                <span *ngIf="servicio != null">
-                                    <mat-icon>image</mat-icon> Total de imagenes digitales :
-                                </span>
+                            <div class="col-lg-6 text-right">
+                                {{servicio.fecha_sesion }}
                             </div>
                         </div>
 
+                        <div class="row mt-3" *ngIf="servicio != null">
+                            <div class="col-lg-6">
+                                <mat-icon>face</mat-icon> Nombre del cliente :
+                            </div>
+                            <div class="col-lg-6 text-right">
+                                {{servicio.nombre_cliente }}
+                            </div>
+                        </div>
+                        <div class="row mt-3" *ngIf="servicio != null">
+                            <div class="col-lg-6">
+                                <mat-icon>image</mat-icon> Total de fotos digitales :
+                            </div>
+                            <div class="col-lg-6 text-right">
+                                {{ servicio.no_Fotos_Dig }}
+                            </div>
+                        </div>
+                        <div class="row mt-3" *ngIf="servicio != null">
+                            <div class="col-lg-6">
+                                <mat-icon>image</mat-icon> Total de fotos enmarcada
+                            </div>
+                            <div class="col-lg-6 text-right">
+                                {{ servicio.no_Fotos_Enm }}
+                            </div>
+                        </div>
+                        <div class="row mt-3" *ngIf="servicio != null">
+                            <div class="col-lg-6">
+                                <mat-icon>image</mat-icon> Total de fotos fisicas :
+                            </div>
+                            <div class="col-lg-6 text-right">
+                                {{ servicio.no_Fotos_Fis }}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row mt-3" *ngIf="servicio != null">
+                            <div class="col-lg-6">
+                                <mat-icon>credit_card</mat-icon> El total es :
+                            </div>
+                            <div class="col-lg-6 text-right">
+                                {{ servicio.total }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 order-xl-1" *ngIf="videosHtml.length != 0">
-                <h2>Videos seleccionados</h2>
-                    <video *ngFor='let url of videosHtml;' width="200" height="200" controls>
-                        <source [src]="url" type="video/mp4">
-                    </video>
-            </div>
         </div>
     </div>
-    
-
-
-
 </div>

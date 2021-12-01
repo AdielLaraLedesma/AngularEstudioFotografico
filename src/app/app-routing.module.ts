@@ -12,8 +12,16 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { CheckNotAdminGuard } from '../app/shared/guards/check-not-admin.guard';
 import { MarcosComponent } from './pages/administrador/marco/marcos/marcos.component'
 import { MarcosFormComponent } from './pages/administrador/marco/marcos-form/marcos-form.component';
+import { CheckNotFotografoGuard } from './shared/guards/check-not-fotografo.guard';
+import { CheckNotRecepcionistaGuard } from './shared/guards/check-not-recepcionista.guard';
 
 const routes: Routes = [
+  {
+    path: '', 
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
+    pathMatch: 'full',
+    canActivate: [CheckNotLoginGuard]
+  },
   {
     path: 'paquetes', 
     component: PaquetesComponent,
@@ -37,7 +45,7 @@ const routes: Routes = [
   {
     path: 'miPerfil',
     component: PerfilComponent,
-    canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
+    canActivate: [CheckNotLoginGuard]
   },
   {
     path: 'marcos', 
@@ -94,11 +102,6 @@ const routes: Routes = [
   { path: 'servicios', loadChildren: () => import('./pages/recepcionista/servicios/servicios.module').then(m => m.ServiciosModule) },
   { path: 'servicios/agregar', loadChildren: () => import('./pages/recepcionista/agregarservicios/agregarservicios.module').then(m => m.AgregarserviciosModule) },
   { path: 'editservicio/:id/:tipo_paquete_id', loadChildren: () => import('./pages/recepcionista/editservicio/editservicio.module').then(m => m.EditservicioModule) },
-  {
-    path: '', 
-    loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
-    canActivate: [CheckNotLoginGuard]
-  },
   { 
     path: 'login', 
     loadChildren: () => import('./pages/auth/login/login.module').then(m => m.LoginModule), 
@@ -107,6 +110,9 @@ const routes: Routes = [
   { path: 'servicioevento/:id', loadChildren: () => import('./pages/recepcionista/editarservicios/servicioseventos/servicioseventos.module').then(m => m.ServicioseventosModule) },
   { path: 'servicioimpresion/:id', loadChildren: () => import('./pages/recepcionista/editarservicios/serviciosimpresiones/serviciosimpresiones.module').then(m => m.ServiciosimpresionesModule) },
   { path: 'serviciosesion/:id', loadChildren: () => import('./pages/recepcionista/editarservicios/serviciossesiones/serviciossesiones.module').then(m => m.ServiciossesionesModule) },
+  {
+    path: '**', redirectTo: 'notFound'
+  }
 
 ];
 
