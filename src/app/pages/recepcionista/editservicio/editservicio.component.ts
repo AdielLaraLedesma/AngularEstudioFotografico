@@ -153,7 +153,7 @@ export class EditservicioComponent implements OnInit {
       })*/
     );
 
-    this.subscription.add(
+    /*this.subscription.add(
       this.recepcionistaService.getImages(this.id).subscribe( data => {
 
         data.forEach((element: { url_imagen: string; }) => {
@@ -162,7 +162,7 @@ export class EditservicioComponent implements OnInit {
 
 
       })
-    );
+    );*/
 
     this.subscription.add(
       this.recepcionistaService.getVideos(this.id).subscribe( data => {

@@ -1,7 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+
+  background: linear-gradient( rgba(0,0,0,0.6), rgba(0,0,0,0.6) ), url('./assets/img/fondoCamara.jpg');
+  /*background-image: url('./assets/img/fondo.jpg');*/
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+
+}
 
 
   .cdk-global-overlay-wrapper, .cdk-overlay-container {

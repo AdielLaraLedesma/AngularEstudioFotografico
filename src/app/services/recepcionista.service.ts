@@ -51,7 +51,8 @@ export class RecepcionistaService {
 
     getServicioImpresion(id: string){
       return this.http
-      .get<any[]>(`${environment.apiUrl}/servicios_impresion/${id}`,)
+      .get<any[]>(`api/servicios_impresion/${id}`,)
+      //.get<any[]>(`${environment.apiUrl}/servicios_impresion/${id}`,)
       .pipe(
         map((servicios: any[]) => {
           return servicios;
@@ -94,9 +95,19 @@ export class RecepcionistaService {
       );
     }
 
-    getImages(id: string){
+    getImagesEvento(id: string){
       return this.http
       .get<any>(`${environment.apiUrl}/servicios_evento/imagenes/${id}`)
+      .pipe(
+        map((images: any) => {
+          return images;
+        }),
+        catchError((err: { message: any; }) => this.handlerError(err))
+      );
+    }
+    getImagesImpresion(id: string){
+      return this.http
+      .get<any>(`${environment.apiUrl}/servicios_impresion/imagenes/${id}`)
       .pipe(
         map((images: any) => {
           return images;

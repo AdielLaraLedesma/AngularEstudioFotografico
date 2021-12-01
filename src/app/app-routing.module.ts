@@ -104,6 +104,9 @@ const routes: Routes = [
     loadChildren: () => import('./pages/auth/login/login.module').then(m => m.LoginModule), 
     canActivate: [CheckLoginGuard] 
   },
+  { path: 'servicioevento/:id', loadChildren: () => import('./pages/recepcionista/editarservicios/servicioseventos/servicioseventos.module').then(m => m.ServicioseventosModule) },
+  { path: 'servicioimpresion/:id', loadChildren: () => import('./pages/recepcionista/editarservicios/serviciosimpresiones/serviciosimpresiones.module').then(m => m.ServiciosimpresionesModule) },
+  { path: 'serviciosesion/:id', loadChildren: () => import('./pages/recepcionista/editarservicios/serviciossesiones/serviciossesiones.module').then(m => m.ServiciossesionesModule) },
 
 ];
 

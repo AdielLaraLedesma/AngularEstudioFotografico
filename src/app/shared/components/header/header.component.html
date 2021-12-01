@@ -1,4 +1,6 @@
-<mat-toolbar color="primary">
+<!--<mat-toolbar color="primary">-->
+<nav class="navbar navbar-dark bg-dark">
+
   <ng-container *ngIf="isLogged; else viewNoLogged">
     <div>
       <ng-container *ngIf="user.rol_id == 1;">
@@ -33,7 +35,8 @@
       <button mat-menu-item (click)="onLogout()">Cerrar sesión</button>
     </mat-menu>
   </ng-container>
-</mat-toolbar>
+</nav>
+<!--</mat-toolbar>-->
 
 <ng-template #viewNoLogged>
   <div>
@@ -41,5 +44,3 @@
     <a mat-button routerLink="/forgotpassword">Olvide mi contraseña</a>
   </div>
 </ng-template>
-
-
