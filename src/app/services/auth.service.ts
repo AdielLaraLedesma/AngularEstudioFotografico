@@ -23,22 +23,6 @@ export class AuthService {
     this.checkToken();
   }
 
-  /*login(authData: User): Observable<UserResponse | void> {
-    return this.http
-      .post<UserResponse>('/api/usuarios/loginApp', {
-        correo: authData.correo,
-        contrasena: authData.contrasena
-      })
-      .pipe(
-        map((user: any) => {
-          this.user.next(user);
-          console.log(user)
-          return user;
-        }),
-        catchError((err) => this.handlerError(err))
-      );
-  }*/
-
   loginJWT(authData: User): Observable<UserResponse | void> {
     return (
       this.http

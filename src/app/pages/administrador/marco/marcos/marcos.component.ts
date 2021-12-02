@@ -23,14 +23,14 @@ export class MarcosComponent implements OnInit {
     this.getMarcos();
   } 
 
-  eliminarMarco(id: number){
+  eliminarMarco(id: number, iControl:any){
+    console.log(iControl)
     this.marcosService.deleteMarco(id).subscribe(data => {
       this.toastr.success("El marco fue eliminado exitosamente", "Marco eliminado", {
         positionClass: 'toast-bottom-right'
       });
-      this.getMarcos();
+      this.marcos.splice(iControl, 1);
     })
-    //TODO Implementar http request para eliminar paquete
 
   }
 

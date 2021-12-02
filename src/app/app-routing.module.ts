@@ -101,7 +101,6 @@ const routes: Routes = [
   },
   { path: 'servicios', loadChildren: () => import('./pages/recepcionista/servicios/servicios.module').then(m => m.ServiciosModule) },
   { path: 'servicios/agregar', loadChildren: () => import('./pages/recepcionista/agregarservicios/agregarservicios.module').then(m => m.AgregarserviciosModule) },
-  { path: 'editservicio/:id/:tipo_paquete_id', loadChildren: () => import('./pages/recepcionista/editservicio/editservicio.module').then(m => m.EditservicioModule) },
   { 
     path: 'login', 
     loadChildren: () => import('./pages/auth/login/login.module').then(m => m.LoginModule), 

@@ -1,11 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { 
-  margin: 0; 
-  font-family: Roboto, "Helvetica Neue", sans-serif; 
+html,
+body {
+  height: 100%;
+}
 
-  background: linear-gradient( rgba(0,0,0,0.6), rgba(0,0,0,0.6) ), url('./assets/img/fondoCamara.jpg');
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./assets/img/fondoCamara.jpg');
   /*background-image: url('./assets/img/fondo.jpg');*/
   background-repeat: no-repeat;
   background-position: center;
@@ -15,8 +19,13 @@ body {
 }
 
 
-  .cdk-global-overlay-wrapper, .cdk-overlay-container {
-    z-index: 99999 !important;
- }
+.cdk-global-overlay-wrapper,
+.cdk-overlay-container {
+  z-index: 99999 !important;
+}
+
+
+
+
 
 @import "~@angular/material/brebuilt-themes/indigo-pink.css"

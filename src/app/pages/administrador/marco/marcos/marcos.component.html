@@ -13,7 +13,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let marco of marcos">
+          <tr *ngFor="let marco of marcos; let iControl=index">
             <th scope="row">{{ marco.id }}</th>
             <td> {{ marco.nombre }}</td>
             <td> {{ marco.precio }}</td>
@@ -21,7 +21,7 @@
               <a class="nav-link" routerLink="/marcos/{{marco.id}}">
                 <mat-icon>edit</mat-icon>
               </a>
-              <a class="nav-link" (click)="eliminarMarco(marco.id)">
+              <a class="nav-link" (click)="eliminarMarco(marco.id, iControl)">
                 <mat-icon>delete</mat-icon>
               </a>
             </td>

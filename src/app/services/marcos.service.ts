@@ -18,9 +18,10 @@ export class MarcosService {
     //console.log("Is working!")
   }
 
-  getMarco(id: string) {
+  getMarco(id: string): Observable<Marco>{
     return this.http
-    .get<Marco>(`${environment.apiUrl}/marcos/${id}`)
+    .get<Marco>(`api/marcos/${id}`)
+    //.get<Marco>(`${environment.apiUrl}/marcos/${id}`)
     .pipe(
       map((marco: any) => {
         return marco[0];
@@ -34,8 +35,8 @@ export class MarcosService {
       .get<Marco[]>(`api/marcos`)
       //.get<Marco[]>(`${environment.apiUrl}/marcos`)
       .pipe(
-        map((marco: Marco[]) => {
-          return marco;
+        map((marcos: Marco[]) => {
+          return marcos;
         }),
         catchError((err: { message: any; }) => this.handlerError(err))
       );
@@ -43,7 +44,8 @@ export class MarcosService {
 
   saveMarco(fd: any) {
     return this.http
-    .post(`${environment.apiUrl}/marcos/agregar`, fd).pipe(
+    .post(`api/marcos/agregar`, fd).pipe(
+    //.post(`${environment.apiUrl}/marcos/agregar`, fd).pipe(
       map((marco: any) => {
         return marco;
       }),
@@ -64,7 +66,8 @@ export class MarcosService {
 
   deleteMarco(id: number) {
     return this.http
-    .delete(`${environment.apiUrl}/marcos/eliminar/${id}`)
+    .delete(`api/marcos/eliminar/${id}`)
+    //.delete(`${environment.apiUrl}/marcos/eliminar/${id}`)
     .pipe(
       map((marco: any) => {
         return marco;
