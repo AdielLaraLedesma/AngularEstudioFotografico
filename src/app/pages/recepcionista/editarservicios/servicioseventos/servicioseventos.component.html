@@ -1,12 +1,15 @@
 <div class="main-content">
     <div class="container mt-4">
         <div class="row">
-            <div class="order-xl-1" *ngIf="imagesHtml.length != 0" [class.col-xl-6]="imagesHtml.length > 30" [class.col-xl-3]="imagesHtml.length <= 30">
+            <div class="order-xl-1 mb-3" *ngIf="imagesHtml.length != 0" [class.col-xl-6]="imagesHtml.length > 30" [class.col-xl-4]="imagesHtml.length <= 30">
                 <div class="card bg-secondary shadow">
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
                             <div class="col-12 header">
                                 <h3 class="mb-0"> Imagenes seleccionadas </h3>
+                                <a class="float-right" href="javascript:void(0)" style="cursor:pointer" (click)="downloadRar()">
+                                    <mat-icon class="align-middle">file_download</mat-icon><p class="align-middle d-inline">Descargar</p>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -21,13 +24,7 @@
                     </div>
                 </div>
             </div>
-            <div class="order-xl-1" 
-                [class.col-xl-12]="videosHtml.length == 0 && imagesHtml.length == 0"
-                [class.col-xl-9]="videosHtml.length == 0 && imagesHtml.length >= 0 && imagesHtml.length <=30"
-                [class.col-xl-9]="imagesHtml.length == 0 && videosHtml.length != 0"
-                [class.col-xl-6]="videosHtml.length != 0 && imagesHtml.length > 30"
-                [class.col-xl-6]="videosHtml.length == 0 && imagesHtml.length > 30"
-                >
+            <div class="order-xl-1 col-xl-5" >
                 <div class="card bg-secondary shadow">
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">

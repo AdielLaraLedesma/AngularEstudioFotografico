@@ -7,14 +7,16 @@ import { AuthService } from 'src/app/services/auth.service';
 import { RecepcionistaService } from 'src/app/services/recepcionista.service';
 import { UserResponse } from 'src/app/shared/models/user.interface';
 
+declare var require: any
+const FileSaver = require('file-saver');
+
 @Component({
   selector: 'app-serviciosimpresiones',
   templateUrl: './serviciosimpresiones.component.html',
-  styleUrls: ['./serviciosimpresiones.component.css']
+  styleUrls: ['./serviciosimpresiones.component.css'],
 })
 export class ServiciosimpresionesComponent implements OnInit {
-
-  public defaultUrl = 'http://localhost:3000/'
+  public defaultUrl = 'http://localhost:3000/';
 
   mostrarBotonFinalizar = false;
 
@@ -22,21 +24,21 @@ export class ServiciosimpresionesComponent implements OnInit {
   private subscription: Subscription = new Subscription();
   id: string = '';
 
+  archivoRar: any;
+  
+
   images: string[] = [];
   imagesHtml: string[] = [];
 
-
   private destroy$ = new Subject<any>();
   public user: UserResponse = null!;
-
-
 
   constructor(
     private rutaActiva: ActivatedRoute,
     private recepcionistaService: RecepcionistaService,
     private authService: AuthService,
-    private toastr: ToastrService,
-  ) { }
+    private toastr: ToastrService
+  ) {}
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -52,23 +54,26 @@ export class ServiciosimpresionesComponent implements OnInit {
     this.getServicio();
 
     this.subscription.add(
-      this.recepcionistaService.getImagesImpresion(this.id).subscribe( data => {
+      this.recepcionistaService
+        .getImagesImpresion(this.id)
+        .subscribe((data) => {
+          data.forEach((element: { url_imagen: string }) => {
+            this.imagesHtml.push(this.defaultUrl + element.url_imagen);
+          });
 
-        data.forEach((element: { url_imagen: string; }) => {
-          this.imagesHtml.push(this.defaultUrl + element.url_imagen)
-        });
-
-
-      }) 
+          this.archivoRar = data.url_rar;
+        })
     );
   }
 
-  getServicio(){
+  getServicio() {
     this.subscription.add(
-      this.recepcionistaService.getServicioImpresion(this.id).subscribe( data => {
-        console.log(data)
-        this.servicio = data;
-      } )
+      this.recepcionistaService
+        .getServicioImpresion(this.id)
+        .subscribe((data) => {
+          console.log(data);
+          this.servicio = data;
+        })
     );
   }
 
@@ -86,12 +91,25 @@ export class ServiciosimpresionesComponent implements OnInit {
       );
   }
   finalizarServicio() {
-    this.recepcionistaService.changeStatusServicioSesion(this.id).subscribe( data => {
-      this.getServicio()
-      this.toastr.success(`Se ha cambiado el estado del servicio exitosamente`, "Estado cambiado", {
-        positionClass: 'toast-bottom-right'
+    this.recepcionistaService
+      .changeStatusServicioSesion(this.id)
+      .subscribe((data) => {
+        this.getServicio();
+        this.toastr.success(
+          `Se ha cambiado el estado del servicio exitosamente`,
+          'Estado cambiado',
+          {
+            positionClass: 'toast-bottom-right',
+          }
+        );
       });
-    } )
   }
+
+  downloadRar() {
+    const rarUrl = this.defaultUrl + this.servicio.url_rar;
+    const rarName = this.servicio.nombre_cliente + "-" + this.servicio.paquete_nombre;
+    FileSaver.saveAs(rarUrl, rarName);
+  }
+
 
 }

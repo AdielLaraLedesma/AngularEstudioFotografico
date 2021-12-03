@@ -8,6 +8,10 @@ import { UserResponse } from 'src/app/shared/models/user.interface';
 
 import { environment } from '../../../../../environments/environment';
 
+
+declare var require: any
+const FileSaver = require('file-saver');
+
 @Component({
   selector: 'app-servicioseventos',
   templateUrl: './servicioseventos.component.html',
@@ -24,10 +28,10 @@ export class ServicioseventosComponent implements OnInit {
   private subscription: Subscription = new Subscription();
   id: string = '';
 
-  images: string[] = [];
+  //images: string[] = [];
   imagesHtml: string[] = [];
 
-  videos: string[] = [];
+  //videos: string[] = [];
   videosHtml: any[] = [];
 
 
@@ -53,7 +57,6 @@ export class ServicioseventosComponent implements OnInit {
           this.imagesHtml.push(this.defaultUrl + element.url_imagen)
         });
 
-
       }) 
     );
 
@@ -65,7 +68,6 @@ export class ServicioseventosComponent implements OnInit {
         }
       })
     );
-
   } 
 
   getServicio(){
@@ -73,6 +75,7 @@ export class ServicioseventosComponent implements OnInit {
       this.recepcionistaService.getServicioEvento(this.id).subscribe( data => {
         console.log(data)
         this.servicio = data;
+        //videosHtml.length == 0 && imagesHtml.length > 0 && imagesHtml.length <= 30
       } )
     );
   }
@@ -84,6 +87,11 @@ export class ServicioseventosComponent implements OnInit {
         positionClass: 'toast-bottom-right'
       });
     } )
+  }
+  downloadRar() {
+    const rarUrl = this.defaultUrl + this.servicio.url_rar;
+    const rarName = this.servicio.nombre_cliente + "-" + this.servicio.paquete_nombre;
+    FileSaver.saveAs(rarUrl, rarName);
   }
 
 }

@@ -233,10 +233,8 @@ export class AgregarserviciosComponent implements OnInit, OnDestroy {
 
     for (var i = 0; i < this.imagesHtml.length; i++) {
       if (this.imagesHtml[i] === this.imageSelected) {
-        this.images[i].fotos =
-          this.agregarDetalleImagenForm.controls['no_Fotos'].value;
-        this.images[i].marco_id =
-          this.agregarDetalleImagenForm.controls['marco_id'].value;
+        this.images[i].fotos = this.agregarDetalleImagenForm.controls['no_Fotos'].value;
+        this.images[i].marco_id = this.agregarDetalleImagenForm.controls['marco_id'].value;
         this.images[i].tamano_id =
           this.agregarDetalleImagenForm.controls['tamano_id'].value;
       }
@@ -292,6 +290,34 @@ export class AgregarserviciosComponent implements OnInit, OnDestroy {
 
   open(content: any, element: string) {
     this.imageSelected = element;
+
+    for (var i = 0; i < this.imagesHtml.length; i++) {
+      if (this.imagesHtml[i] === this.imageSelected) {
+        console.log("entra aqui")
+        if(this.images[i].marco_id == ""){
+          this.agregarDetalleImagenForm.controls['marco_id'].setValue("");
+          this.selectedMarco = ""
+        }else{
+          this.agregarDetalleImagenForm.controls['marco_id'].setValue(this.images[i].marco_id)
+        }
+
+        if(this.images[i].tamano_id == ""){
+          this.agregarDetalleImagenForm.controls['tamano_id'].setValue("");
+          this.selectedTamano = ""
+        }else{
+          this.agregarDetalleImagenForm.controls['tamano_id'].setValue(this.images[i].tamano_id)
+          this.selectedTamano = ""
+        }
+
+        if(this.images[i].fotos == "")
+          this.agregarDetalleImagenForm.controls['no_Fotos'].setValue(0)
+        else
+          this.agregarDetalleImagenForm.controls['no_Fotos'].setValue(this.images[i].fotos)
+      }
+    }
+
+
+
     this.modalService
       .open(content, { ariaLabelledBy: 'modal-basic-title' })
       .result.then(

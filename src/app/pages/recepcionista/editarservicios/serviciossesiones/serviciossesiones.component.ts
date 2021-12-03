@@ -44,6 +44,8 @@ export class ServiciossesionesComponent implements OnInit, OnDestroy {
 
     this.id = this.rutaActiva.snapshot.params.id;
 
+    this.getServicio();
+
   }
 
   getServicio(){

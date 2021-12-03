@@ -18,7 +18,6 @@ export class ServiciosComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.recepcionista.getServicios().subscribe((data) => {
         this.servicios = data;
-        console.log(data)
       })
     );
   }
