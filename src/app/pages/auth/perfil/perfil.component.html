@@ -213,11 +213,11 @@
           <div class="card-body">
             <div class="row">
               <div class="col-lg-12">
-                <ng-container *ngIf="url == null; else viewImage">
+                <ng-container *ngIf="urlImage == null; else viewImage">
                   <img class="img-form" [src]="imageSrc" alt="Imagen no encontrada" />
                 </ng-container>
                 <ng-template #viewImage>
-                  <img class="img-form" [src]="url" alt="">
+                  <img class="img-form" [src]="urlImage" alt="">
                 </ng-template>
               </div>
             </div>

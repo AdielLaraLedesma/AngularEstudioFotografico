@@ -19,7 +19,7 @@ const FileSaver = require('file-saver');
 })
 export class ServicioseventosComponent implements OnInit {
 
-  public defaultUrl = 'http://localhost:3000/'
+  public url = environment.url;
 
   mostrarBotonFinalizar = false;
 
@@ -54,7 +54,7 @@ export class ServicioseventosComponent implements OnInit {
       this.recepcionistaService.getImagesEvento(this.id).subscribe( data => {
 
         data.forEach((element: { url_imagen: string; }) => {
-          this.imagesHtml.push(this.defaultUrl + element.url_imagen)
+          this.imagesHtml.push(this.url + element.url_imagen)
         });
 
       }) 
@@ -64,7 +64,7 @@ export class ServicioseventosComponent implements OnInit {
       this.recepcionistaService.getVideos(this.id).subscribe( data => {
         
         for (var i = 0; i < data.length; i++) {         
-          this.videosHtml.push(this.defaultUrl + data[i].url_video);
+          this.videosHtml.push(this.url + data[i].url_video);
         }
       })
     );
@@ -89,7 +89,7 @@ export class ServicioseventosComponent implements OnInit {
     } )
   }
   downloadRar() {
-    const rarUrl = this.defaultUrl + this.servicio.url_rar;
+    const rarUrl = this.url + this.servicio.url_rar;
     const rarName = this.servicio.nombre_cliente + "-" + this.servicio.paquete_nombre;
     FileSaver.saveAs(rarUrl, rarName);
   }

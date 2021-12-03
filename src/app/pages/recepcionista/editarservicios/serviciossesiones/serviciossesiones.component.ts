@@ -13,7 +13,7 @@ import { UserResponse } from 'src/app/shared/models/user.interface';
   styleUrls: ['./serviciossesiones.component.css'],
 })
 export class ServiciossesionesComponent implements OnInit, OnDestroy {
-  public defaultUrl = 'http://localhost:3000/';
+  //public defaultUrl = 'http://localhost:3000/';
 
   mostrarBotonFinalizar = false;
 

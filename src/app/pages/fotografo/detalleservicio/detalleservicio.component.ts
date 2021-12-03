@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FotografoService } from 'src/app/services/fotografo.service';
 import { ServicioEvento } from 'src/app/shared/models/servicioevento.interface';
 import { UserResponse } from 'src/app/shared/models/user.interface';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-detalleservicio',
@@ -16,7 +17,7 @@ import { UserResponse } from 'src/app/shared/models/user.interface';
   styleUrls: ['./detalleservicio.component.css'],
 })
 export class DetalleservicioComponent implements OnInit, OnDestroy {
-  public defaultUrl = 'http://localhost:3000/'
+  public url = environment.url
 
   contador: number = 0;
   id: string = '';
@@ -95,7 +96,7 @@ export class DetalleservicioComponent implements OnInit, OnDestroy {
         console.log(data)
 
         data.forEach((element: { url_imagen: string; }) => {
-          this.imagesHtml.push(this.defaultUrl + element.url_imagen)
+          this.imagesHtml.push(this.url + element.url_imagen)
         });
 
 
@@ -112,7 +113,7 @@ export class DetalleservicioComponent implements OnInit, OnDestroy {
         for (var i = 0; i < data.length; i++) {         
           //this.videosHtml.push(this.defaultUrl + data[i].url_video);
           //this.videosHtml.push(this.sanitizer.bypassSecurityTrustUrl(data[i].url_video))
-          this.videosHtml.push(this.defaultUrl + data[i].url_video);
+          this.videosHtml.push(this.url + data[i].url_video);
         }
 
         console.log(this.videosHtml)

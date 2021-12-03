@@ -31,7 +31,7 @@
             <td> {{ empleado.correo }}</td>
             <td style="width: 15%;">
               <ng-container *ngIf="empleado.url_imagen != null; else fotoDefault">
-                <img class="img-table" [src]="imageSrc + empleado.url_imagen" />
+                <img class="img-table" [src]="url + empleado.url_imagen" />
               </ng-container>
               <ng-template #fotoDefault>
                 <img class="img-table" [src]="imageSrcDefault" alt="Imagen no encontrada" />

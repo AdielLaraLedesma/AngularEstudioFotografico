@@ -6,14 +6,16 @@ import { PaquetesService } from '../../../../services/paquetes.service'
 
 import { Paquete } from '../../../../shared/models/paquete.interface'
 
+import { environment } from '../../../../../environments/environment';
+
 @Component({
   selector: 'app-paquetes',
   templateUrl: './paquetes.component.html',
   styleUrls: ['./paquetes.component.css']
 })
 export class PaquetesComponent implements OnInit {
+  public url = environment.url 
 
-  public imageSrc = 'http://localhost:3000/'  
   public imageSrcDefault = 'assets/img/image-not-found.png'  
 
 

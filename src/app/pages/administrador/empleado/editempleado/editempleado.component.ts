@@ -10,6 +10,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
 import { UserResponse } from 'src/app/shared/models/user.interface';
 import { AuthService } from 'src/app/services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-editempleado',
@@ -17,11 +18,11 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./editempleado.component.css']
 })
 export class EditempleadoComponent implements OnInit, OnDestroy {
+  public url = environment.url
 
   public newFile: File =  null!;
-  public url: any;
+  public urlImage: any;
   public imageSrc = 'assets/img/image-not-found.png'   
-  public imageDefault = 'http://localhost:3000/'
 
   private destroy$ = new Subject<any>();
   public user: UserResponse = null!;
@@ -81,7 +82,7 @@ export class EditempleadoComponent implements OnInit, OnDestroy {
         return
       }
 
-      this.url = this.imageDefault + data.url_imagen;
+      this.urlImage = this.url + data.url_imagen;
 
       this.editarEmpleadoForm.controls['id'].setValue(data.id)
       this.editarEmpleadoForm.controls['nombre'].setValue(data.nombre)
@@ -155,7 +156,7 @@ export class EditempleadoComponent implements OnInit, OnDestroy {
 		reader.readAsDataURL(event.target.files[0]);
 
     reader.onload = (_event) => {
-			this.url = reader.result; 
+			this.urlImage = reader.result; 
 		}
   }
 

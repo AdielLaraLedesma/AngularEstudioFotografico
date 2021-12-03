@@ -17,7 +17,7 @@ import { CheckNotRecepcionistaGuard } from './shared/guards/check-not-recepcioni
 
 const routes: Routes = [
   {
-    path: '', 
+    path: 'home', 
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
     pathMatch: 'full',
     canActivate: [CheckNotLoginGuard]
@@ -57,10 +57,10 @@ const routes: Routes = [
     component: MarcosFormComponent,
     canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
-  { 
+  /*{ 
     path: 'notFound', 
     loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule) 
-  },
+  },*/
   { 
     path: 'forgotpassword', 
     loadChildren: () => import('./pages/auth/forgotpassword/forgotpassword.module').then(m => m.ForgotpasswordModule),
@@ -110,13 +110,13 @@ const routes: Routes = [
   { path: 'servicioimpresion/:id', loadChildren: () => import('./pages/recepcionista/editarservicios/serviciosimpresiones/serviciosimpresiones.module').then(m => m.ServiciosimpresionesModule) },
   { path: 'serviciosesion/:id', loadChildren: () => import('./pages/recepcionista/editarservicios/serviciossesiones/serviciossesiones.module').then(m => m.ServiciossesionesModule) },
   {
-    path: '**', redirectTo: 'notFound'
+    path: '**',  loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule) 
   }
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { 

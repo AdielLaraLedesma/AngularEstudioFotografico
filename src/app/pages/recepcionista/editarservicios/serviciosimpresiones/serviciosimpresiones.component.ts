@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { RecepcionistaService } from 'src/app/services/recepcionista.service';
 import { UserResponse } from 'src/app/shared/models/user.interface';
 
+import { environment } from '../../../../../environments/environment.prod';
+
 declare var require: any
 const FileSaver = require('file-saver');
 
@@ -16,7 +18,7 @@ const FileSaver = require('file-saver');
   styleUrls: ['./serviciosimpresiones.component.css'],
 })
 export class ServiciosimpresionesComponent implements OnInit {
-  public defaultUrl = 'http://localhost:3000/';
+  public url = environment.url;
 
   mostrarBotonFinalizar = false;
 
@@ -58,7 +60,7 @@ export class ServiciosimpresionesComponent implements OnInit {
         .getImagesImpresion(this.id)
         .subscribe((data) => {
           data.forEach((element: { url_imagen: string }) => {
-            this.imagesHtml.push(this.defaultUrl + element.url_imagen);
+            this.imagesHtml.push(this.url + element.url_imagen);
           });
 
           this.archivoRar = data.url_rar;
@@ -106,7 +108,7 @@ export class ServiciosimpresionesComponent implements OnInit {
   }
 
   downloadRar() {
-    const rarUrl = this.defaultUrl + this.servicio.url_rar;
+    const rarUrl = this.url + this.servicio.url_rar;
     const rarName = this.servicio.nombre_cliente + "-" + this.servicio.paquete_nombre;
     FileSaver.saveAs(rarUrl, rarName);
   }

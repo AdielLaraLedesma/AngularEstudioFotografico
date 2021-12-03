@@ -155,11 +155,11 @@
       </div>
       <div class="col-xl-3 m-auto order-xl-1">
         <h2>Imagen actual</h2>
-        <ng-container *ngIf="url == null; else viewImage">
+        <ng-container *ngIf="urlImage == null; else viewImage">
           <img class="img-form" [src]="imageSrc" alt="Imagen no encontrada" />
         </ng-container>
         <ng-template #viewImage>
-          <img class="img-form" [src]="url" alt="">
+          <img class="img-form" [src]="urlImage" alt="">
         </ng-template>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { EmpleadosService } from '../../../../services/empleados.service';
 import { Employee } from '../../../../shared/models/employee.interface';
 
@@ -10,7 +11,8 @@ import { Employee } from '../../../../shared/models/employee.interface';
   styleUrls: ['./empleados.component.css'],
 })
 export class EmpleadosComponent implements OnInit, OnDestroy {
-  public imageSrc = 'http://localhost:3000/';
+  public url = environment.url
+  //public imageSrc = environment.defaultUrl;
   public imageSrcDefault = 'assets/img/image-not-found.png';
 
   public empleados: Employee[] = [];

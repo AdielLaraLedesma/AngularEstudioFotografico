@@ -102,7 +102,6 @@ export class AgregarserviciosComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log(this.imagesHtml.length);
 
     this.getMarcos();
     this.getPaquetes();

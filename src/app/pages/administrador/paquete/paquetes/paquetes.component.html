@@ -37,7 +37,7 @@
             <td> {{ paquete.precio }}</td>
             <td style="width: 15%;">
               <ng-container *ngIf="paquete.url_imagen != null; else fotoDefault">
-                <img class="img-table" [src]="imageSrc + paquete.url_imagen" />
+                <img class="img-table" [src]="url + paquete.url_imagen" />
               </ng-container>
               <ng-template #fotoDefault>
                 <img class="img-table" [src]="imageSrcDefault" alt="Imagen no encontrada" />

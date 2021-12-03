@@ -1,4 +1,55 @@
-<div class="login-form">
+<!--<div class="main-content">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="order-xl-1 mb-3 col-xl-6">
+                <div class="card bg-secondary shadow">
+                    <div class="card-header bg-white border-0">
+                        <div class="row align-items-center">
+                            <div class="col-12 header">
+                                <h3 class="mb-0"> Iniciar sesión </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                                    <mat-form-field class="full-width-input">
+                                        <input matInput class="form-control" formControlName="correo" type="email"
+                                            placeholder="Correo electronico">
+                                        <mat-error *ngIf="isValidField('correo')">
+                                            {{ getErrorMessage("correo") }}
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field class="full-width-input">
+                                        <input matInput formControlName="contrasena" [type]="hide ? 'password' : 'text'"
+                                            placeholder="Contraseña">
+                                        <button type="button" mat-icon-button matSuffix (click)="hide = !hide">
+                                            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+                                        </button>
+                                        <mat-error *ngIf="isValidField('contrasena')">
+                                            {{ getErrorMessage("contrasena") }}
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <div class="mb-2 form-check">
+                                        <a class="nav-link" aria-current="page" routerLink="/forgotpassword">¿Olvidaste
+                                            la contraseña?</a>
+                                    </div>
+                                    <button [disabled]="loginForm.invalid" mat-raised-button type="submit"
+                                        color="primary">Login</button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+
+<div class="login-form"> 
     <mat-card>
         <mat-card-content>
             <h1>Iniciar sesión</h1>

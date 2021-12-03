@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 import { UserResponse } from 'src/app/shared/models/user.interface';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-perfil',
@@ -14,6 +15,8 @@ import { UserResponse } from 'src/app/shared/models/user.interface';
   styleUrls: ['./perfil.component.css'],
 })
 export class PerfilComponent implements OnInit {
+  public url = environment.url
+
   public botonEditarDisabled = true;
 
   private destroy$ = new Subject<any>();
@@ -22,9 +25,8 @@ export class PerfilComponent implements OnInit {
   subscription: any;
 
 
-  public url: any;
+  public urlImage: any;
   public imageSrc = 'assets/img/image-not-found.png'   
-  public imageDefault = 'http://localhost:3000/'
 
   editarInformacionForm = new FormGroup({
     id: new FormControl(0, Validators.required),
@@ -120,7 +122,7 @@ export class PerfilComponent implements OnInit {
     this.empleadosService.getEmpleado(this.user.id as unknown as string).subscribe(data => {
 
 
-      this.url = this.imageDefault + data.url_imagen;
+      this.urlImage = this.url + data.url_imagen;
 
       this.editarInformacionForm.controls['id'].setValue(data.id)
       this.editarInformacionForm.controls['nombre'].setValue(data.nombre)
@@ -184,7 +186,7 @@ export class PerfilComponent implements OnInit {
 		reader.readAsDataURL(event.target.files[0]);
 
     reader.onload = (_event) => {
-			this.url = reader.result; 
+			this.urlImage = reader.result; 
 		}
   }
 

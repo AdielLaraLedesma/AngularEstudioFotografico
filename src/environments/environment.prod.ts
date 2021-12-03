@@ -1,6 +1,9 @@
 export const environment = {
   production: true,
 
-  apiUrl: 'http://64.225.30.45/backend/api'
+  baseUrl: 'http://64.225.30.45/backend/api',
+
+  url: 'http://64.225.30.45/backend'
 
 };
+  

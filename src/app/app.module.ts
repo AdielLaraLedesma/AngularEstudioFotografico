@@ -20,6 +20,7 @@ import { PaquetesComponent } from '../app/pages/administrador/paquete/paquetes/p
 import { PaquetesService } from './services/paquetes.service';
 import { PaqueteFormComponent } from '../app/pages/administrador/paquete/paquete-form/paquete-form.component'
 
+//import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { CommonModule } from '@angular/common';
 
 import { ToastrModule } from 'ngx-toastr';
@@ -68,8 +69,9 @@ import { PaquetesFilterPipe } from './shared/pipes/paquetes-filter.pipe';
     SidebarModule
   ],
   providers: [ 
-    PaquetesService 
+    PaquetesService,
+    //{provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { } 
