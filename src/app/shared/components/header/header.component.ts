@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
+import { environment } from 'src/environments/environment';
 import { UserResponse } from '../../models/user.interface';
 
 @Component({
@@ -12,8 +13,8 @@ import { UserResponse } from '../../models/user.interface';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  public url = environment.url
 
-  public urlPreffix = 'http://localhost:3000/'
 
   private subscription: Subscription = new Subscription();
 
