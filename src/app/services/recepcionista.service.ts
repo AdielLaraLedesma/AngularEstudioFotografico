@@ -18,8 +18,8 @@ export class RecepcionistaService {
 
     getServicios(){
       return this.http
-      .get<any[]>(`api/servicios/`)
-      //.get<any[]>(`${environment.apiUrl}/servicios/`)
+      //.get<any[]>(`api/servicios/`)
+      .get<any[]>(`${environment.apiUrl}/servicios/`)
       .pipe(
         map((servicios: any[]) => {
           return servicios;
@@ -30,8 +30,8 @@ export class RecepcionistaService {
 
     addServicioImpresion(fd: any){
       return this.http
-      .post<any[]>(`api/servicios_impresion/recepcionista_agregar/`, fd)
-      //.post<any[]>(`${environment.apiUrl}/servicios_impresion/recepcionista_agregar/`, fd)
+      //.post<any[]>(`api/servicios_impresion/recepcionista_agregar/`, fd)
+      .post<any[]>(`${environment.apiUrl}/servicios_impresion/recepcionista_agregar/`, fd)
       .pipe(
         map((servicios: any[]) => {
           return servicios;
@@ -41,8 +41,8 @@ export class RecepcionistaService {
     }
     addServicioSesion(fd: any){
       return this.http
-      .post<any[]>(`api/servicios_sesion/recepcionista_agregar`, fd)
-      //.post<any[]>(`${environment.apiUrl}/servicios_sesion/recepcionista_agregar`, fd)
+      //.post<any[]>(`api/servicios_sesion/recepcionista_agregar`, fd)
+      .post<any[]>(`${environment.apiUrl}/servicios_sesion/recepcionista_agregar`, fd)
       .pipe(
         map((servicios: any[]) => {
           return servicios;
@@ -53,8 +53,8 @@ export class RecepcionistaService {
 
     getServicioImpresion(id: string){
       return this.http
-      .get<any[]>(`api/servicios_impresion/${id}`,)
-      //.get<any[]>(`${environment.apiUrl}/servicios_impresion/${id}`,)
+      //.get<any[]>(`api/servicios_impresion/${id}`,)
+      .get<any[]>(`${environment.apiUrl}/servicios_impresion/${id}`,)
       .pipe(
         map((servicios: any[]) => {
           return servicios;
@@ -64,8 +64,8 @@ export class RecepcionistaService {
     }
     getServicioEvento(id: string){
       return this.http
-      .get<any[]>(`api/servicios_evento/${id}`,)
-      //.get<any[]>(`${environment.apiUrl}/servicios_evento/${id}`,)
+      //.get<any[]>(`api/servicios_evento/${id}`,)
+      .get<any[]>(`${environment.apiUrl}/servicios_evento/${id}`,)
       .pipe(
         map((servicios: any[]) => {
           return servicios;
@@ -75,8 +75,8 @@ export class RecepcionistaService {
     }
     getServicioSesion(id: string){
       return this.http
-      .get<any[]>(`api/servicios_sesion/${id}`,)
-      //.get<any[]>(`${environment.apiUrl}/servicios_sesion/${id}`,)
+      //.get<any[]>(`api/servicios_sesion/${id}`,)
+      .get<any[]>(`${environment.apiUrl}/servicios_sesion/${id}`,)
       .pipe(
         map((servicios: any[]) => {
           return servicios;
@@ -90,8 +90,8 @@ export class RecepcionistaService {
       headers.append("Access-Control-Allow-Headers", "application/json")
   
       return this.http
-      .get<any>(`api/servicios_evento/videos/${id}`, { headers })
-      //.get<any>(`${environment.apiUrl}/servicios_evento/videos/${id}`, { headers })
+      //.get<any>(`api/servicios_evento/videos/${id}`, { headers })
+      .get<any>(`${environment.apiUrl}/servicios_evento/videos/${id}`, { headers })
       .pipe(
         map((videos: any) => {
           return videos;
@@ -102,8 +102,8 @@ export class RecepcionistaService {
 
     getImagesEvento(id: string){
       return this.http
-      .get<any>(`api/servicios_evento/imagenes/${id}`)
-      //.get<any>(`${environment.apiUrl}/servicios_evento/imagenes/${id}`)
+      //.get<any>(`api/servicios_evento/imagenes/${id}`)
+      .get<any>(`${environment.apiUrl}/servicios_evento/imagenes/${id}`)
       .pipe(
         map((images: any) => {
           return images;
@@ -113,8 +113,8 @@ export class RecepcionistaService {
     }
     getImagesImpresion(id: string){
       return this.http
-      .get<any>(`api/servicios_impresion/imagenes/${id}`)
-      //.get<any>(`${environment.apiUrl}/servicios_impresion/imagenes/${id}`)
+      //.get<any>(`api/servicios_impresion/imagenes/${id}`)
+      .get<any>(`${environment.apiUrl}/servicios_impresion/imagenes/${id}`)
       .pipe(
         map((images: any) => {
           return images;
@@ -125,7 +125,8 @@ export class RecepcionistaService {
 
     changeStatusServicioImpresion(id: string){
       this.http
-      .put(`api/servicios_impresion/finalizarSevicio/${id}`, {})
+      //.put(`api/servicios_impresion/finalizarSevicio/${id}`, {})
+      .put(`${environment.apiUrl}/servicios_impresion/finalizarSevicio/${id}`, {})
       .pipe(
         map((data: any) => {
           return data;
@@ -135,7 +136,8 @@ export class RecepcionistaService {
     }
     changeStatusServicioSesion(id: string){
       return this.http
-      .put(`api/servicios_sesion/finalizarSevicio/${id}`, {})
+      //.put(`api/servicios_sesion/finalizarSevicio/${id}`, {})
+      .put(`${environment.apiUrl}/servicios_sesion/finalizarSevicio/${id}`, {})
       .pipe(
         map((data: any) => {
           return data;
@@ -145,7 +147,8 @@ export class RecepcionistaService {
     }
     changeStatusServicioEvento(id: string){
       this.http
-      .put(`api/servicios_evento/finalizarSevicio/${id}`, {})
+      //.put(`api/servicios_evento/finalizarSevicio/${id}`, {})
+      .put(`${environment.apiUrl}/servicios_evento/finalizarSevicio/${id}`, {})
       .pipe(
         map((data: any) => {
           return data;

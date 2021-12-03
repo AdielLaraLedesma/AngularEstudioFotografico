@@ -23,8 +23,8 @@ export class PaquetesService {
 
   getPaquetes(): Observable<Paquete[]>{
     return this.http
-      .get<Paquete[]>(`api/paquetes/`)
-      //.get<Paquete[]>(`${environment.apiUrl}/paquetes/`)
+      //.get<Paquete[]>(`api/paquetes/`)
+      .get<Paquete[]>(`${environment.apiUrl}/paquetes/`)
       .pipe(
         map((paquetes: Paquete[]) => {
           return paquetes;
@@ -35,8 +35,8 @@ export class PaquetesService {
 
   getPaquete(id: string) {
     return this.http
-    .get<Paquete>(`api/paquetes/${id}`)
-    //.get<Paquete>(`${environment.apiUrl}/paquetes/${id}`)
+    //.get<Paquete>(`api/paquetes/${id}`)
+    .get<Paquete>(`${environment.apiUrl}/paquetes/${id}`)
     .pipe(
       map((paquete: any) => {
         return paquete;
@@ -47,8 +47,8 @@ export class PaquetesService {
 
   savePaquete(fd: any) {
     return this.http
-    .post(`api/paquetes/agregar`, fd).pipe(
-    //.post(`${environment.apiUrl}/paquetes/agregar`, fd).pipe(
+    //.post(`api/paquetes/agregar`, fd).pipe(
+    .post(`${environment.apiUrl}/paquetes/agregar`, fd).pipe(
       map((paquete: any) => {
         return paquete;
       }),
@@ -58,8 +58,8 @@ export class PaquetesService {
 
   deletePaquete(id: any) {
     return this.http
-    .delete(`api/paquetes/eliminar/${id}`).pipe(
-    //.delete(`${environment.apiUrl}/paquetes/eliminar/${id}`).pipe(
+    //.delete(`api/paquetes/eliminar/${id}`).pipe(
+    .delete(`${environment.apiUrl}/paquetes/eliminar/${id}`).pipe(
       map((paquete: any) => {
         return paquete;
       }),
@@ -69,8 +69,8 @@ export class PaquetesService {
 
   updatePaquete(id: string, paquete: Paquete) {
     return this.http
-      .put(`api/paquetes/actualizar/${id}`, paquete)
-      //.put(`${environment.apiUrl}/paquetes/actualizar/${id}`, paquete)
+      //.put(`api/paquetes/actualizar/${id}`, paquete)
+      .put(`${environment.apiUrl}/paquetes/actualizar/${id}`, paquete)
       .pipe(
         map((paquete: any) => {
           return paquete;
