@@ -20,9 +20,9 @@ export class ForgotPasswordComponent implements OnInit {
 
 
   constructor(
-    private authService: AuthService,
-    private toastr: ToastrService,
-    private router: Router,
+    private _authService: AuthService,
+    private _toastr: ToastrService,
+    private _router: Router,
   ) { }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -33,27 +33,21 @@ export class ForgotPasswordComponent implements OnInit {
 
   forgotPassword(){
 
-    
+
     if(this.forgotPasswordForm.invalid){
       return;
     }
 
-    
+
     //TODO Aqui poner el metodo post para olvidar contraseña.
     this.subscription.add(
-      this.authService.forgotPassword(this.forgotPasswordForm.value).subscribe( (data) => {
-        this.toastr.success(`Se ha enviado un correo a ${this.forgotPasswordForm.controls['correo'].value} para recuperar la contraseña`, "Correo enviado", {
+      this._authService.forgotPassword(this.forgotPasswordForm.value).subscribe( (data) => {
+        this._toastr.success(`Se ha enviado un correo a ${this.forgotPasswordForm.controls['correo'].value} para recuperar la contraseña`, "Correo enviado", {
           positionClass: 'toast-bottom-right'
         });
-        this.router.navigate(['/login'])
-        
-
+        this._router.navigate(['/auth/login'])
       })
-
     );
-
-
-
 
   }
 

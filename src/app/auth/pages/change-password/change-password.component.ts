@@ -24,16 +24,16 @@ export class ChangePasswordComponent implements OnInit {
 
 
   changeForm = new FormGroup({
-    contrasena: new FormControl('', [Validators.required, Validators.pattern('((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30})')]),
-    nuevaContrasena: new FormControl('', [Validators.required, Validators.pattern('((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30})')]),
-    confirmarContrasena: new FormControl('', [Validators.required, Validators.pattern('((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30})')])
+    contrasena: new FormControl('', [Validators.required/*, Validators.pattern('((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30})')*/]),
+    nuevaContrasena: new FormControl('', [Validators.required/*, Validators.pattern('((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30})')*/]),
+    confirmarContrasena: new FormControl('', [Validators.required/*, Validators.pattern('((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30})')*/])
   })
 
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
-    private toastr: ToastrService
+    private _authService: AuthService,
+    private _router: Router,
+    private _toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -43,17 +43,14 @@ export class ChangePasswordComponent implements OnInit {
 
     this.getUser();
 
-
-
-  
     //TODO Aqui poner el metodo post para cambiar la contraseña
     const formValue = this.changeForm.value;
-    this.authService.changePassword(formValue, this.user.id).subscribe( (data: { message: string; }) => {
+    this._authService.changePassword(formValue, this.user.id).subscribe( (data: { message: string; }) => {
       if (data.message == "Se ha modificado la contraseña"){
-        this.toastr.success('El cambio de contraseña fue realizado exitosamente', "Cambio de contraseña", {
+        this._toastr.success('El cambio de contraseña fue realizado exitosamente', "Cambio de contraseña", {
           positionClass: 'toast-bottom-right'
         });
-        this.router.navigate([''])
+        this._router.navigate(['/auth/login'])
       }
     })
 
@@ -62,7 +59,7 @@ export class ChangePasswordComponent implements OnInit {
   }
   getUser(){
     this.subscription.add(
-      this.authService.user$
+      this._authService.user$
         .pipe(takeUntil(this.destroy$))
         .subscribe((user: UserResponse) => {
         if (user) {
@@ -82,7 +79,7 @@ export class ChangePasswordComponent implements OnInit {
     }
     return message;
   }
- 
+
   isValidField(field: string){
     let campo = this.changeForm.get(field)
     return (campo?.touched || campo?.dirty && !campo?.valid);
@@ -91,9 +88,6 @@ export class ChangePasswordComponent implements OnInit {
   isEqualsPasswords(field1: string, field2: string){
     let campo = this.changeForm.get(field1)
     let campo2 = this.changeForm.get(field2)
-    //if (campo?.value == campo2?.value)
-    
-
     return (campo?.value == campo2?.value);
   }
 

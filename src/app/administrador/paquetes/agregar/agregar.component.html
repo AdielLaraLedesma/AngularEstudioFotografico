@@ -137,17 +137,31 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-lg-12">
+                    <!--<div class="col-lg-12">
                       <div class="form-group focused">
                         <input class="mb-3" type="file" (change)="onFileSelected($event)">
                       </div>
+                    </div>-->
+
+                    <div class="col-lg-12">
+                      <div class="form-group focused">
+                        <input class="mb-3" multiple="" id="img" class="hiden" style="display:none;" accept="image/*"
+                          type="file" (change)="onFileSelected($event)">
+                        <label for="img" class="btn btn-outline-primary">
+                          <mat-icon style="font-size: 20px !important;">add</mat-icon>Seleccionar
+                          imagen
+                        </label>
+                      </div>
                     </div>
+
+
+
                   </div>
                   <div class="row">
-                    <button 
+                    <button
                         [disabled] ="agregarPaqueteForm.invalid"
-                        mat-raised-button 
-                        type="submit" 
+                        mat-raised-button
+                        type="submit"
                         color="primary">Agregar paquete
                     </button>
                   </div>
@@ -156,7 +170,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xl-3 m-auto order-xl-1">
+        <!--<div class="col-xl-3 m-auto order-xl-1">
           <h2>Imagen actual</h2>
           <ng-container *ngIf="url == null; else viewImage">
             <img class="img-form" [src]="imageSrc" alt="Imagen no encontrada" />
@@ -164,7 +178,34 @@
           <ng-template #viewImage>
             <img class="img-form" [src]="url" alt="">
           </ng-template>
+        </div>-->
+        <div class="col-xl-3 order-xl-1">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-12 header">
+                  <h3 class="mb-0"> Imagen actual </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ng-container *ngIf="url == null; else viewImage">
+                    <img class="img-form" [src]="imageSrc" alt="Imagen no encontrada" />
+                  </ng-container>
+                  <ng-template #viewImage>
+                    <img class="img-form" [src]="url" alt="">
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+
+
+
       </div>
     </div>
   </div>

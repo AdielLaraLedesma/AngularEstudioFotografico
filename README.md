@@ -1,3 +1,22 @@
+## Información para Moya
+
+### Usuarios que puede borrar
+correo: fotografoejemplo1@gmail.com   contraseña: 12345
+correo: fotografoejemplo2@gmail.com   contraseña: 12345
+correo: fotografoejemplo3@gmail.com   contraseña: 12345
+
+### Usuarios con los que puede acceder al sistema
+correo: juan21@gmail.com          contraseña: 12345     rol: fotografo
+correo: mario2@gmail.com          contraseña: 12345     rol: cliente 
+correo: jesus2@gmail.com          contraseña: 12345     rol: admin
+correo: alma2@gmail.com           contraseña: 12345     rol: recepcionista
+
+
+
+
+
+
+
 # Frontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.12.
@@ -29,3 +48,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 Agregar en linea 6 esto
 "start": "ng serve --proxy-config proxy.conf.json",
+

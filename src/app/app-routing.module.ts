@@ -8,18 +8,18 @@ import { CheckNotRecepcionistaGuard } from './shared/guards/check-not-recepcioni
 
 /*const routes: Routes = [
   {
-    path: 'home', 
+    path: 'home',
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
     pathMatch: 'full',
     canActivate: [CheckNotLoginGuard]
   },
   {
-    path: 'paquetes', 
+    path: 'paquetes',
     component: PaquetesComponent,
     canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
   {
-    path: 'paquetes/agregar', 
+    path: 'paquetes/agregar',
     component: PaqueteFormComponent,
     canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
@@ -39,7 +39,7 @@ import { CheckNotRecepcionistaGuard } from './shared/guards/check-not-recepcioni
     canActivate: [CheckNotLoginGuard]
   },
   {
-    path: 'marcos', 
+    path: 'marcos',
     component: MarcosComponent,
     canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
@@ -49,55 +49,55 @@ import { CheckNotRecepcionistaGuard } from './shared/guards/check-not-recepcioni
     canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
 
-  { 
-    path: 'forgotpassword', 
+  {
+    path: 'forgotpassword',
     loadChildren: () => import('./pages/auth/forgotpassword/forgotpassword.module').then(m => m.ForgotpasswordModule),
     canActivate: [CheckLoginGuard]
   },
-  { 
-    path: 'recoverpassword/:id', 
+  {
+    path: 'recoverpassword/:id',
     loadChildren: () => import('../app/pages/auth/recoverpassword/recoverpassword.module').then(m => m.RecoverpasswordModule),
   },
-  { 
-    path: 'changepassword', 
+  {
+    path: 'changepassword',
     loadChildren: () => import('./pages/auth/changepassword/changepassword.module').then(m => m.ChangepasswordModule) ,
     canActivate: [CheckNotLoginGuard]
   },
-  { 
-    path: 'paquetes/:id', 
+  {
+    path: 'paquetes/:id',
     loadChildren: () => import('../app/pages/administrador/paquete/editpaquete/editpaquete.module').then(m => m.EditpaqueteModule),
     canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
-  { 
-    path: 'empleados/:id', 
+  {
+    path: 'empleados/:id',
     loadChildren: () => import('../app/pages/administrador/empleado/editempleado/editempleado.module').then(m => m.EditempleadoModule),
     canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
-  { 
-    path: 'marcos/:id', 
+  {
+    path: 'marcos/:id',
     loadChildren: () => import('../app/pages/administrador/marco/editmarco/editmarco.module').then(m => m.EditmarcoModule),
     canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
-  { 
-    path: 'serviciosfotografo/:id', 
+  {
+    path: 'serviciosfotografo/:id',
     loadChildren: () => import('./pages/fotografo/misservicios/misservicios.module').then(m => m.MisserviciosModule)
   },
-  { 
-    path: 'detalleservicio/:id', 
-    loadChildren: () => import('./pages/fotografo/detalleservicio/detalleservicio.module').then(m => m.DetalleservicioModule) 
+  {
+    path: 'detalleservicio/:id',
+    loadChildren: () => import('./pages/fotografo/detalleservicio/detalleservicio.module').then(m => m.DetalleservicioModule)
   },
   { path: 'servicios', loadChildren: () => import('./pages/recepcionista/servicios/servicios.module').then(m => m.ServiciosModule) },
   { path: 'servicios/agregar', loadChildren: () => import('./pages/recepcionista/agregarservicios/agregarservicios.module').then(m => m.AgregarserviciosModule) },
-  { 
-    path: 'login', 
-    loadChildren: () => import('./pages/auth/login/login.module').then(m => m.LoginModule), 
-    canActivate: [CheckLoginGuard] 
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/auth/login/login.module').then(m => m.LoginModule),
+    canActivate: [CheckLoginGuard]
   },
   { path: 'servicioevento/:id', loadChildren: () => import('./pages/recepcionista/editarservicios/servicioseventos/servicioseventos.module').then(m => m.ServicioseventosModule) },
   { path: 'servicioimpresion/:id', loadChildren: () => import('./pages/recepcionista/editarservicios/serviciosimpresiones/serviciosimpresiones.module').then(m => m.ServiciosimpresionesModule) },
   { path: 'serviciosesion/:id', loadChildren: () => import('./pages/recepcionista/editarservicios/serviciossesiones/serviciossesiones.module').then(m => m.ServiciossesionesModule) },
   {
-    path: '**',  loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule) 
+    path: '**',  loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule)
   }
 
 ];*/
@@ -118,7 +118,7 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { 
+export class AppRoutingModule {
 
 
 }

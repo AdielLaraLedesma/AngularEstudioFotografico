@@ -28,7 +28,7 @@ export class EditarImpresionesComponent implements OnInit, OnDestroy {
   id: string = '';
 
   archivoRar: any;
-  
+
 
   images: string[] = [];
   imagesHtml: string[] = [];
@@ -37,10 +37,10 @@ export class EditarImpresionesComponent implements OnInit, OnDestroy {
   public user: UserResponse = null!;
 
   constructor(
-    private rutaActiva: ActivatedRoute,
-    private recepcionistaService: RecepcionistaService,
-    private authService: AuthService,
-    private toastr: ToastrService
+    private _rutaActiva: ActivatedRoute,
+    private _recepcionistaService: RecepcionistaService,
+    private _authService: AuthService,
+    private _toastr: ToastrService
   ) {}
 
   ngOnDestroy(): void {
@@ -52,12 +52,12 @@ export class EditarImpresionesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getUser();
 
-    this.id = this.rutaActiva.snapshot.params.id;
+    this.id = this._rutaActiva.snapshot.params.id;
 
     this.getServicio();
 
     this.subscription.add(
-      this.recepcionistaService
+      this._recepcionistaService
         .getImagesImpresion(this.id)
         .subscribe((data) => {
           data.forEach((element: { url_imagen: string }) => {
@@ -71,7 +71,7 @@ export class EditarImpresionesComponent implements OnInit, OnDestroy {
 
   getServicio() {
     this.subscription.add(
-      this.recepcionistaService
+      this._recepcionistaService
         .getServicioImpresion(this.id)
         .subscribe((data) => {
           console.log(data);
@@ -81,10 +81,10 @@ export class EditarImpresionesComponent implements OnInit, OnDestroy {
   }
 
   getUser() {
-    this.user = this.authService.getUser();
+    this.user = this._authService.getUser();
     if (this.user == null)
       this.subscription.add(
-        this.authService.user$
+        this._authService.user$
           .pipe(takeUntil(this.destroy$))
           .subscribe((user: UserResponse) => {
             if (user) {
@@ -94,11 +94,11 @@ export class EditarImpresionesComponent implements OnInit, OnDestroy {
       );
   }
   finalizarServicio() {
-    this.recepcionistaService
-      .changeStatusServicioSesion(this.id)
+    this.getServicio();
+    this._recepcionistaService
+      .changeStatusServicioImpresion(this.id)
       .subscribe((data) => {
-        this.getServicio();
-        this.toastr.success(
+        this._toastr.success(
           `Se ha cambiado el estado del servicio exitosamente`,
           'Estado cambiado',
           {
@@ -110,7 +110,7 @@ export class EditarImpresionesComponent implements OnInit, OnDestroy {
 
   downloadRar() {
     const rarUrl = this.url + this.servicio.url_rar;
-    const rarName = this.servicio.nombre_cliente + "-" + this.servicio.paquete_nombre;
+    const rarName = this.servicio.nombre_cliente + "-" + this.servicio.paquete_nombre + ".rar";
     FileSaver.saveAs(rarUrl, rarName);
   }
 

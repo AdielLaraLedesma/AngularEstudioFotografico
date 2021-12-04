@@ -26,28 +26,26 @@ export class EditarPaquetesComponent implements OnInit, OnDestroy {
   /* Imagen */
   public newFile: File =  null!;
   public urlImage: any;
-  public imageSrc = 'assets/img/image-not-found.png' 
-  
+  public imageSrc = 'assets/img/image-not-found.png'
+
   private destroy$ = new Subject<any>();
   public user: UserResponse = null!;
   private subscription: Subscription = new Subscription();
 
   public selectedTamano = '';
-  tamanos: Tamano[]=[];
+  tamanos: Tamano[] = null!;
 
   public selectedTipoPaquete = '';
-  tipo_paqutes : TipoPaquete[] = [
-                  {id: 1, nombre: 'Evento social', descripcion: 'Fiesta de despedida del aviles del tec :c no paso integrador'},
-                  {id: 2, nombre: 'Sesion fotografica', descripcion: 'Sesion de fotos de furros'}];
+  tipo_paqutes : TipoPaquete[] = null!;
 
   public selectedMarco = '';
   marcos: Marco[] = null!;
-  
+
 
   isDisabled: boolean = true;
   id: string =  "";
 
- 
+
   editarPaqueteForm = new FormGroup({
     id: new FormControl({value:'', disabled:true}, Validators.required),
     nombre: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -56,44 +54,46 @@ export class EditarPaquetesComponent implements OnInit, OnDestroy {
     no_Fotos_Dig: new FormControl(0, [Validators.required]),
     no_Fotos_Fis: new FormControl(0, [Validators.required]),
     no_Fotos_Enm: new FormControl(0, [Validators.required]),
-    marco_id: new FormControl(0, [Validators.required]), 
+    marco_id: new FormControl(0, [Validators.required]),
     tamano_id: new FormControl(0, [Validators.required]),
-    tipo_paquete_id: new FormControl('', [Validators.required]), 
-    precio: new FormControl('', [Validators.required]), 
+    tipo_paquete_id: new FormControl('', [Validators.required]),
+    precio: new FormControl('', [Validators.required]),
     usuario_modificacion_id: new FormControl(Validators.required),
     file: new FormControl()
   })
-  
+
 
   constructor(
-    private authService: AuthService,
-    private paqueteService: PaquetesService,
-    private marcoService: MarcosService,
-    private tamanoService: TamanoService,
-    private rutaActiva: ActivatedRoute,
-    private toastr: ToastrService,
-    private router: Router
+    private _authService: AuthService,
+    private _paqueteService: PaquetesService,
+    private _marcoService: MarcosService,
+    private _tamanoService: TamanoService,
+    private _rutaActiva: ActivatedRoute,
+    private _toastr: ToastrService,
+    private _router: Router
     ) { }
   ngOnDestroy(): void {
     this.destroy$.next({});
     this.destroy$.complete();
     this.subscription.unsubscribe();
-  
+
   }
 
   ngOnInit(): void {
 
     this.getUser();
     this.getMarco();
+    this.getTipoPaquetes();
+    this.getTamanos();
 
-    this.id = this.rutaActiva.snapshot.params.id;
+    this.id = this._rutaActiva.snapshot.params.id;
 
-    this.paqueteService.getPaquete(this.id).subscribe(data => {
+    this._paqueteService.getPaquete(this.id).subscribe(data => {
 
       this.urlImage = this.url + data.url_imagen;
-      
+
       if (!data){
-        this.router.navigate(["/paquetes"]);
+        this._router.navigate(["/administrador/paquetes"]);
         return
       }
 
@@ -110,10 +110,6 @@ export class EditarPaquetesComponent implements OnInit, OnDestroy {
       this.editarPaqueteForm.controls['precio'].setValue(data.precio)
       this.editarPaqueteForm.controls['tipo_paquete_id'].setValue(data.tipo_paquete_id)
       this.editarPaqueteForm.controls['usuario_modificacion_id'].setValue(this.user.id)
-      //this.editarPaqueteForm.controls['url_imagen'].setValue(data.url_imagen)
-
-      console.log(data)
-
 
 
       this.tamanos.forEach( element => {
@@ -153,36 +149,48 @@ export class EditarPaquetesComponent implements OnInit, OnDestroy {
     formData.append("usuario_modificacion_id", this.editarPaqueteForm.get('usuario_modificacion_id')?.value);
     formData.append("file", this.editarPaqueteForm.get('file')?.value);
 
-    
-    this.paqueteService.updatePaquete(this.id, formData).subscribe( data => {
-      if (data){
-        this.toastr.success("El paquete fue actualizado exitosamente", "Paquete actualizado", {
-          positionClass: 'toast-bottom-right'
-        });
-        this.router.navigate(['/paquetes'])
-      }
-    })
 
-  } 
+    this.subscription.add(
+      this._paqueteService.updatePaquete(this.id, formData).subscribe( data => {
+        if (data){
+          this._toastr.success("El paquete fue actualizado exitosamente", "Paquete actualizado", {
+            positionClass: 'toast-bottom-right'
+          });
+          this._router.navigate(['/administrador/paquetes'])
+        }
+      })
+    )
+
+  }
 
   getMarco() {
-    this.marcoService.getMarcos().subscribe( data => {
+    this.subscription.add(
+      this._marcoService.getMarcos().subscribe(data => {
         this.marcos = data
-    })
+      })
+    );
   }
   getTamanos() {
     this.subscription.add(
-      this.tamanoService.getTamanos().subscribe((data) => {
+      this._tamanoService.getTamanos().subscribe(data => {
         this.tamanos = data;
+        console.log(data);
+      })
+    );
+  }
+  getTipoPaquetes() {
+    this.subscription.add(
+      this._paqueteService.getTipoPaquetes().subscribe(data => {
+        this.tipo_paqutes = data;
       })
     );
   }
 
   getUser(){
-    this.user = this.authService.getUser();
+    this.user = this._authService.getUser();
     if (this.user == null)
       this.subscription.add(
-        this.authService.user$
+        this._authService.user$
           .pipe(takeUntil(this.destroy$))
           .subscribe((user: UserResponse) => {
             if (user) {
@@ -202,7 +210,7 @@ export class EditarPaquetesComponent implements OnInit, OnDestroy {
     var reader = new FileReader();
 		reader.readAsDataURL(event.target.files[0]);
     reader.onload = (_event) => {
-			this.urlImage = reader.result; 
+			this.urlImage = reader.result;
 		}
   }
 

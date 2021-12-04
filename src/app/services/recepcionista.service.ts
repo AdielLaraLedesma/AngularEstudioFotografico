@@ -88,7 +88,7 @@ export class RecepcionistaService {
       const headers = new HttpHeaders();
       headers.append('Content-Type', 'application/json')
       headers.append("Access-Control-Allow-Headers", "application/json")
-  
+
       return this.http
       //.get<any>(`api/servicios_evento/videos/${id}`, { headers })
       .get<any>(`${environment.baseUrl}/servicios_evento/videos/${id}`, { headers })
@@ -124,7 +124,7 @@ export class RecepcionistaService {
     }
 
     changeStatusServicioImpresion(id: string){
-      this.http
+      return this.http
       //.put(`api/servicios_impresion/finalizarSevicio/${id}`, {})
       .put(`${environment.baseUrl}/servicios_impresion/finalizarSevicio/${id}`, {})
       .pipe(
@@ -146,7 +146,7 @@ export class RecepcionistaService {
       );
     }
     changeStatusServicioEvento(id: string){
-      this.http
+      return this.http
       //.put(`api/servicios_evento/finalizarSevicio/${id}`, {})
       .put(`${environment.baseUrl}/servicios_evento/finalizarSevicio/${id}`, {})
       .pipe(

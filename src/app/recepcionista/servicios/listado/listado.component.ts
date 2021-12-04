@@ -13,11 +13,11 @@ export class ListadoComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  constructor(private recepcionista: RecepcionistaService) {}
+  constructor(private _recepcionista: RecepcionistaService) {}
 
   ngOnInit(): void {
     this.subscription.add(
-      this.recepcionista.getServicios().subscribe((data) => {
+      this._recepcionista.getServicios().subscribe((data) => {
         this.servicios = data;
       })
     );

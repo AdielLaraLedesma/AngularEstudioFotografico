@@ -16,22 +16,22 @@ export class RecoverPasswordComponent implements OnInit {
   public hidePassword = true;
   public hideConfirm = true;
   resetToken = ""
-  
+
   //headers = new HttpHeaders();
 
   private subscription: Subscription = new Subscription();
 
-  recoverPasswordForm = new FormGroup({ 
-    newPassword: new FormControl('', [Validators.required, Validators.pattern('((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30})')]),
-    confirmPassword: new FormControl('', [Validators.required, Validators.pattern('((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30})')])
+  recoverPasswordForm = new FormGroup({
+    newPassword: new FormControl('', [Validators.required/*, Validators.pattern('((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30})')*/]),
+    confirmPassword: new FormControl('', [Validators.required/*, Validators.pattern('((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30})')*/])
   })
 
 
   constructor(
-    private rutaActiva: ActivatedRoute,
-    private authService: AuthService, 
-    private toastr: ToastrService,
-    private router: Router,
+    private _rutaActiva: ActivatedRoute,
+    private _authService: AuthService,
+    private _toastr: ToastrService,
+    private _router: Router,
   ) { }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -39,8 +39,8 @@ export class RecoverPasswordComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.resetToken = this.rutaActiva.snapshot.params.id;
-    
+    this.resetToken = this._rutaActiva.snapshot.params.id;
+
 
   }
 
@@ -52,13 +52,11 @@ export class RecoverPasswordComponent implements OnInit {
     const headers = new HttpHeaders().set('reset', this.resetToken);
 
     this.subscription.add(
-
-
-      this.authService.newPassword(this.recoverPasswordForm.value, headers).subscribe( (data) => {
-        this.toastr.success(`Se ha cambiado la contraseña exitosamente`, "Contraseña cambiada", {
+      this._authService.newPassword(this.recoverPasswordForm.value, headers).subscribe( (data) => {
+        this._toastr.success(`Se ha cambiado la contraseña exitosamente`, "Contraseña cambiada", {
           positionClass: 'toast-bottom-right'
         });
-        this.router.navigate(['/login'])
+        this._router.navigate(['/auth/login'])
       })
 
     );
@@ -80,6 +78,13 @@ export class RecoverPasswordComponent implements OnInit {
   isValidField(field: string){
     let campo = this.recoverPasswordForm.get(field)
     return (campo?.touched || campo?.dirty && !campo?.valid);
+  }
+
+
+  isEqualsPasswords(field1: string, field2: string){
+    let campo = this.recoverPasswordForm.get(field1)
+    let campo2 = this.recoverPasswordForm.get(field2)
+    return (campo?.value == campo2?.value);
   }
 
 }

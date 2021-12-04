@@ -11,15 +11,13 @@ export class InterceptorService implements HttpInterceptor{
   constructor() {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-  
+
     const user: UserResponse = JSON.parse(localStorage.getItem('user')!);
 
     if(user == null || user == undefined)
       return next.handle( req )
 
     const token = user.accessToken;
-
-    console.log(token)
 
     const headers = new HttpHeaders({
       'accessToken': token

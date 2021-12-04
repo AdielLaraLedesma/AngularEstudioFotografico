@@ -15,8 +15,8 @@ const routes: Routes = [
     path: '',
     children: [
       { path:'login',                 component: LoginComponent,              canActivate: [CheckLoginGuard] },
-      { path:'forgot-password',       component: ForgotPasswordComponent,     canActivate: [CheckLoginGuard]},
-      { path:'recover-password/:id',  component: RecoverPasswordComponent,    canActivate: [CheckLoginGuard]},
+      { path:'forgot-password',       component: ForgotPasswordComponent,     canActivate: [CheckLoginGuard] },
+      { path:'recover-password/:id',  component: RecoverPasswordComponent,    canActivate: [CheckLoginGuard] },
       { path:'profile',               component: ProfileComponent,            canActivate: [CheckNotLoginGuard] },
       { path:'change-password',       component: ChangePasswordComponent,     canActivate: [CheckNotLoginGuard] },
       //{ path:'**', redirectTo: 'login'}

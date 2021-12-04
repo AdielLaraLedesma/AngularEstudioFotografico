@@ -62,12 +62,11 @@ export class DetalleComponent implements OnInit {
   });
 
   constructor(
-    private rutaActiva: ActivatedRoute,
-    private fotografoService: FotografoService,
-    private authService: AuthService,
-    private toastr: ToastrService,
-    private router: Router,
-    private sanitizer: DomSanitizer
+    private _rutaActiva: ActivatedRoute,
+    private _fotografoService: FotografoService,
+    private _authService: AuthService,
+    private _toastr: ToastrService,
+    private _router: Router
   ) {  }
 
   ngOnDestroy(): void {
@@ -80,12 +79,12 @@ export class DetalleComponent implements OnInit {
 
     this.getUser();
 
-    this.id = this.rutaActiva.snapshot.params.id;
+    this.id = this._rutaActiva.snapshot.params.id;
 
     this.subscription.add(
-      this.fotografoService.getServicio(this.id).subscribe((data) => {
+      this._fotografoService.getServicio(this.id).subscribe((data) => {
       if ((!data)){
-        this.router.navigate([`/serviciosfotografo/${this.user.id}`])
+        this._router.navigate([`/fotografo/detalle/${this.id}`])
       }
 
       this.servicioEvento = data;
@@ -93,7 +92,7 @@ export class DetalleComponent implements OnInit {
     );
 
     this.subscription.add(
-      this.fotografoService.getImages(this.id).subscribe( data => {
+      this._fotografoService.getImages(this.id).subscribe( data => {
         console.log(data)
 
         data.forEach((element: { url_imagen: string; }) => {
@@ -105,38 +104,21 @@ export class DetalleComponent implements OnInit {
     );
 
     this.subscription.add(
-      this.fotografoService.getVideos(this.id).subscribe( data => {
-        console.log(data)
-
-
-        
-
-        for (var i = 0; i < data.length; i++) {         
-          //this.videosHtml.push(this.defaultUrl + data[i].url_video);
-          //this.videosHtml.push(this.sanitizer.bypassSecurityTrustUrl(data[i].url_video))
+      this._fotografoService.getVideos(this.id).subscribe( data => {
+        for (var i = 0; i < data.length; i++) {
           this.videosHtml.push(this.url + data[i].url_video);
         }
-
-        console.log(this.videosHtml)
-        console.log(this.imagesHtml)
-
-
       })
     );
-
-
-    
   }
 
   removeImagen(element: string) {
- 
     for (var i = 0; i < this.images.length; i++) {
       if (this.imagesHtml[i] === element) {
         this.imagesHtml.splice(i, 1);
         this.images.splice(i, 1);
         i--;
       }
-
     }
   }
 
@@ -150,16 +132,15 @@ export class DetalleComponent implements OnInit {
       formImg.append('image', this.images[i]);
     }
 
-    this.fotografoService.updateImg(this.id, formImg).subscribe((data) => {
+    this._fotografoService.updateImg(this.id, formImg).subscribe((data) => {
       console.log(data);
-      this.toastr.success(
+      this._toastr.success(
         'Se han agregado las imagenes correctamente',
         'Imagenes agregadas',
         {
           positionClass: 'toast-bottom-right',
         }
       );
-      //this.router.navigate([`/serviciosfotografo/${this.id}`]);
     });
 
     let formVideo = new FormData();
@@ -170,24 +151,24 @@ export class DetalleComponent implements OnInit {
     for (var i = 0; i < this.videos.length; i++) {
       formVideo.append('video', this.videos[i]);
     }
-    this.fotografoService.updateVideo(this.id, formVideo).subscribe((data) => {
+    this._fotografoService.updateVideo(this.id, formVideo).subscribe((data) => {
       console.log(data);
-      this.toastr.success(
+      this._toastr.success(
         'Se han agregado los videos correctamente',
         'Videos agregadas',
         {
           positionClass: 'toast-bottom-right',
         }
       );
-      this.router.navigate([`/serviciosfotografo/${this.id}`]);
+      this._router.navigate([`/fotografo/detalle/${this.id}`]);
     });
 
   }
   getUser() {
-    this.user = this.authService.getUser();
+    this.user = this._authService.getUser();
     if (this.user == null)
       this.subscription.add(
-        this.authService.user$
+        this._authService.user$
           .pipe(takeUntil(this.destroy$))
           .subscribe((user: UserResponse) => {
             if (user) {

@@ -7,6 +7,7 @@ import { catchError, map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { TipoPaquete } from '../shared/models/tipo-paquetes.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class PaquetesService {
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
-    ) { 
+    ) {
   }
 
   getPaquetes(): Observable<Paquete[]>{
@@ -31,6 +32,17 @@ export class PaquetesService {
         }),
         catchError((err: { message: any; }) => this.handlerError(err))
       );
+  }
+  getTipoPaquetes() {
+    return this.http
+    //.get<Paquete>(`api/paquetes/${id}`)
+    .get<TipoPaquete[]>(`${environment.baseUrl}/paquetes/tipos_paquete`)
+    .pipe(
+      map((paquete: any) => {
+        return paquete;
+      }),
+      catchError((err: { message: any; }) => this.handlerError(err))
+    );
   }
 
   getPaquete(id: string) {
@@ -65,7 +77,7 @@ export class PaquetesService {
       }),
       catchError((err: { message: any; }) => this.handlerError(err))
     );
-  } 
+  }
 
   updatePaquete(id: string, paquete: Paquete) {
     return this.http

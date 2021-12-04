@@ -18,6 +18,7 @@ import { MarcosService } from 'src/app/services/marcos.service';
 import { PaquetesService } from 'src/app/services/paquetes.service';
 import { RecepcionistaService } from 'src/app/services/recepcionista.service';
 import { TamanoService } from 'src/app/services/tamano.service';
+import { ThrowStmt } from '@angular/compiler';
 //import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
 
 @Component({
@@ -45,18 +46,9 @@ export class AgregarComponent implements OnInit {
   });
 
   agregarServicioForm = new FormGroup({
-    nombre: new FormControl('', [
-      Validators.required,
-      Validators.maxLength(20),
-    ]),
-    ape_pat: new FormControl('', [
-      Validators.required,
-      Validators.maxLength(20),
-    ]),
-    ape_mat: new FormControl('', [
-      Validators.required,
-      Validators.maxLength(20),
-    ]),
+    nombre: new FormControl('', [Validators.required,Validators.maxLength(20),]),
+    ape_pat: new FormControl('', [Validators.required,Validators.maxLength(20),]),
+    ape_mat: new FormControl('', [Validators.required,Validators.maxLength(20),]),
     celular: new FormControl('', [Validators.maxLength(10)]),
     total: new FormControl(0, [Validators.required]),
     tipo_paquete_id: new FormControl('', [Validators.required]),
@@ -66,25 +58,12 @@ export class AgregarComponent implements OnInit {
   });
 
   public selectedTamano = '';
-  /*tamanos: Tamano[] = [
-    { id: 1, nombre: '9 x 13' },
-    { id: 2, nombre: '13 x 18' },
-    { id: 3, nombre: '15 x 20' },
-  ];*/
   tamanos: Tamano[] = [];
 
   public selectedTipoPaquete = '';
   tipo_paqutes: TipoPaquete[] = [
-    {
-      id: 1,
-      nombre: 'Impresion fotografica',
-      descripcion: 'Impresion fotografica',
-    },
-    {
-      id: 2,
-      nombre: 'Sesion fotografica',
-      descripcion: 'Sesion de fotos de furros',
-    },
+    { id: 1, nombre: 'Impresion fotografica',  descripcion: 'Impresion fotografica'     },
+    { id: 2, nombre: 'Sesion fotografica',     descripcion: 'Sesion de fotos de furros' },
   ];
 
   public selectedMarco = '';
@@ -96,14 +75,13 @@ export class AgregarComponent implements OnInit {
   closeResult: string | undefined;
 
   constructor(
-    private modalService: NgbModal,
-    private marcoService: MarcosService,
-    private tamanoService: TamanoService,
-    private recepcionistaService: RecepcionistaService,
-    private toastr: ToastrService,
-    private router: Router,
-    private paqueteService: PaquetesService,
-    private http: HttpClient
+    private _modalService: NgbModal,
+    private _marcoService: MarcosService,
+    private _tamanoService: TamanoService,
+    private _recepcionistaService: RecepcionistaService,
+    private _toastr: ToastrService,
+    private _router: Router,
+    private _paqueteService: PaquetesService
   ) {}
 
   ngOnDestroy(): void {
@@ -118,132 +96,51 @@ export class AgregarComponent implements OnInit {
   agregarServicio() {
     if (this.agregarServicioForm.controls['tipo_paquete_id'].value == 1) {
       //Si selecciono impresion fotografica
-
-      let total = 0;
-
-      this.images.forEach((imagen) => {
-        
-        let totalMarco = 0;
-        let totalTamano = 0;
-        
-        this.marcos.forEach((marco) => {
-          if (imagen.marco_nombre == marco.nombre) totalMarco = marco.precio;
-        });
-        this.tamanos.forEach((tamano) => {
-          if (imagen.tamano_nombre == tamano.nombre)
-            totalTamano = tamano.precio;
-        });
-        let temp =+ imagen.fotos 
-        total += (totalMarco+ totalTamano) * temp;
-      });
-
-      console.log(total)
-
       const formServicioImpresion = new FormData();
-      formServicioImpresion.append(
-        'nombre',
-        this.agregarServicioForm.get('nombre')?.value
-      );
-      formServicioImpresion.append(
-        'ape_pat',
-        this.agregarServicioForm.get('ape_pat')?.value
-      );
-      formServicioImpresion.append(
-        'ape_mat',
-        this.agregarServicioForm.get('ape_mat')?.value
-      );
-      formServicioImpresion.append(
-        'celular',
-        this.agregarServicioForm.get('celular')?.value
-      );
-      formServicioImpresion.append(
-        'total',
-        this.agregarServicioForm.get('precio')?.value
-      );
-
-      formServicioImpresion.append(
-        'tipo_paquete_id',
-        this.agregarServicioForm.get('tipo_paquete_id')?.value
-      );
+      formServicioImpresion.append('nombre',this.agregarServicioForm.get('nombre')?.value);
+      formServicioImpresion.append('ape_pat',this.agregarServicioForm.get('ape_pat')?.value);
+      formServicioImpresion.append('ape_mat',this.agregarServicioForm.get('ape_mat')?.value);
+      formServicioImpresion.append('celular',this.agregarServicioForm.get('celular')?.value);
+      formServicioImpresion.append('total',this.agregarServicioForm.get('total')?.value);
+      formServicioImpresion.append('tipo_paquete_id',this.agregarServicioForm.get('tipo_paquete_id')?.value);
 
       for (var i = 0; i < this.images.length; i++) {
         formServicioImpresion.append(`files`, this.images[i].file);
       }
       for (var i = 0; i < this.images.length; i++) {
-        formServicioImpresion.append(
-          `imagenes_impresion[${i}][tamano_id]`,
-          this.images[i].tamano_id
-        );
-        formServicioImpresion.append(
-          `imagenes_impresion[${i}][cantidad_copias]`,
-          this.images[i].fotos
-        );
-        formServicioImpresion.append(
-          `imagenes_impresion[${i}][marco_id]`,
-          this.images[i].marco_id
-        );
+        formServicioImpresion.append(`imagenes_impresion[${i}][tamano_id]`,this.images[i].tamano_id);
+        formServicioImpresion.append(`imagenes_impresion[${i}][cantidad_copias]`,this.images[i].fotos);
+        formServicioImpresion.append(`imagenes_impresion[${i}][marco_id]`,this.images[i].marco_id);
       }
 
       this.subscription.add(
-        this.recepcionistaService
+        this._recepcionistaService
           .addServicioImpresion(formServicioImpresion)
           .subscribe((data) => {
-            this.toastr.success(
+            this._toastr.success(
               'Se ha agregado el paquete correctamente',
               'Paquetes agregadas',
               {
                 positionClass: 'toast-bottom-right',
               }
             );
-            this.router.navigate([`/servicios`]);
+            this._router.navigate([`/recepcionista/servicios`]);
           })
       );
     } else {
-      const formServicioSesion = new FormData();
-      formServicioSesion.append(
-        'nombre',
-        this.agregarServicioForm.get('nombre')?.value
-      );
-      formServicioSesion.append(
-        'ape_pat',
-        this.agregarServicioForm.get('ape_pat')?.value
-      );
-      formServicioSesion.append(
-        'ape_mat',
-        this.agregarServicioForm.get('ape_mat')?.value
-      );
-      formServicioSesion.append(
-        'celular',
-        this.agregarServicioForm.get('celular')?.value
-      );
-      formServicioSesion.append(
-        'total',
-        this.agregarServicioForm.get('precio')?.value
-      );
-      //Si selecciono sesion fotografica
-      formServicioSesion.append(
-        'paquete_id',
-        this.agregarServicioForm.get('paquete_id')?.value
-      );
-      formServicioSesion.append(
-        'fecha_agendada',
-        this.agregarServicioForm.get('fecha_agendada')?.value
-      );
-
-
       const formValue = this.agregarServicioForm.value;
       this.subscription.add(
-        this.recepcionistaService
+        this._recepcionistaService
           .addServicioSesion(formValue)
           .subscribe((data) => {
-            this.toastr.success(
+            this._toastr.success(
               'Se ha agregado el paquete correctamente',
               'Paquetes agregadas',
               {
                 positionClass: 'toast-bottom-right',
               }
             );
-            this.router.navigate([`/servicios`]);
+            this._router.navigate([`/recepcionista/servicios`]);
           })
       );
     }
@@ -253,36 +150,51 @@ export class AgregarComponent implements OnInit {
 
     for (var i = 0; i < this.imagesHtml.length; i++) {
       if (this.imagesHtml[i] === this.imageSelected) {
-        this.images[i].fotos =
-          this.agregarDetalleImagenForm.controls['no_Fotos'].value;
-        this.images[i].marco_id =
-          this.agregarDetalleImagenForm.controls['marco_id'].value;
-
+        this.images[i].fotos =this.agregarDetalleImagenForm.controls['no_Fotos'].value;
+        this.images[i].marco_id =this.agregarDetalleImagenForm.controls['marco_id'].value;
         this.marcos.forEach((element) => {
           if (
-            this.agregarDetalleImagenForm.controls['marco_id'].value ==
-            element.id
+            this.agregarDetalleImagenForm.controls['marco_id'].value == element.id
           )
-            this.images[i].marco_nombre = element.nombre;
+          this.images[i].marco_nombre = element.nombre;
         });
 
-        this.images[i].tamano_id =
-          this.agregarDetalleImagenForm.controls['tamano_id'].value;
+        this.images[i].tamano_id =this.agregarDetalleImagenForm.controls['tamano_id'].value;
 
         this.tamanos.forEach((element) => {
           if (
-            this.agregarDetalleImagenForm.controls['tamano_id'].value ==
-            element.id
+            this.agregarDetalleImagenForm.controls['tamano_id'].value == element.id
           )
             this.images[i].tamano_nombre = element.nombre;
         });
       }
     }
+
+    let total = 0;
+
+      this.images.forEach((imagen) => {
+
+        let totalMarco = 0;
+        let totalTamano = 0;
+
+        this.marcos.forEach((marco) => {
+          if (imagen.marco_nombre == marco.nombre)    totalMarco = marco.precio;
+        });
+        this.tamanos.forEach((tamano) => {
+          if (imagen.tamano_nombre == tamano.nombre)  totalTamano = tamano.precio;
+        });
+        let temp =+ imagen.fotos
+        total += (totalMarco+ totalTamano) * temp;
+      });
+
+      this.agregarServicioForm.controls['total'].setValue(total)
+
+
   }
 
   getPaquetes() {
     this.subscription.add(
-      this.paqueteService.getPaquetes().subscribe((data) => {
+      this._paqueteService.getPaquetes().subscribe((data) => {
         data.forEach((element) => {
           if (element.tipo_paquete_id == 2) this.paquetes.push(element);
         });
@@ -292,14 +204,14 @@ export class AgregarComponent implements OnInit {
 
   getMarcos() {
     this.subscription.add(
-      this.marcoService.getMarcos().subscribe((data) => {
+      this._marcoService.getMarcos().subscribe((data) => {
         this.marcos = data;
       })
     );
   }
   getTamanos() {
     this.subscription.add(
-      this.tamanoService.getTamanos().subscribe((data) => {
+      this._tamanoService.getTamanos().subscribe((data) => {
         this.tamanos = data;
       })
     );
@@ -370,7 +282,7 @@ export class AgregarComponent implements OnInit {
       }
     }
 
-    this.modalService
+    this._modalService
       .open(content, { ariaLabelledBy: 'modal-basic-title' })
       .result.then(
         (result) => {

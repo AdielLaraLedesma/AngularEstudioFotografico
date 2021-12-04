@@ -21,24 +21,24 @@ export class AgregarMarcoComponent implements OnInit, OnDestroy {
 
   agregarMarcoForm = new FormGroup({
     nombre: new FormControl('', [Validators.required, Validators.maxLength(20)]),
-    precio: new FormControl('', [Validators.required]), 
+    precio: new FormControl('', [Validators.required]),
     usuario_registro_id: new FormControl(0, Validators.required)
   })
 
   constructor(
-    private marcoService: MarcosService,
-    private toastr: ToastrService,
-    private router: Router,
-    private authService: AuthService) { }
+    private _marcoService: MarcosService,
+    private _toastr: ToastrService,
+    private _router: Router,
+    private _authService: AuthService) { }
 
   ngOnInit(): void {
     this.getUser();
   }
   getUser() {
-    this.user = this.authService.getUser();
+    this.user = this._authService.getUser();
     if (this.user == null)
       this.subscription.add(
-        this.authService.user$
+        this._authService.user$
           .pipe(takeUntil(this.destroy$))
           .subscribe((user: UserResponse) => {
             if (user) {
@@ -55,17 +55,14 @@ export class AgregarMarcoComponent implements OnInit, OnDestroy {
   }
 
   agregarMarco(){
-
     this.agregarMarcoForm.controls['usuario_registro_id'].setValue(this.user.id);
 
     const formValue = this.agregarMarcoForm.value;
 
-    console.log(formValue)
-
-    this.marcoService.saveMarco(formValue).subscribe( data => {
+    this._marcoService.saveMarco(formValue).subscribe( data => {
       if (data){
-        this.toastr.success("Marco agregado exitosamente");
-        this.router.navigate(['/marcos'])
+        this._toastr.success("Marco agregado exitosamente");
+        this._router.navigate(['/administrador/marcos'])
       }
     })
   }

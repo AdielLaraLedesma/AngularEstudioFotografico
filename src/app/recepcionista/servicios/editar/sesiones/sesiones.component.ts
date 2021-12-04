@@ -25,10 +25,10 @@ export class EditarSesionesComponent implements OnInit, OnDestroy {
   public user: UserResponse = null!;
 
   constructor(
-    private rutaActiva: ActivatedRoute,
-    private recepcionistaService: RecepcionistaService,
-    private authService: AuthService,
-    private toastr: ToastrService,
+    private _rutaActiva: ActivatedRoute,
+    private _recepcionistaService: RecepcionistaService,
+    private _authService: AuthService,
+    private _toastr: ToastrService,
   ) {}
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -39,9 +39,9 @@ export class EditarSesionesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getUser();
 
-    this.user = this.authService.getUser();
+    this.user = this._authService.getUser();
 
-    this.id = this.rutaActiva.snapshot.params.id;
+    this.id = this._rutaActiva.snapshot.params.id;
 
     this.getServicio();
 
@@ -49,17 +49,17 @@ export class EditarSesionesComponent implements OnInit, OnDestroy {
 
   getServicio(){
     this.subscription.add(
-      this.recepcionistaService.getServicioSesion(this.id).subscribe((data) => {
+      this._recepcionistaService.getServicioSesion(this.id).subscribe((data) => {
         console.log(data);
         this.servicio = data;
       })
     );
   }
   getUser() {
-    this.user = this.authService.getUser();
+    this.user = this._authService.getUser();
     if (this.user == null)
       this.subscription.add(
-        this.authService.user$
+        this._authService.user$
           .pipe(takeUntil(this.destroy$))
           .subscribe((user: UserResponse) => {
             if (user) {
@@ -70,9 +70,9 @@ export class EditarSesionesComponent implements OnInit, OnDestroy {
   }
 
   finalizarServicio() {
-    this.recepcionistaService.changeStatusServicioSesion(this.id).subscribe( data => {
-      this.getServicio()
-      this.toastr.success(`Se ha cambiado el estado del servicio exitosamente`, "Estado cambiado", {
+    this.getServicio()
+    this._recepcionistaService.changeStatusServicioSesion(this.id).subscribe( data => {
+      this._toastr.success(`Se ha cambiado el estado del servicio exitosamente`, "Estado cambiado", {
         positionClass: 'toast-bottom-right'
       });
     } )

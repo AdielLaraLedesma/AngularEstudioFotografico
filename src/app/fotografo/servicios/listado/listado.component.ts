@@ -24,41 +24,35 @@ export class ListadoComponent implements OnInit, OnDestroy {
   public servicioEventos: ServicioEvento[] | undefined;
 
   constructor(
-    private rutaActiva: ActivatedRoute,
-    private authService: AuthService,
-    private fotografoService: FotografoService, 
-    private router: Router,
-    private toastr: ToastrService,
+    private _rutaActiva: ActivatedRoute,
+    private _authService: AuthService,
+    private _fotografoService: FotografoService,
+    private _router: Router
   ) { }
   ngOnInit(): void {
     this.getUser();
-    this.id = this.rutaActiva.snapshot.params.id;
+    this.id = this._rutaActiva.snapshot.params.id;
 
     if(this.user.id.toString() != this.id){
-      this.router.navigate(["/"]);
+      this._router.navigate(["/home"]);
         return
     }
 
     this.subscription.add(
-      this.fotografoService.getServicios(this.id).subscribe( data => {
+      this._fotografoService.getServicios(this.id).subscribe( data => {
         this.servicioEventos = data;
       })
     );
-
-
-    
-
-
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
   getUser() {
-    this.user = this.authService.getUser();
+    this.user = this._authService.getUser();
     if (this.user == null)
       this.subscription.add(
-        this.authService.user$
+        this._authService.user$
           .pipe(takeUntil(this.destroy$))
           .subscribe((user: UserResponse) => {
             if (user) {
@@ -71,11 +65,11 @@ export class ListadoComponent implements OnInit, OnDestroy {
   getColor(estatus_nombre: string){ (2)
     switch (estatus_nombre) {
       case 'Solicitado/Agendado':
-        return "yellow";
+        return "violet";
       case 'En espera del evento':
-        return 'blue';
+        return 'naviblue';
       case 'En espera de interaccion del fotografo':
-        return 'red';
+        return 'marron';
       case 'En espera de interaccion del cliente':
         return 'purple';
       case 'Finalizando pedido':

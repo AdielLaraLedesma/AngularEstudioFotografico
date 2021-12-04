@@ -22,9 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
-    private toastr: ToastrService
+    private _authService: AuthService
   ) { }
   ngOnDestroy(): void {
     this.destroy$.next({});
@@ -35,7 +33,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     //this.subscription.add(
-      this.authService.user$
+      this._authService.user$
         .pipe(takeUntil(this.destroy$))
         .subscribe((user: UserResponse) => {
         if (user) {
@@ -48,8 +46,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onLogout() {
     this.isLogged = false;
-    this.authService.logoutJWT();
+    this._authService.logoutJWT();
 
   }
- 
+
 }

@@ -4,7 +4,7 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-xl-12 text-center">
-                <h2 class="text-white fs-1" *ngIf="(authService.user$ | async) as user; else viewNotLogin">
+                <h2 class="text-white fs-1" *ngIf="(_authService.user$ | async) as user; else viewNotLogin">
                     Hola {{ user?.nombre || 'User' }} {{ user?.ape_pat }} {{ user?.ape_mat }}.
                 </h2>
             </div>
@@ -13,5 +13,7 @@
 </div>
 
 <ng-template #viewNotLogin>
+  <h2 class="text-white fs-1">
     Inicia sesión para poder administrar el estudio
+  </h2>
 </ng-template>

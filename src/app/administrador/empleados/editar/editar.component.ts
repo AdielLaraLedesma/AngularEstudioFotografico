@@ -21,7 +21,7 @@ export class EditarEmpleadoComponent implements OnInit, OnDestroy {
 
   public newFile: File =  null!;
   public urlImage: any;
-  public imageSrc = 'assets/img/image-not-found.png'   
+  public imageSrc = 'assets/img/image-not-found.png'
 
   private destroy$ = new Subject<any>();
   public user: UserResponse = null!;
@@ -35,7 +35,7 @@ export class EditarEmpleadoComponent implements OnInit, OnDestroy {
   isDisabled: boolean = true;
   id: string =  "";
 
- 
+
   editarEmpleadoForm = new FormGroup({
     id: new FormControl(0,  Validators.required),
     nombre: new FormControl('', [Validators.required, Validators.maxLength(20)]),
@@ -50,14 +50,14 @@ export class EditarEmpleadoComponent implements OnInit, OnDestroy {
 
     file: new FormControl()
   })
-  
+
 
   constructor(
-    private empleadosService: EmpleadosService,
-    private authService: AuthService,
-    private rutaActiva: ActivatedRoute,
-    private toastr: ToastrService,
-    private router: Router
+    private _empleadosService: EmpleadosService,
+    private _authService: AuthService,
+    private _rutaActiva: ActivatedRoute,
+    private _toastr: ToastrService,
+    private _router: Router
     ) { }
 
 
@@ -70,14 +70,14 @@ export class EditarEmpleadoComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.getUser();
- 
-    this.id = this.rutaActiva.snapshot.params.id;
 
-    this.empleadosService.getEmpleado(this.id).subscribe(data => {
+    this.id = this._rutaActiva.snapshot.params.id;
 
-      
+    this._empleadosService.getEmpleado(this.id).subscribe(data => {
+
+
       if (!data){
-        this.router.navigate(["/empleados"]);
+        this._router.navigate(["/administrador/empleados"]);
         return
       }
 
@@ -104,7 +104,7 @@ export class EditarEmpleadoComponent implements OnInit, OnDestroy {
       })
 
     });
-    
+
 
   }
 
@@ -120,24 +120,24 @@ export class EditarEmpleadoComponent implements OnInit, OnDestroy {
     formData.append("usuario_modificacion_id", this.editarEmpleadoForm.get('usuario_modificacion_id')?.value);
     formData.append("file", this.editarEmpleadoForm.get('file')?.value);
 
-    
-    this.empleadosService.updateEmpleado(this.id, formData).subscribe( data => {
+
+    this._empleadosService.updateEmpleado(this.id, formData).subscribe( data => {
       console.log(data);
-      if (data){ 
-        this.toastr.success("El empleado fue actualizado exitosamente", "Empleado actualizado", {
+      if (data){
+        this._toastr.success("El empleado fue actualizado exitosamente", "Empleado actualizado", {
           positionClass: 'toast-bottom-right'
         });
-        this.router.navigate(['/empleados'])
+        this._router.navigate(['/administrador/empleados'])
       }
     })
 
   }
 
   getUser() {
-    this.user = this.authService.getUser();
+    this.user = this._authService.getUser();
     if (this.user == null)
       this.subscription.add(
-        this.authService.user$
+        this._authService.user$
           .pipe(takeUntil(this.destroy$))
           .subscribe((user: UserResponse) => {
             if (user) {
@@ -165,7 +165,7 @@ export class EditarEmpleadoComponent implements OnInit, OnDestroy {
 		reader.readAsDataURL(event.target.files[0]);
 
     reader.onload = (_event) => {
-			this.urlImage = reader.result; 
+			this.urlImage = reader.result;
 		}
   }
 

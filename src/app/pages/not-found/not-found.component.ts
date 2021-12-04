@@ -10,11 +10,8 @@ import { take } from 'rxjs/operators';
 export class NotFoundComponent implements OnInit {
   path: string = '';
 
-  constructor(private route: ActivatedRoute) {}
+  constructor() {}
 
   ngOnInit() {
-    /*this.route.data.pipe(take(1)).subscribe((data: { path: string }): void => {
-      this.path = data.path;
-    });*/
   }
 }

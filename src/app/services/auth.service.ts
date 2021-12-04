@@ -59,10 +59,10 @@ export class AuthService {
       //.post(`api/usuarios/checkLogin`, {}, { headers }).subscribe((res: any) => {
       this.http.post(`${environment.baseUrl}/usuarios/checkLogin`, {}, /*{headers}*/).subscribe( (res: any) => {
 
-        if (res && res.isLogged == false) 
+        if (res && res.isLogged == false)
           //this.router.navigate(['/auth/login']);
           this.logoutJWT();
-        else 
+        else
           this.user.next(user);
       });
   }
@@ -71,7 +71,7 @@ export class AuthService {
   logoutJWT() {
     localStorage.removeItem('user');
     this.user.next(null!);
-    this.router.navigate(['/auth/login']);
+    this.router.navigateByUrl('/auth/login');
     this.toastr.warning(`Nos vemos pronto`, 'Acabas de cerrar sesión', {
       positionClass: 'toast-bottom-right',
     });
@@ -114,7 +114,14 @@ export class AuthService {
           map((res: any) => {
             return res;
           }),
-          catchError((err) => this.handlerError(err))
+          //catchError((err) => this.handlerError(err))
+          catchError(() => {
+            this.toastr.error("La contraseña no se actualizó", "Intentar de nuevo", {
+              positionClass: 'toast-bottom-right'
+            });
+            this.router.navigateByUrl('/auth/forgot-password');
+            return throwError("Credenciales invalidas");
+          })
         )
     );
   }

@@ -29,21 +29,21 @@ export class EditarMarcosComponent implements OnInit, OnDestroy {
   });
 
   constructor(
-    private marcoService: MarcosService,
-    private rutaActiva: ActivatedRoute,
-    private authService: AuthService,
-    private router: Router,
-    private toastr: ToastrService
+    private _marcoService: MarcosService,
+    private _rutaActiva: ActivatedRoute,
+    private _authService: AuthService,
+    private _router: Router,
+    private _toastr: ToastrService
   ) {}
   ngOnInit(): void {
     this.getUser();
 
-    this.id = this.rutaActiva.snapshot.params.id;
+    this.id = this._rutaActiva.snapshot.params.id;
 
     this.subscription.add(
-      this.marcoService.getMarco(this.id).subscribe((data) => {
+      this._marcoService.getMarco(this.id).subscribe((data) => {
         if (!data) {
-          this.router.navigateByUrl('/marcos');
+          this._router.navigate(['/administrador/marcos']);
           return;
         }
 
@@ -61,10 +61,10 @@ export class EditarMarcosComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
   getUser() {
-    this.user = this.authService.getUser();
+    this.user = this._authService.getUser();
     if (this.user == null)
       this.subscription.add(
-        this.authService.user$
+        this._authService.user$
           .pipe(takeUntil(this.destroy$))
           .subscribe((user: UserResponse) => {
             if (user) {
@@ -77,16 +77,16 @@ export class EditarMarcosComponent implements OnInit, OnDestroy {
   editarMarco() {
     const formValue = this.editarMarcoForm.value;
 
-    this.marcoService.updateMarco(this.id, formValue).subscribe((data) => {
+    this._marcoService.updateMarco(this.id, formValue).subscribe((data) => {
       if (data) {
-        this.toastr.success(
+        this._toastr.success(
           'El marco fue actualizado exitosamente',
           'Marco actualizado',
           {
             positionClass: 'toast-bottom-right',
           }
         );
-        this.router.navigate(['/administrador/marcos']);
+        this._router.navigate(['/administrador/marcos']);
       }
     });
   }

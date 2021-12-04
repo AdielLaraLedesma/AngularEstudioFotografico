@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     contrasena: new FormControl('', [
       Validators.required /*, Validators.pattern("/^(?=.*\d)(?=.*[a-zA-Z]).{6,20}$/")*/,
 
-    
+
     ]),
     frontLogin: new FormControl(true, [Validators.required])
   });
@@ -28,9 +28,9 @@ export class LoginComponent implements OnInit {
   isLogged = false;
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
-    private toastr: ToastrService
+    private _authService: AuthService,
+    private _router: Router,
+    private _toastr: ToastrService
   ) {}
 
   ngOnInit(): void {}
@@ -44,11 +44,15 @@ export class LoginComponent implements OnInit {
 
     const formValue = this.loginForm.value;
     this.subscription.add(
-      this.authService.loginJWT(formValue).subscribe((res) => {
+      this._authService.loginJWT(formValue).subscribe((res) => {
         if (res) {
-          this.router.navigate(['/auth/home']).then(() => {
+          this._router.navigate(['/auth/home']).then(() => {
             window.location.reload();
           });
+          this._toastr.success(`Bienvenido`, "Inicio de sesión", {
+            positionClass: 'toast-bottom-right'
+          });
+
         }
       })
     );

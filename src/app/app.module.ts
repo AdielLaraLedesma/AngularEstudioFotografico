@@ -15,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { PaquetesService } from './services/paquetes.service';
+import { AuthService } from './services/auth.service';
 
 import { CommonModule } from '@angular/common';
 
@@ -47,6 +48,7 @@ import { InterceptorService } from './services/interceptor.service';
     MaterialModule,
   ],
   providers: [
+    AuthService,
     PaquetesService,
     {
       provide: HTTP_INTERCEPTORS,

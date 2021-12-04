@@ -88,3 +88,8 @@ h3,
 .h3 {
   font-size: 1.0625rem;
 }
+
+.img-form {
+  width: 100%;
+  max-width: 300px;
+}

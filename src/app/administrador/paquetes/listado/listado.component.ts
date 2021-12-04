@@ -20,8 +20,8 @@ export class ListadoPaquetesComponent implements OnInit, OnDestroy {
   public paquetes: Paquete[] = [];
 
   constructor(
-    private paquetesService: PaquetesService,
-    private toastr: ToastrService
+    private _paquetesService: PaquetesService,
+    private _toastr: ToastrService
   ) {}
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -31,24 +31,26 @@ export class ListadoPaquetesComponent implements OnInit, OnDestroy {
     this.getPaquetes();
   }
 
-  eliminarPaquete(id: number) {
+  eliminarPaquete(id: number, iControl: any) {
     this.subscription.add(
-      this.paquetesService.deletePaquete(id).subscribe((data) => {
-        this.toastr.success(
+      this._paquetesService.deletePaquete(id).subscribe((data) => {
+        this._toastr.success(
           'El paquete fue eliminado exitosamente',
           'Paquete eliminado',
           {
             positionClass: 'toast-bottom-right',
           }
         );
-        this.getPaquetes();
+        this.paquetes.splice(iControl, 1);
       })
     );
   }
 
   getPaquetes() {
-    this.paquetesService.getPaquetes().subscribe((data) => {
-      this.paquetes = data;
-    });
+    this.subscription.add(
+      this._paquetesService.getPaquetes().subscribe((data) => {
+        this.paquetes = data;
+      })
+    );
   }
 }

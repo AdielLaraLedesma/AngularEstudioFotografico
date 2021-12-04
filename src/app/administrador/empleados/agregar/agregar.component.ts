@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -14,24 +14,24 @@ import { UserResponse } from 'src/app/shared/models/user.interface';
   templateUrl: './agregar.component.html',
   styleUrls: ['./agregar.component.css']
 })
-export class AgregarEmpleadoComponent implements OnInit {
+export class AgregarEmpleadoComponent implements OnInit, OnDestroy {
 
-  
+
   /* Necesario para ocultar el password */
   public hide = true;
 
   public url: any;
-  public imageSrc = 'assets/img/image-not-found.png'  
+  public imageSrc = 'assets/img/image-not-found.png'
 
   private destroy$ = new Subject<any>();
   public user: UserResponse = null!;
+  private subscription: Subscription = new Subscription();
 
   public selectedFile: File =  null!;
 
   roles: Rol[]=[{id: 1,nombre: 'Administrador'},{id: 3, nombre: 'Fotografo'},{id: 4, nombre: 'Recepcionista'}];
   selectedRol = 0;
 
-  private subscription: Subscription = new Subscription();
 
   agregarEmpleadoForm = new FormGroup({
     id: new FormControl({value:'', disabled:true}, Validators.required),
@@ -46,25 +46,29 @@ export class AgregarEmpleadoComponent implements OnInit {
     rol_id: new FormControl('', [Validators.required, Validators.maxLength(20)]),
     file: new FormControl()
   })
-  
+
 
   constructor(
-    private empleadoService: EmpleadosService, 
-    private authService: AuthService,
-    private toastr: ToastrService,
-    private router: Router) { }
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
+    private _empleadoService: EmpleadosService,
+    private _authService: AuthService,
+    private _toastr: ToastrService,
+    private _router: Router) { }
 
   ngOnInit(): void {
     this.getUser();
   }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    this.destroy$.next({});
+    this.destroy$.complete();
+  }
+
   getUser() {
-    this.user = this.authService.getUser();
+    this.user = this._authService.getUser();
     if (this.user == null)
       this.subscription.add(
-        this.authService.user$
+        this._authService.user$
           .pipe(takeUntil(this.destroy$))
           .subscribe((user: UserResponse) => {
             if (user) {
@@ -89,19 +93,14 @@ export class AgregarEmpleadoComponent implements OnInit {
     formData.append("usuario_registro_id", this.user.id);
     formData.append("file", this.agregarEmpleadoForm.get('file')?.value);
 
-      
+
 
     this.subscription.add(
-      this.empleadoService.saveEmpleado(formData).subscribe( data => {
-        console.log(data)
-        /*
-        this.toastr.success("El empleado fue agregado exitosamente", "Empleado agregado", {
-          positionClass: 'toast-bottom-right'
-        });*/
-        this.toastr.success(`Se ha enviado un correo a ${this.agregarEmpleadoForm.controls['correo'].value} para validar su identidad`, "Correo enviado", {
+      this._empleadoService.saveEmpleado(formData).subscribe( data => {
+        this._toastr.success(`Se ha enviado un correo a ${this.agregarEmpleadoForm.controls['correo'].value} para validar su identidad`, "Correo enviado", {
           positionClass: 'toast-bottom-right'
         });
-        this.router.navigate(['/empleados']) 
+        this._router.navigate(['/administrador/empleados'])
       })
     );
 
@@ -116,16 +115,14 @@ export class AgregarEmpleadoComponent implements OnInit {
 
   onFileSelected(event: any){
     const file = (event.target as HTMLInputElement).files![0];
-    this.agregarEmpleadoForm.patchValue({
-      file: file
-    });
+    this.agregarEmpleadoForm.patchValue({file: file});
     this.agregarEmpleadoForm.get('file')?.updateValueAndValidity()
 
     var reader = new FileReader();
 		reader.readAsDataURL(event.target.files[0]);
 
     reader.onload = (_event) => {
-			this.url = reader.result; 
+			this.url = reader.result;
 		}
   }
 
