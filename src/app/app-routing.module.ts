@@ -1,21 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PaquetesComponent } from '../app/pages/administrador/paquete/paquetes/paquetes.component';
-import { PaqueteFormComponent } from '../app/pages/administrador/paquete/paquete-form/paquete-form.component';
 import { CheckLoginGuard } from './shared/guards/check-login.guard';
-import { EmpleadosComponent } from '../app/pages/administrador/empleado/empleados/empleados.component';
-import { EmpleadosFormComponent } from '../app/pages/administrador/empleado/empleados-form/empleados-form.component';
-//import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
-import { PerfilComponent } from './pages/auth/perfil/perfil.component';
-import { CheckNotLoginGuard } from '../app/shared/guards/check-not-login.guard';
-import { LoginComponent } from './pages/auth/login/login.component';
-import { CheckNotAdminGuard } from '../app/shared/guards/check-not-admin.guard';
-import { MarcosComponent } from './pages/administrador/marco/marcos/marcos.component'
-import { MarcosFormComponent } from './pages/administrador/marco/marcos-form/marcos-form.component';
+import { CheckNotAdminGuard } from './shared/guards/check-not-admin.guard';
 import { CheckNotFotografoGuard } from './shared/guards/check-not-fotografo.guard';
+import { CheckNotLoginGuard } from './shared/guards/check-not-login.guard';
 import { CheckNotRecepcionistaGuard } from './shared/guards/check-not-recepcionista.guard';
 
-const routes: Routes = [
+/*const routes: Routes = [
   {
     path: 'home', 
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
@@ -57,10 +48,7 @@ const routes: Routes = [
     component: MarcosFormComponent,
     canActivate: [CheckNotLoginGuard, CheckNotAdminGuard]
   },
-  /*{ 
-    path: 'notFound', 
-    loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule) 
-  },*/
+
   { 
     path: 'forgotpassword', 
     loadChildren: () => import('./pages/auth/forgotpassword/forgotpassword.module').then(m => m.ForgotpasswordModule),
@@ -69,7 +57,6 @@ const routes: Routes = [
   { 
     path: 'recoverpassword/:id', 
     loadChildren: () => import('../app/pages/auth/recoverpassword/recoverpassword.module').then(m => m.RecoverpasswordModule),
-    //canActivate: [CheckLoginGuard] 
   },
   { 
     path: 'changepassword', 
@@ -113,7 +100,19 @@ const routes: Routes = [
     path: '**',  loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule) 
   }
 
+];*/
+
+const routes: Routes = [
+
+  { path: 'auth', loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule ) },
+  { path: 'recepcionista/servicios', loadChildren: () => import('./recepcionista/recepcionista.module').then( m => m.RecepcionistaModule ), canActivate: [CheckNotRecepcionistaGuard, CheckNotLoginGuard] },
+  { path: 'fotografo/servicios', loadChildren: () => import('./fotografo/fotografo.module').then( m => m.FotografoModule ), canActivate: [CheckNotFotografoGuard, CheckNotLoginGuard] },
+  { path: 'administrador', loadChildren: () => import('./administrador/administrador.module').then( m => m.AdministradorModule ), canActivate: [CheckNotAdminGuard, CheckNotLoginGuard] },
+  { path: 'home', loadChildren: () => import('./pages/home/home.module').then( m => m.HomeModule ) },
+  { path: '**', redirectTo: 'home' },
+
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],

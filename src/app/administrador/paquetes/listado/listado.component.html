@@ -1,0 +1,61 @@
+<div class="container mt-4">
+    <div class="card">
+      <div class="card-body">
+        <span class="h3">Lista de paquetes</span>
+        <a class="btn btn-dark btn-lg float-right" routerLink="/administrador/paquetes/agregar">Agregar</a>
+  
+        <table class="table table-striped mt-4">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Descripcion</th>
+              <th scope="col">Horas de video</th>
+              <th scope="col">Fotos digitales</th>
+              <th scope="col">Fotos fisicas</th>
+              <th scope="col">Fotos enmarcadas</th>
+              <th scope="col">Marco</th>
+              <th scope="col">Tamaño</th>
+              <th scope="col">Tipo de paquete</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Imagen</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let paquete of paquetes">
+              <th scope="row">{{ paquete.id }}</th>
+              <td> {{ paquete.nombre }}</td>
+              <td> {{ paquete.descripcion }}</td>
+              <td> {{ paquete.hrs_Video }}</td>
+              <td> {{ paquete.no_Fotos_Dig }}</td>
+              <td> {{ paquete.no_Fotos_Fis }}</td>
+              <td> {{ paquete.no_Fotos_Enm }}</td>
+              <td> {{ paquete.marco_nombre }}</td>
+              <td> {{ paquete.tamano_nombre }}</td>
+              <td> {{ paquete.tipo_paquete_nombre }}</td>
+              <td> {{ paquete.precio }}</td>
+              <td style="width: 15%;">
+                <ng-container *ngIf="paquete.url_imagen != null; else fotoDefault">
+                  <img class="img-table" [src]="url + paquete.url_imagen" />
+                </ng-container>
+                <ng-template #fotoDefault>
+                  <img class="img-table" [src]="imageSrcDefault" alt="Imagen no encontrada" />
+                </ng-template>
+              </td>
+  
+  
+              <td style="display: flex; flex-direction: row;">
+                <a class="nav-link" routerLink="/administrador/paquetes/{{paquete.id}}">
+                  <mat-icon>edit</mat-icon>
+                </a>
+                <a class="nav-link" (click)="eliminarPaquete(paquete.id)"> 
+                  <mat-icon>delete</mat-icon>
+                </a>
+              </td>
+  
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>

@@ -1,0 +1,63 @@
+<div class="main-content">
+    <div class="container mt-7">
+      <!-- Table -->
+      <div class="row">
+        <div class="col-xl-12 m-auto">
+          <div class="card bg-secondary shadow m-auto">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-12">
+                  <h3 class="mb-0">Agregar marco</h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="agregarMarcoForm" (ngSubmit)="agregarMarco()">
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group focused">
+                          <mat-form-field class="full-width-input">
+                              <input 
+                              matInput 
+                              class="form-control"
+                              formControlName="nombre"
+                              type="text" 
+                              placeholder="Nombre del marco">
+                              <mat-error *ngIf="isValidField('nombre')">
+                                  {{ getErrorMessage("nombre") }}
+                              </mat-error>
+                          </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group focused">
+                        <mat-form-field class="full-width-input">
+                          <input matInput class="form-control" formControlName="precio" type="number"
+                            placeholder="Precio">
+                          <mat-error *ngIf="isValidField('precio')">
+                            {{ getErrorMessage("precio") }}
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                      <button 
+                      class="mt-4"
+                      [disabled] ="agregarMarcoForm.invalid"
+                      mat-raised-button 
+                      type="submit" 
+                      color="primary">Agregar marco</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

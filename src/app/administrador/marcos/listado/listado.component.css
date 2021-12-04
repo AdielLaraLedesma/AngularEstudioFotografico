@@ -1,0 +1,38 @@
+table {
+    width: 40%;
+    margin: auto;
+  }
+  
+  
+  .mat-column-id {
+    width: 32px;
+    border-right: 1px solid currentColor;
+    padding-right: 24px;
+    text-align: center;
+  }
+  .mat-column-userId {
+    width: 32px;
+    border-right: 1px solid currentColor;
+    padding-right: 24px;
+    text-align: center;
+  }
+    
+  .mat-column-title {
+    padding-left: 16px;
+    font-size: 20px;
+  }
+    
+  .mat-column-body {
+    font-style: italic;
+  }
+    
+  .mat-column-demo-symbol {
+    width: 32px;
+    text-align: center;
+    font-weight: bold;
+  }
+  .container-btn{
+    width: 40%;
+    margin: auto;
+    text-align: right;
+  }

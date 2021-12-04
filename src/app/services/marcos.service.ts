@@ -10,12 +10,11 @@ import { Marco } from '../shared/models/marco.interface'
   providedIn: 'root'
 })
 export class MarcosService {
-
+ 
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
     ) { 
-    //console.log("Is working!")
   }
 
   getMarco(id: string): Observable<Marco>{
@@ -54,6 +53,7 @@ export class MarcosService {
   }
   updateMarco(id: string, marco: Marco) {
     return this.http
+      //.put(`api/marcos/actualizar/${id}`, marco)
       .put(`${environment.baseUrl}/marcos/actualizar/${id}`, marco)
       .pipe(
         map((marco: any) => {

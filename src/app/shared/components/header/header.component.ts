@@ -15,15 +15,11 @@ import { UserResponse } from '../../models/user.interface';
 export class HeaderComponent implements OnInit, OnDestroy {
   public url = environment.url
 
-
-  private subscription: Subscription = new Subscription();
-
   isLogged = false;
 
   private destroy$ = new Subject<any>();
   user: UserResponse = null!;
-
-
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private authService: AuthService,
@@ -31,7 +27,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private toastr: ToastrService
   ) { }
   ngOnDestroy(): void {
-    //this.subscription.unsubscribe();
     this.destroy$.next({});
     this.destroy$.complete();
     this.subscription.unsubscribe();
@@ -39,7 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription.add(
+    //this.subscription.add(
       this.authService.user$
         .pipe(takeUntil(this.destroy$))
         .subscribe((user: UserResponse) => {
@@ -48,29 +43,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.user = user;
         }
       })
-    );
+    //);
   }
 
   onLogout() {
     this.isLogged = false;
-    const nombre = this.user.nombre;
     this.authService.logoutJWT();
 
-    /*this.subscription.add(
-      this.authService.logout().subscribe((res) => {
-        if (res) {
-          this.router.navigate(['/login']);
-          this.toastr.warning(`Nos vemos pronto ${nombre}`, "Acabas de cerrar sesión", {
-            positionClass: 'toast-bottom-right'
-          });
-        }
-      })
-    );*/
-    
-
   }
-
  
-
-
 }

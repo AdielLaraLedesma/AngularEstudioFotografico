@@ -1,3 +1,17 @@
-<h1 *ngIf="(authService.user$ | async) as user">
-    Welcome, {{ user?.nombre || 'User' }}.
-</h1>
+
+
+<div class="main-content">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-xl-12 text-center">
+                <h2 class="text-white fs-1" *ngIf="(authService.user$ | async) as user; else viewNotLogin">
+                    Hola {{ user?.nombre || 'User' }} {{ user?.ape_pat }} {{ user?.ape_mat }}.
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #viewNotLogin>
+    Inicia sesión para poder administrar el estudio
+</ng-template>

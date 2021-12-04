@@ -14,7 +14,9 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 100vh;
+  background-attachment: fixed;
+  height: 95vh;
+  /*height: 100vh;*/
 
 }
 

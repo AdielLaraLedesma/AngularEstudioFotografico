@@ -1,4 +1,4 @@
-export interface Tamano{
+export interface Tamanio{
     id: number;
     nombre: string;
 }

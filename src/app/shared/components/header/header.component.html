@@ -4,15 +4,15 @@
   <ng-container *ngIf="isLogged; else viewNoLogged">
     <div>
       <ng-container *ngIf="user.rol_id == 1;">
-        <a mat-button routerLink="/paquetes">Paquetes</a>
-        <a mat-button routerLink="/empleados">Empleados</a>
-        <a mat-button routerLink="/marcos">Marcos</a>
+        <a mat-button routerLinkActive="active" routerLink="/administrador/empleados">Empleados</a>
+        <a mat-button routerLinkActive="active" routerLink="/administrador/paquetes">Paquetes</a>
+        <a mat-button routerLinkActive="active" routerLink="/administrador/marcos">Marcos</a>
       </ng-container>
       <ng-container *ngIf="user.rol_id == 3;">
-        <a mat-button routerLink="/serviciosfotografo/{{user.id}}">Mis servicios</a>
+        <a mat-button routerLinkActive="active" routerLink="/fotografo/servicios/{{user.id}}">Mis servicios</a>
       </ng-container>
       <ng-container *ngIf="user.rol_id == 4;">
-        <a mat-button routerLink="/servicios">Servicios</a>
+        <a mat-button routerLinkActive="active" routerLink="/recepcionista/servicios/">Servicios</a>
       </ng-container>
     </div>
     <span class="spacer"></span>
@@ -30,8 +30,8 @@
       </ng-container>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="/miPerfil">Mi perfil</button>
-      <button mat-menu-item routerLink="/changepassword">Cambiar contraseña</button>
+      <button mat-menu-item routerLink="/auth/profile">Mi perfil</button>
+      <button mat-menu-item routerLink="/auth/change-password">Cambiar contraseña</button>
       <button mat-menu-item (click)="onLogout()">Cerrar sesión</button>
     </mat-menu>
   </ng-container>
@@ -40,7 +40,7 @@
 
 <ng-template #viewNoLogged>
   <div>
-    <a mat-button routerLink="/login">Iniciar sesión</a>
-    <a mat-button routerLink="/forgotpassword">Olvide mi contraseña</a>
+    <a mat-button routerLink="/auth/login">Iniciar sesión</a>
+    <a mat-button routerLink="/auth/forgot-password">Olvide mi contraseña</a>
   </div>
 </ng-template>

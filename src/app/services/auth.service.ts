@@ -41,6 +41,7 @@ export class AuthService {
             });
             return throwError("Credenciales invalidas");
           })
+          //catchError((err) => this.handlerError(err))
         )
     );
   }
@@ -55,40 +56,22 @@ export class AuthService {
 
     const headers = new HttpHeaders().set('accessToken', user.accessToken);
     this.http
-      //.post(`api/usuarios/checkLogin`, {}, { headers })
-      //.subscribe((res: any) => {
-      this.http.post(`${environment.baseUrl}/usuarios/checkLogin`, {}, {headers}).subscribe( (res: any) => {
+      //.post(`api/usuarios/checkLogin`, {}, { headers }).subscribe((res: any) => {
+      this.http.post(`${environment.baseUrl}/usuarios/checkLogin`, {}, /*{headers}*/).subscribe( (res: any) => {
 
-        if (res && res.isLogged == false) this.router.navigate(['/login']);
-        else this.user.next(user);
+        if (res && res.isLogged == false) 
+          //this.router.navigate(['/auth/login']);
+          this.logoutJWT();
+        else 
+          this.user.next(user);
       });
   }
 
-  /*checkLogin(){
-    this.http.get('/api/usuarios/loginApp').subscribe((res: any) => {
-      this.user.next(res);
-    }, (errorResp) => {
-      this.user.next(null!);
-    });
-  }*/
-
-  /*logout(): Observable<UserResponse | void> {
-    return this.http
-      .post<UserResponse>('/api/usuarios/logout',{})
-      .pipe(
-        map((res: any) => {
-          this.user.next(null!);
-          return res;
-        }),
-        catchError((err) => this.handlerError(err))
-      );
-
-  }*/
 
   logoutJWT() {
     localStorage.removeItem('user');
     this.user.next(null!);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth/login']);
     this.toastr.warning(`Nos vemos pronto`, 'Acabas de cerrar sesión', {
       positionClass: 'toast-bottom-right',
     });
