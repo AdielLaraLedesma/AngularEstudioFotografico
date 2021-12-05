@@ -9,6 +9,9 @@ export interface ServicioEvento{
     direccion: String;
     marco_id: number;
     total: number;
+    no_Fotos_Dig: number;
+    no_Fotos_Enm: number;
+    no_Fotos_Fis: number;
     estatus_id: number;
     pago_id: number;
     activo: boolean;
@@ -17,6 +20,7 @@ export interface ServicioEvento{
     fecha_modificacion?: Date;
     usuario_modificacion_id?: number;
     nombre_cliente: string;
+    celular_cliente: string;
     paquete_nombre: string;
     estatus_nombre: string;
 

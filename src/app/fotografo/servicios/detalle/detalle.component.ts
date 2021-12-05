@@ -39,6 +39,10 @@ export class DetalleComponent implements OnInit {
     nombre_cliente: '',
     paquete_nombre: '',
     estatus_nombre: '',
+    no_Fotos_Dig: 0,
+    no_Fotos_Enm: 0,
+    no_Fotos_Fis: 0,
+    celular_cliente: ''
   };
 
   private destroy$ = new Subject<any>();
@@ -57,8 +61,8 @@ export class DetalleComponent implements OnInit {
   videos: string[] = [];
   videosHtml: any[] = [];
   public agregarImagenesVideoForm = new FormGroup({
-    files: new FormControl([Validators.required]),
-    usuario_modificacion_id: new FormControl('', [Validators.required]),
+    files:                    new FormControl(),
+    usuario_modificacion_id:  new FormControl('', [Validators.required]),
   });
 
   constructor(
@@ -79,6 +83,7 @@ export class DetalleComponent implements OnInit {
 
     this.getUser();
 
+
     this.id = this._rutaActiva.snapshot.params.id;
 
     this.subscription.add(
@@ -88,12 +93,12 @@ export class DetalleComponent implements OnInit {
       }
 
       this.servicioEvento = data;
+      console.log(data);
       })
     );
 
     this.subscription.add(
       this._fotografoService.getImages(this.id).subscribe( data => {
-        console.log(data)
 
         data.forEach((element: { url_imagen: string; }) => {
           this.imagesHtml.push(this.url + element.url_imagen)
@@ -133,7 +138,6 @@ export class DetalleComponent implements OnInit {
     }
 
     this._fotografoService.updateImg(this.id, formImg).subscribe((data) => {
-      console.log(data);
       this._toastr.success(
         'Se han agregado las imagenes correctamente',
         'Imagenes agregadas',
@@ -152,7 +156,6 @@ export class DetalleComponent implements OnInit {
       formVideo.append('video', this.videos[i]);
     }
     this._fotografoService.updateVideo(this.id, formVideo).subscribe((data) => {
-      console.log(data);
       this._toastr.success(
         'Se han agregado los videos correctamente',
         'Videos agregadas',
@@ -179,7 +182,7 @@ export class DetalleComponent implements OnInit {
   }
 
   onImageSelected(event: any) {
-    console.log("aqui entro")
+    this.agregarImagenesVideoForm.controls['usuario_modificacion_id'].setValue(this.user.id)
     for (var i = 0; i < event.target.files.length; i++) {
       this.images.push(event.target.files[i]);
 
@@ -192,14 +195,13 @@ export class DetalleComponent implements OnInit {
   }
 
   onVideoSelected(event: any){
-    console.log("aqui entro")
+    this.agregarImagenesVideoForm.controls['usuario_modificacion_id'].setValue(this.user.id)
     for (var i = 0; i < event.target.files.length; i++) {
       this.videos.push(event.target.files[i]);
 
       var reader = new FileReader();
       reader.onload = (event: any) => {
         this.videosHtml.push(event.target.result);
-        //console.log(event.target.result)
       };
       reader.readAsDataURL(event.target.files[i]);
     }
