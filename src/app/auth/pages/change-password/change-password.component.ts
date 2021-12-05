@@ -50,7 +50,10 @@ export class ChangePasswordComponent implements OnInit {
         this._toastr.success('El cambio de contraseña fue realizado exitosamente', "Cambio de contraseña", {
           positionClass: 'toast-bottom-right'
         });
-        this._router.navigate(['/auth/login'])
+        this._authService.logoutJWT();
+        this._router.navigate(['/auth/login']).then(() => {
+          window.location.reload();
+        });
       }
     })
 

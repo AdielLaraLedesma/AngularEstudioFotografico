@@ -19,8 +19,8 @@ export class TamanoService {
 
   getTamano(id: string): Observable<Tamano>{
     return this.http
-    //.get<Tamano>(`api/tamanos/${id}`)
-    .get<Tamano>(`${environment.baseUrl}/tamanos/${id}`)
+    .get<Tamano>(`api/tamanos/${id}`)
+    //.get<Tamano>(`${environment.baseUrl}/tamanos/${id}`)
     .pipe(
       map((marco: any) => {
         return marco[0];
@@ -31,8 +31,8 @@ export class TamanoService {
 
   getTamanos(): Observable<Tamano[]>{
     return this.http
-      //.get<Tamano[]>(`api/tamanos`)
-      .get<Tamano[]>(`${environment.baseUrl}/tamanos`)
+      .get<Tamano[]>(`api/tamanos`)
+      //.get<Tamano[]>(`${environment.baseUrl}/tamanos`)
       .pipe(
         map((marcos: Tamano[]) => {
           return marcos;

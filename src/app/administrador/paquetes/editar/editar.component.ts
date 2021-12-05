@@ -174,7 +174,6 @@ export class EditarPaquetesComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this._tamanoService.getTamanos().subscribe(data => {
         this.tamanos = data;
-        console.log(data);
       })
     );
   }

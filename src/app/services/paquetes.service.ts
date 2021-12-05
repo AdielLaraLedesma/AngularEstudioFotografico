@@ -24,8 +24,8 @@ export class PaquetesService {
 
   getPaquetes(): Observable<Paquete[]>{
     return this.http
-      //.get<Paquete[]>(`api/paquetes/`)
-      .get<Paquete[]>(`${environment.baseUrl}/paquetes/`)
+      .get<Paquete[]>(`api/paquetes/`)
+      //.get<Paquete[]>(`${environment.baseUrl}/paquetes/`)
       .pipe(
         map((paquetes: Paquete[]) => {
           return paquetes;
@@ -35,8 +35,8 @@ export class PaquetesService {
   }
   getTipoPaquetes() {
     return this.http
-    //.get<Paquete>(`api/paquetes/${id}`)
-    .get<TipoPaquete[]>(`${environment.baseUrl}/paquetes/tipos_paquete`)
+    .get<Paquete>(`api/paquetes/tipos_paquete`)
+    //.get<TipoPaquete[]>(`${environment.baseUrl}/paquetes/tipos_paquete`)
     .pipe(
       map((paquete: any) => {
         return paquete;
@@ -47,8 +47,8 @@ export class PaquetesService {
 
   getPaquete(id: string) {
     return this.http
-    //.get<Paquete>(`api/paquetes/${id}`)
-    .get<Paquete>(`${environment.baseUrl}/paquetes/${id}`)
+    .get<Paquete>(`api/paquetes/${id}`)
+    //.get<Paquete>(`${environment.baseUrl}/paquetes/${id}`)
     .pipe(
       map((paquete: any) => {
         return paquete;
@@ -59,8 +59,8 @@ export class PaquetesService {
 
   savePaquete(fd: any) {
     return this.http
-    //.post(`api/paquetes/agregar`, fd).pipe(
-    .post(`${environment.baseUrl}/paquetes/agregar`, fd).pipe(
+    .post(`api/paquetes/agregar`, fd).pipe(
+    //.post(`${environment.baseUrl}/paquetes/agregar`, fd).pipe(
       map((paquete: any) => {
         return paquete;
       }),
@@ -70,8 +70,8 @@ export class PaquetesService {
 
   deletePaquete(id: any) {
     return this.http
-    //.delete(`api/paquetes/eliminar/${id}`).pipe(
-    .delete(`${environment.baseUrl}/paquetes/eliminar/${id}`).pipe(
+    .delete(`api/paquetes/eliminar/${id}`).pipe(
+    //.delete(`${environment.baseUrl}/paquetes/eliminar/${id}`).pipe(
       map((paquete: any) => {
         return paquete;
       }),
@@ -81,8 +81,8 @@ export class PaquetesService {
 
   updatePaquete(id: string, paquete: Paquete) {
     return this.http
-      //.put(`api/paquetes/actualizar/${id}`, paquete)
-      .put(`${environment.baseUrl}/paquetes/actualizar/${id}`, paquete)
+      .put(`api/paquetes/actualizar/${id}`, paquete)
+      //.put(`${environment.baseUrl}/paquetes/actualizar/${id}`, paquete)
       .pipe(
         map((paquete: any) => {
           return paquete;

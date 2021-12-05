@@ -8,7 +8,7 @@
       </div>-->
 
 
-      <div class="col-xl-3 order-xl-1" *ngIf="imagesHtml.length != 0">
+      <div class="col-xl-3 order-xl-1 mb-3" *ngIf="imagesHtml.length != 0">
         <div class="card bg-secondary shadow">
           <div class="card-header bg-white border-0">
             <div class="row align-items-center">
@@ -35,7 +35,9 @@
         [class.col-xl-9]="videosHtml.length == 0 || imagesHtml.length == 0" -->
 
       <!--- m-auto  -->
-      <div class="order-xl-1 col-xl-6">
+      <div class="order-xl-1 mb-3"   [class.col-xl-6]="videosHtml.length != 0 && imagesHtml.length != 0"
+                                [class.col-xl-12]="videosHtml.length == 0 && imagesHtml.length == 0"
+                                [class.col-xl-9]="videosHtml.length == 0 || imagesHtml.length == 0" >
         <div class="card bg-secondary shadow">
           <div class="card-header bg-white border-0">
             <div class="row align-items-center">
@@ -160,7 +162,7 @@
 
                 </div>
                 <div class="row mt-2">
-                  <button style="width: 100%;" [disabled]="agregarImagenesVideoForm.invalid" mat-raised-button
+                  <button style="width: 80%; margin: auto;" [disabled]="agregarImagenesVideoForm.invalid" mat-raised-button
                     type="submit" color="primary">
                     Guardar cambios
                   </button>

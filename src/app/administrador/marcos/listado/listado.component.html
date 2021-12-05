@@ -1,34 +1,34 @@
 <div class="container mt-4">
-    <div class="card">
-      <div class="card-body">
-        <span class="h3">Lista de servicios</span>
-        <a class="btn btn-dark btn-lg float-right" routerLink="agregar">Agregar</a>
-        <table class="table table-striped mt-5">
-          <thead>
-            <tr>
-              <th scope="col">Id</th>
-              <th scope="col" style="width: 80%;">Nombre</th>
-              <th scope="col">Precio</th>
-              <th scope="col">Opciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let marco of marcos; let iControl=index">
-              <th scope="row">{{ marco.id }}</th>
-              <td> {{ marco.nombre }}</td>
-              <td> {{ marco.precio }}</td>
-              <td style="display: flex; flex-direction: row;">
-                <a class="nav-link" routerLink="/administrador/marcos/{{marco.id}}">
-                  <mat-icon>edit</mat-icon>
-                </a>
-                <a class="nav-link" (click)="eliminarMarco(marco.id, iControl)">
-                  <mat-icon>delete</mat-icon>
-                </a>
-              </td>
-  
-            </tr>
-          </tbody>
-        </table>
-  
-      </div>
+  <div class="card">
+    <div class="card-body">
+      <span class="h3">Lista de servicios</span>
+      <a class="btn btn-dark btn-lg float-right" routerLink="agregar">Agregar</a>
+      <table class="table table-striped mt-5">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col" style="width: 80%;">Nombre</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let marco of marcos; let iControl=index">
+            <th scope="row">{{ marco.id }}</th>
+            <td> {{ marco.nombre }}</td>
+            <td> {{ marco.precio }}</td>
+            <td style="display: flex; flex-direction: row;">
+              <a class="nav-link" routerLink="/administrador/marcos/{{marco.id}}">
+                <mat-icon>edit</mat-icon>
+              </a>
+              <a class="nav-link" (click)="eliminarMarco(marco.id, iControl)">
+                <mat-icon>delete</mat-icon>
+              </a>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+
     </div>
+  </div>

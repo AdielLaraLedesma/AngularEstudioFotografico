@@ -1,5 +1,5 @@
 <div class="main-content">
-    <div class="container mt-3">
+    <div class="container mt-4">
       <div class="row">
         <div class="col-xl-12 m-auto">
           <div class="card bg-secondary shadow m-auto">
@@ -17,11 +17,11 @@
                     <div class="col-lg-12">
                       <div class="form-group focused">
                           <mat-form-field class="full-width-input">
-                              <input 
-                              matInput 
+                              <input
+                              matInput
                               class="form-control"
                               formControlName="nombre"
-                              type="text" 
+                              type="text"
                               placeholder="Nombre del marco">
                               <mat-error *ngIf="isValidField('nombre')">
                                   {{ getErrorMessage("nombre") }}
@@ -44,11 +44,11 @@
                     </div>
                   </div>
                   <div class="row">
-                    <button 
+                    <button
                     class="mt-4"
                     [disabled] ="editarMarcoForm.invalid"
-                    mat-raised-button 
-                    type="submit" 
+                    mat-raised-button
+                    type="submit"
                     color="primary">Editar marco</button>
                   </div>
                 </div>
@@ -59,4 +59,4 @@
       </div>
     </div>
   </div>
-  
+

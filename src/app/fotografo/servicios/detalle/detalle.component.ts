@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -70,7 +71,8 @@ export class DetalleComponent implements OnInit {
     private _fotografoService: FotografoService,
     private _authService: AuthService,
     private _toastr: ToastrService,
-    private _router: Router
+    private _router: Router,
+    private http: HttpClient,
   ) {  }
 
   ngOnDestroy(): void {
@@ -93,7 +95,6 @@ export class DetalleComponent implements OnInit {
       }
 
       this.servicioEvento = data;
-      console.log(data);
       })
     );
 
@@ -137,7 +138,14 @@ export class DetalleComponent implements OnInit {
       formImg.append('image', this.images[i]);
     }
 
-    this._fotografoService.updateImg(this.id, formImg).subscribe((data) => {
+    this.http
+    .put(`api/servicios_evento/subir_imagenes/${this.id}`, formImg).subscribe( data => {
+      console.log("Entro aquii")
+      console.log(data)
+    })
+
+    /*this._fotografoService.updateImg(this.id, formImg).subscribe((data) => {
+      console.log(data, " Esta es la data del updateImag")
       this._toastr.success(
         'Se han agregado las imagenes correctamente',
         'Imagenes agregadas',
@@ -145,9 +153,9 @@ export class DetalleComponent implements OnInit {
           positionClass: 'toast-bottom-right',
         }
       );
-    });
+    });*/
 
-    let formVideo = new FormData();
+    const formVideo = new FormData();
     formVideo.append(
       'usuario_modificacion_id',
       this.agregarImagenesVideoForm.get('usuario_modificacion_id')?.value
@@ -156,6 +164,7 @@ export class DetalleComponent implements OnInit {
       formVideo.append('video', this.videos[i]);
     }
     this._fotografoService.updateVideo(this.id, formVideo).subscribe((data) => {
+      console.log(data, " esta es la data del update")
       this._toastr.success(
         'Se han agregado los videos correctamente',
         'Videos agregadas',

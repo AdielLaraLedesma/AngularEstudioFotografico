@@ -175,7 +175,9 @@ export class ProfileComponent implements OnInit {
     this.changeDisable();
 
     this._authService.logoutJWT()
-    this._router.navigate(['/auth/login'])
+    this._router.navigate(['/auth/login']).then(() => {
+      window.location.reload();
+    });
 
   }
 
