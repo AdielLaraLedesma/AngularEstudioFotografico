@@ -187,7 +187,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-lg-12">
-                <video *ngFor='let url of videosHtml;' width="200" height="200" controls (click)="removeImagen(url)">
+                <video *ngFor='let url of videosHtml;' width="200" height="200" controls >
                   <source [src]="url" type="video/mp4">
                 </video>
               </div>

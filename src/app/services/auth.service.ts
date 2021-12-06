@@ -26,22 +26,15 @@ export class AuthService {
   loginJWT(authData: User): Observable<UserResponse | void> {
     return (
       this.http
-        .post<UserResponse>(`api/usuarios/loginJWT`, authData)
-        //.post<UserResponse>(`${environment.baseUrl}/usuarios/loginJWT`, authData)
+        //.post<UserResponse>(`api/usuarios/loginJWT`, authData)
+        .post<UserResponse>(`${environment.baseUrl}/usuarios/loginJWT`, authData)
         .pipe(
           map((user: UserResponse) => {
             this.user.next(user);
             console.log(user);
             this.saveLocalStorage(user);
             return user;
-          })/*,
-          catchError(() => {
-            this.toastr.error("Revisa tus credenciales", "Credenciales invalidas", {
-              positionClass: 'toast-bottom-right'
-            });
-            return throwError("Credenciales invalidas");
-          })*/
-
+          })
         )
     );
   }
@@ -52,11 +45,10 @@ export class AuthService {
       return;
     }
 
-    this.http.post(`api/usuarios/checkLogin`, {}, ).subscribe((res: any) => {
-    //this.http.post(`${environment.baseUrl}/usuarios/checkLogin`, {}, /*{headers}*/).subscribe( (res: any) => {
+    //this.http.post(`api/usuarios/checkLogin`, {}, ).subscribe((res: any) => {
+    this.http.post(`${environment.baseUrl}/usuarios/checkLogin`, {}, /*{headers}*/).subscribe( (res: any) => {
 
       if (res && res.isLogged == false)
-        //this.router.navigate(['/auth/login']);
         this.logoutJWT();
       else
         this.user.next(user);
@@ -76,8 +68,8 @@ export class AuthService {
   changePassword(user: any, id: number): any {
     return (
       this.http
-        .put<any>(`api/usuarios/cambiarContrasena/${id}`, user)
-        //.put<any>(`${environment.baseUrl}/usuarios/cambiarContrasena/${id}`, user)
+        //.put<any>(`api/usuarios/cambiarContrasena/${id}`, user)
+        .put<any>(`${environment.baseUrl}/usuarios/cambiarContrasena/${id}`, user)
         .pipe(
           map((res: any) => {
             return res;
@@ -90,8 +82,8 @@ export class AuthService {
   forgotPassword(form: any) {
     return (
       this.http
-        .put<any>(`api/usuarios/forgot-password`, form)
-        //.put<any>(`${environment.baseUrl}/usuarios/forgot-password`, form)
+        //.put<any>(`api/usuarios/forgot-password`, form)
+        .put<any>(`${environment.baseUrl}/usuarios/forgot-password`, form)
         .pipe(
           map((res: any) => {
             return res;
@@ -104,8 +96,8 @@ export class AuthService {
   newPassword(form: any, headers: any) {
     return (
       this.http
-        .put<any>(`api/usuarios/new-password`, form, { headers })
-        //.put<any>(`${environment.baseUrl}/usuarios/new-password`, form, {headers})
+        //.put<any>(`api/usuarios/new-password`, form, { headers })
+        .put<any>(`${environment.baseUrl}/usuarios/new-password`, form, {headers})
         .pipe(
           map((res: any) => {
             return res;

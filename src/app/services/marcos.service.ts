@@ -19,8 +19,8 @@ export class MarcosService {
 
   getMarco(id: string): Observable<Marco>{
     return this.http
-    .get<Marco>(`api/marcos/${id}`)
-    //.get<Marco>(`${environment.baseUrl}/marcos/${id}`)
+    //.get<Marco>(`api/marcos/${id}`)
+    .get<Marco>(`${environment.baseUrl}/marcos/${id}`)
     .pipe(
       map((marco: any) => {
         return marco[0];
@@ -31,8 +31,8 @@ export class MarcosService {
 
   getMarcos(): Observable<Marco[]>{
     return this.http
-      .get<Marco[]>(`api/marcos`)
-      //.get<Marco[]>(`${environment.baseUrl}/marcos`)
+      //.get<Marco[]>(`api/marcos`)
+      .get<Marco[]>(`${environment.baseUrl}/marcos`)
       .pipe(
         map((marcos: Marco[]) => {
           return marcos;
@@ -43,8 +43,8 @@ export class MarcosService {
 
   saveMarco(fd: any) {
     return this.http
-    .post(`api/marcos/agregar`, fd).pipe(
-    //.post(`${environment.baseUrl}/marcos/agregar`, fd).pipe(
+    //.post(`api/marcos/agregar`, fd).pipe(
+    .post(`${environment.baseUrl}/marcos/agregar`, fd).pipe(
       map((marco: any) => {
         return marco;
       }),
@@ -53,8 +53,8 @@ export class MarcosService {
   }
   updateMarco(id: string, marco: Marco) {
     return this.http
-      .put(`api/marcos/actualizar/${id}`, marco)
-      //.put(`${environment.baseUrl}/marcos/actualizar/${id}`, marco)
+      //.put(`api/marcos/actualizar/${id}`, marco)
+      .put(`${environment.baseUrl}/marcos/actualizar/${id}`, marco)
       .pipe(
         map((marco: any) => {
           return marco;
@@ -66,8 +66,8 @@ export class MarcosService {
 
   deleteMarco(id: number) {
     return this.http
-    .delete(`api/marcos/eliminar/${id}`)
-    //.delete(`${environment.baseUrl}/marcos/eliminar/${id}`)
+    //.delete(`api/marcos/eliminar/${id}`)
+    .delete(`${environment.baseUrl}/marcos/eliminar/${id}`)
     .pipe(
       map((marco: any) => {
         return marco;

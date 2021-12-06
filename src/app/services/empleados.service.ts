@@ -12,9 +12,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class EmpleadosService {
-
-
-
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,) {
@@ -23,8 +20,8 @@ export class EmpleadosService {
 
   getEmpleados(): Observable<Employee[]>{
     return this.http
-      .get<Employee[]>(`api/usuarios/`)
-      //.get<Employee[]>(`${environment.baseUrl}/usuarios/`)
+      //.get<Employee[]>(`api/usuarios/`)
+      .get<Employee[]>(`${environment.baseUrl}/usuarios/`)
       .pipe(
         map((empleados: Employee[]) => {
           return empleados;
@@ -35,8 +32,8 @@ export class EmpleadosService {
 
   getEmpleado(id: string) {
     return this.http
-    .get<Employee>(`api/usuarios/${id}`)
-    //.get<Employee>(`${environment.baseUrl}/usuarios/${id}`)
+    //.get<Employee>(`api/usuarios/${id}`)
+    .get<Employee>(`${environment.baseUrl}/usuarios/${id}`)
     .pipe(
       map((empleado: any) => {
         return empleado;
@@ -48,8 +45,8 @@ export class EmpleadosService {
 
   saveEmpleado(fd: any) {
     return this.http
-    .post(`api/usuarios/agregar`, fd).pipe(
-    //.post(`${environment.baseUrl}/usuarios/agregar`, fd).pipe(
+    //.post(`api/usuarios/agregar`, fd).pipe(
+    .post(`${environment.baseUrl}/usuarios/agregar`, fd).pipe(
       map((empleado: any) => {
         return empleado;
       }),
@@ -60,8 +57,8 @@ export class EmpleadosService {
 
   deleteEmpleado(id: number) {
     return this.http
-    .delete(`api/usuarios/eliminar/${id}`)
-    //.delete(`${environment.baseUrl}/usuarios/eliminar/${id}`)
+    //.delete(`api/usuarios/eliminar/${id}`)
+    .delete(`${environment.baseUrl}/usuarios/eliminar/${id}`)
     .pipe(
       map((empleado: any) => {
         return empleado;
@@ -73,8 +70,8 @@ export class EmpleadosService {
 
   updateEmpleado(id: string, empleado: Employee) {
     return this.http
-      .put(`api/usuarios/actualizar/${id}`, empleado)
-      //.put(`${environment.baseUrl}/usuarios/actualizar/${id}`, empleado)
+      //.put(`api/usuarios/actualizar/${id}`, empleado)
+      .put(`${environment.baseUrl}/usuarios/actualizar/${id}`, empleado)
       .pipe(
         map((empleado: any) => {
           return empleado;

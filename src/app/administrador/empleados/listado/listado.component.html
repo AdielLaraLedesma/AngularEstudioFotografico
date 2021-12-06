@@ -3,7 +3,7 @@
       <div class="card-body">
         <span class="h3">Lista de empleados</span>
         <a class="btn btn-dark btn-lg float-right" routerLink="/administrador/empleados/agregar">Agregar</a>
-  
+
         <table class="table table-striped mt-5">
           <thead>
             <tr>
@@ -29,7 +29,7 @@
               <td> {{ empleado.direccion }}</td>
               <td> {{ empleado.rol_nombre }}</td>
               <td> {{ empleado.correo }}</td>
-              <td style="width: 15%;">
+              <td>
                 <ng-container *ngIf="empleado.url_imagen != null; else fotoDefault">
                   <img class="img-table" [src]="url + empleado.url_imagen" />
                 </ng-container>
@@ -45,11 +45,11 @@
                   <mat-icon>delete</mat-icon>
                 </a>
               </td>
-  
+
             </tr>
           </tbody>
         </table>
-  
-  
+
+
       </div>
     </div>

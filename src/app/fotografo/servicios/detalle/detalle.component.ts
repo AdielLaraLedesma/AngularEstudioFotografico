@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,11 +15,11 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-detalle',
   templateUrl: './detalle.component.html',
-  styleUrls: ['./detalle.component.css']
+  styleUrls: ['./detalle.component.css'],
 })
 export class DetalleComponent implements OnInit {
 
-  public url = environment.url
+  public url = environment.url;
 
   contador: number = 0;
   id: string = '';
@@ -43,7 +43,7 @@ export class DetalleComponent implements OnInit {
     no_Fotos_Dig: 0,
     no_Fotos_Enm: 0,
     no_Fotos_Fis: 0,
-    celular_cliente: ''
+    celular_cliente: '',
   };
 
   private destroy$ = new Subject<any>();
@@ -56,14 +56,13 @@ export class DetalleComponent implements OnInit {
   videoCollection: string[] = [];
   videoCollectionSafe: SafeResourceUrl[] = [];
 
-
   //displayURL: any;
 
   videos: string[] = [];
   videosHtml: any[] = [];
   public agregarImagenesVideoForm = new FormGroup({
-    files:                    new FormControl(),
-    usuario_modificacion_id:  new FormControl('', [Validators.required]),
+    files: new FormControl(),
+    usuario_modificacion_id: new FormControl('', [Validators.required]),
   });
 
   constructor(
@@ -72,8 +71,8 @@ export class DetalleComponent implements OnInit {
     private _authService: AuthService,
     private _toastr: ToastrService,
     private _router: Router,
-    private http: HttpClient,
-  ) {  }
+    private http: HttpClient
+  ) {}
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -82,37 +81,33 @@ export class DetalleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.getUser();
-
 
     this.id = this._rutaActiva.snapshot.params.id;
 
     this.subscription.add(
       this._fotografoService.getServicio(this.id).subscribe((data) => {
-      if ((!data)){
-        this._router.navigate([`/fotografo/detalle/${this.id}`])
-      }
+        if (!data) {
+          this._router.navigate([`/fotografo/detalle/${this.id}`]);
+        }
 
-      this.servicioEvento = data;
+        this.servicioEvento = data;
       })
     );
 
     this.subscription.add(
-      this._fotografoService.getImages(this.id).subscribe( data => {
-
-        data.forEach((element: { url_imagen: string; }) => {
-          this.imagesHtml.push(this.url + element.url_imagen)
+      this._fotografoService.getImages(this.id).subscribe((data) => {
+        data.forEach((element: { url_imagen: string }) => {
+          this.imagesHtml.push(this.url + element.url_imagen);
         });
-
-
       })
     );
 
     this.subscription.add(
-      this._fotografoService.getVideos(this.id).subscribe( data => {
+      this._fotografoService.getVideos(this.id).subscribe((data) => {
         for (var i = 0; i < data.length; i++) {
           this.videosHtml.push(this.url + data[i].url_video);
+          console.log(data);
         }
       })
     );
@@ -138,14 +133,7 @@ export class DetalleComponent implements OnInit {
       formImg.append('image', this.images[i]);
     }
 
-    this.http
-    .put(`api/servicios_evento/subir_imagenes/${this.id}`, formImg).subscribe( data => {
-      console.log("Entro aquii")
-      console.log(data)
-    })
-
-    /*this._fotografoService.updateImg(this.id, formImg).subscribe((data) => {
-      console.log(data, " Esta es la data del updateImag")
+    this._fotografoService.updateImg(this.id, formImg).subscribe((data) => {
       this._toastr.success(
         'Se han agregado las imagenes correctamente',
         'Imagenes agregadas',
@@ -153,7 +141,7 @@ export class DetalleComponent implements OnInit {
           positionClass: 'toast-bottom-right',
         }
       );
-    });*/
+    });
 
     const formVideo = new FormData();
     formVideo.append(
@@ -164,7 +152,7 @@ export class DetalleComponent implements OnInit {
       formVideo.append('video', this.videos[i]);
     }
     this._fotografoService.updateVideo(this.id, formVideo).subscribe((data) => {
-      console.log(data, " esta es la data del update")
+      console.log(data, ' esta es la data del update');
       this._toastr.success(
         'Se han agregado los videos correctamente',
         'Videos agregadas',
@@ -174,7 +162,6 @@ export class DetalleComponent implements OnInit {
       );
       this._router.navigate([`/fotografo/detalle/${this.id}`]);
     });
-
   }
   getUser() {
     this.user = this._authService.getUser();
@@ -191,7 +178,9 @@ export class DetalleComponent implements OnInit {
   }
 
   onImageSelected(event: any) {
-    this.agregarImagenesVideoForm.controls['usuario_modificacion_id'].setValue(this.user.id)
+    this.agregarImagenesVideoForm.controls['usuario_modificacion_id'].setValue(
+      this.user.id
+    );
     for (var i = 0; i < event.target.files.length; i++) {
       this.images.push(event.target.files[i]);
 
@@ -203,8 +192,10 @@ export class DetalleComponent implements OnInit {
     }
   }
 
-  onVideoSelected(event: any){
-    this.agregarImagenesVideoForm.controls['usuario_modificacion_id'].setValue(this.user.id)
+  onVideoSelected(event: any) {
+    this.agregarImagenesVideoForm.controls['usuario_modificacion_id'].setValue(
+      this.user.id
+    );
     for (var i = 0; i < event.target.files.length; i++) {
       this.videos.push(event.target.files[i]);
 
@@ -215,4 +206,6 @@ export class DetalleComponent implements OnInit {
       reader.readAsDataURL(event.target.files[i]);
     }
   }
+
+
 }
