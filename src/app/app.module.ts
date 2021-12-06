@@ -26,6 +26,11 @@ import { SafePipePipe } from './shared/pipes/safe-pipe.pipe';
 import { PaquetesFilterPipe } from './shared/pipes/paquetes-filter.pipe';
 import { InterceptorService } from './services/interceptor.service';
 
+
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +50,7 @@ import { InterceptorService } from './services/interceptor.service';
     ReactiveFormsModule,
     ToastrModule.forRoot(), // ToastrModule added
     CommonModule,
-    MaterialModule,
+    MaterialModule
   ],
   providers: [
     AuthService,
