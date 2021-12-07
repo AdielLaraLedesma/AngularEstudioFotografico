@@ -1,5 +1,8 @@
 ## Información para Moya
 
+## Link del front
+[Link del front](http://angular-proyecto-integrador.s3-website-us-west-1.amazonaws.com/#/auth/login)
+
 ### Usuarios que puede borrar
 correo: **fotografoejemplo1@gmail.com**
 
@@ -13,8 +16,6 @@ correo: **juan21@gmail.com**          contraseña: **12345**     rol: **fotograf
 correo: **jesus2@gmail.com**          contraseña: **12345**     rol: **admin**
 
 correo: **alma2@gmail.com**           contraseña: **12345**     rol: **recepcionista**
-
-
 
 
 
