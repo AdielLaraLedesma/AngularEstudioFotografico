@@ -122,7 +122,6 @@ export class EditarEmpleadoComponent implements OnInit, OnDestroy {
 
 
     this._empleadosService.updateEmpleado(this.id, formData).subscribe( data => {
-      console.log(data);
       if (data){
         this._toastr.success("El empleado fue actualizado exitosamente", "Empleado actualizado", {
           positionClass: 'toast-bottom-right'

@@ -31,7 +31,6 @@ export class AuthService {
         .pipe(
           map((user: UserResponse) => {
             this.user.next(user);
-            console.log(user);
             this.saveLocalStorage(user);
             return user;
           })

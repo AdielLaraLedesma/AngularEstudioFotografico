@@ -50,7 +50,6 @@ export class EditarSesionesComponent implements OnInit, OnDestroy {
   getServicio(){
     this.subscription.add(
       this._recepcionistaService.getServicioSesion(this.id).subscribe((data) => {
-        console.log(data);
         this.servicio = data;
       })
     );

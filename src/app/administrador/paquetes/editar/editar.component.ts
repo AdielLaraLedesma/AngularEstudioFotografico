@@ -220,7 +220,6 @@ export class EditarPaquetesComponent implements OnInit, OnDestroy {
     })
   }
   changeTipoPaquete(value: any) {
-    console.log(value)
     this.tipo_paqutes.forEach( element => {
       if (element.nombre == value)
         this.editarPaqueteForm.controls['tipo_paquete_id'].setValue(element.id)

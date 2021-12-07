@@ -107,7 +107,6 @@ export class DetalleComponent implements OnInit {
       this._fotografoService.getVideos(this.id).subscribe((data) => {
         for (var i = 0; i < data.length; i++) {
           this.videosHtml.push(this.url + data[i].url_video);
-          console.log(data);
         }
       })
     );
@@ -152,7 +151,6 @@ export class DetalleComponent implements OnInit {
       formVideo.append('video', this.videos[i]);
     }
     this._fotografoService.updateVideo(this.id, formVideo).subscribe((data) => {
-      console.log(data, ' esta es la data del update');
       this._toastr.success(
         'Se han agregado los videos correctamente',
         'Videos agregadas',

@@ -270,7 +270,7 @@ export class AgregarComponent implements OnInit {
           this.agregarDetalleImagenForm.controls['tamano_id'].setValue(
             this.images[i].tamano_id
           );
-          this.selectedTamano = '';
+          this.selectedTamano = this.images[i].tamano_nombre;
         }
 
         if (this.images[i].fotos == '')
@@ -312,6 +312,8 @@ export class AgregarComponent implements OnInit {
     });
   }
   changeTipoPaquete(value: any) {
+    this.imagesHtml = []
+    this.agregarServicioForm.controls["total"].setValue(0)
     this.tipo_paqutes.forEach((element) => {
       if (element.nombre == value)
         this.agregarServicioForm.controls['tipo_paquete_id'].setValue(
@@ -325,6 +327,8 @@ export class AgregarComponent implements OnInit {
       this.showBtnAgregarImagenesyPrecio = false;
       this.showSeleccionarPaquetes = true;
     }
+
+
   }
 
   changePaquete(value: any) {

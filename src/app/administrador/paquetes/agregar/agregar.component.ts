@@ -130,7 +130,6 @@ export class AgregarPaqueteComponent implements OnInit, OnDestroy {
 
 
   changeTipoPaquete(value: any) {
-    console.log(value)
     this.tipo_paqutes.forEach( element => {
       if (element.nombre == value)
         this.agregarPaqueteForm.controls['tipo_paquete_id'].setValue(element.id)

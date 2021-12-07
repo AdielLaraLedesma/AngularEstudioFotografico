@@ -74,7 +74,6 @@ export class EditarImpresionesComponent implements OnInit, OnDestroy {
       this._recepcionistaService
         .getServicioImpresion(this.id)
         .subscribe((data) => {
-          console.log(data);
           this.servicio = data;
         })
     );
