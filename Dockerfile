@@ -1,2 +1,2 @@
-FROM nginx:1.17.1-alpine
+FROM nginxinc/nginx-unprivileged 
 COPY /dist/frontend /usr/share/nginx/html
